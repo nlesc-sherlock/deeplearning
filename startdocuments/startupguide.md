@@ -22,7 +22,7 @@ OR use the docker container with Caffe installed (CPU or GPU flavours). [CPU fla
      * Make a Dockerfile, it should contain the following:  
        `FROM tleyden5iwx/caffe-cpu-master`  
        `RUN pip install jupyter`  
-       `RUN /opt/caffe/scripts/download_model_binary.py /opt/caffe/models/bvlc_reference_caffenet`
+       `RUN /opt/caffe/scripts/download_model_binary.py /opt/caffe/models/bvlc_reference_caffenet`  
        `EXPOSE 8888`  
      * run `docker build -t caffejupyter .`
      * Start docker deamon: `sudo service docker start`

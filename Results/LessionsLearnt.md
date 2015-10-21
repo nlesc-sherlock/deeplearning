@@ -16,3 +16,8 @@ When at the classification IPython notebook example we ran into the problem of h
 within the docker container with Caffe. 
 We have figured it out as described in our 
 [startup guide](https://github.com/nlesc-sherlock/Sherlock/blob/master/topics/deeplearning/startupguide.md).
+
+## Day 2 morning
+
+We completed the first assignment in the DIY-deeplearning-with-caffe tutorial. We classified a single photo of a cat with a pretrained network and visualized both the filters and their activations on this image. After the first 2 conv layers the activations start to look quite abstract and we cannot interpret it anymore. Some questions we have are:
+- If we have one conv layer with n filters, we would expect the input of the next layer to have size n in one of its dimensions (and width and height etc in the others). Often however we only see size n/2 appear as an input for the next conv filter. This also happens for the image size but we know this is because of a pooling layer. Maybe the pooling layer is not of size 2x2 but 2x2x2 so also subsampling from the different feature maps.
