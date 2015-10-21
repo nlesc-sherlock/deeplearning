@@ -9,11 +9,11 @@
 
 ## Day 2
 **Processing pipeline**
-*  Run pre-trained network on example test images
- * Make caffe work with cars model from notebook
- * Make nice Python script (test, docopts etc)
- * Create docker image that does car classification non-interactively
- * Repeat for age/gender classification
+* Run pre-trained network on example test images
+* Make caffe work with cars model from notebook
+* Make nice Python script (test, docopts etc)
+* Create docker image that does car classification non-interactively
+* Repeat for age/gender classification
 
 ## Day 3
 **Produce integration code and lessons learnt page**
