@@ -13,7 +13,7 @@
 
 ## Day 3
 **Processing pipeline**
-* Make caffe work with cars model from notebook
+* Make caffe work with gender model from notebook
 * Make nice Python script (test, docopts etc)
-* Create docker image that does car classification non-interactively
-* Repeat for age/gender classification (time permitting)
+* Create docker image that does gender classification non-interactively
+* Repeat for age/cars classification (time permitting)
