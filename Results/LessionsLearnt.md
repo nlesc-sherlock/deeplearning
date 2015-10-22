@@ -32,3 +32,5 @@ We have managed to run the Adience faces network for age and gender classificati
 - Open quesitons
     - Is it possible and how to generate automatically deployment configuration files- not everybody shares them, no good docimentation, though would be eventually obsolete. 
     - Is there a generic way of using any Caffe model? The examples we looked at differed by the usage of ImageNet and GoogLeNet
+
+We have a command-line tool (docker image) which tags any input image using the 1000 ImageNet tags and network.
