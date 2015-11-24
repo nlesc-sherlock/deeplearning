@@ -1,3 +1,5 @@
+# These are the steps we did to install Caffe (NVIDIA flavour) on DAS-5
+
 
 module load cuda70/toolkit
 module load cuda70/blas
