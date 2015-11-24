@@ -1,0 +1,149 @@
+
+module load cuda70/toolkit
+module load cuda70/blas
+module load hdf5_18/1.8.12
+module load openblas
+
+
+# EDIT THIS FOR YOUR PATH:
+export INSTALLITHERE=$HOME/sw
+
+boost
+-----
+wget http://downloads.sourceforge.net/project/boost/boost/1.59.0/boost_1_59_0.tar.bz2?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fboost%2Ffiles%2Fboost%2F1.59.0%2F&ts=1448357224&use_mirror=skylink
+mv boost_1_59_0.tar.bz2\?r\=http\:%2F%2Fsourceforge.net%2Fprojects%2Fboost%2Ffiles%2Fboost%2F1.59.0%2F boost_1_59_0.tar.bz2
+tar xjf boost_1_59_0.tar.bz2
+
+
+protobuf
+--------
+git clone git@github.com:google/protobuf.git
+cd protobuf/
+./autogen.sh
+./configure --prefix=$INSTALLITHERE
+make -j16
+make check
+make install
+
+glog
+----
+git clone git@github.com:google/glog.git
+git checkout tags/v0.3.4
+touch configure.ac aclocal.m4 configure Makefile.am Makefile.in
+./configure --prefix=$INSTALLITHERE
+make
+make install
+
+
+cmake
+-----
+wget https://cmake.org/files/v3.4/cmake-3.4.0.tar.gz
+tar xzf cmake-3.4.0.tar.gz 
+cmake . -DCMAKE_INSTALL_PREFIX:PATH=$INSTALLITHERE
+make -j8
+make install
+
+Put in your ~/.profile or ~/.bash_profile:
+  export PATH=$INSTALLITHERE/bin:$PATH
+
+
+gflags
+------
+mkdir build && cd build
+CXXFLAGS="-fPIC" ccmake .. -DCMAKE_INSTALL_PREFIX:PATH=$INSTALLITHERE
+make
+make install
+
+
+
+OPTIONAL: opencv
+----------------
+wget https://github.com/Itseez/opencv/archive/3.0.0.zip
+mv 3.0.0.zip opencv_3.0.0.zip
+unzip opencv_3.0.0.zip
+cd opencv-3.0.0/
+
+
+NOT SO OPTIONAL: opencv2
+------------------------
+wget https://github.com/Itseez/opencv/archive/2.4.11.zip
+mv 2.4.11.zip opencv_2.4.11.zip
+unzip opencv_2.4.11.zip
+cd opencv-2.4.11/
+mkdir build
+cd build/
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CUDA_GENERATION=Maxwell -D CMAKE_INSTALL_PREFIX=$INSTALLITHERE ..
+make -j8
+make install
+
+ALSO NOT OPTIONAL: snappy, leveldb
+----------------------------------
+git clone git@github.com:google/snappy.git
+cd snappy/
+./autogen.sh
+./configure --prefix=$INSTALLITHERE
+make -j8
+make install
+
+git clone git@github.com:google/leveldb.git
+cd leveldb
+make
+cp libleveldb.* $INSTALLITHERE/lib
+cp -r include/leveldb $INSTALLITHERE/include
+
+
+ALSO NOT OPTIONAL: lmdb
+-----------------------
+git clone git@github.com:LMDB/lmdb.git
+cd lmdb/libraries/liblmdb
+make
+cp liblmdb.* $INSTALLITHERE/lib
+cp lmdb.h $INSTALLITHERE/include
+
+
+ATLAS BLAS
+----------
+wget http://downloads.sourceforge.net/project/math-atlas/Stable/3.10.2/atlas3.10.2.tar.bz2?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fmath-atlas%2F&ts=1448369849&use_mirror=kent
+mv atlas3.10.2.tar.bz2\?r\=http\:%2F%2Fsourceforge.net%2Fprojects%2Fmath-atlas%2F atlas3.10.2.tar.bz2
+tar xjf atlas3.10.2.tar.bz2
+
+
+
+Caffe-nv
+--------
+
+Change in Makefile.config:
+
+#CUDA_DIR := /usr/local/cuda
+CUDA_DIR := /cm/shared/apps/cuda70/toolkit/7.0.28
+
+#PYTHON_INCLUDE := /usr/include/python2.7 \
+#               /usr/lib/python2.7/dist-packages/numpy/core/include \
+#               /usr/local/lib/python2.7/dist-packages/numpy/core/include
+
+#PYTHON_LIB := /usr/lib
+
+BLAS := open
+BLAS_INCLUDE := /cm/shared/apps/openblas/0.2.8/include/openblas
+BLAS_LIB := /cm/shared/apps/openblas/0.2.8/lib
+
+INCLUDE_DIRS := $(PYTHON_INCLUDE) /usr/local/include /home/pbos/sw/include /cm/shared/apps/hdf5_18/1.8.12/include
+LIBRARY_DIRS := $(BLAS_LIB) $(CUDA_DIR)/lib $(PYTHON_LIB) /usr/local/lib /usr/lib /home/pbos/sw/lib /cm/shared/apps/hdf5_18/1.8.12/lib
+
+mkdir buildcmake
+cd buildcmake
+cmake .. -DCMAKE_INSTALL_PREFIX:PATH=$INSTALLITHERE
+
+ccmake ..
+
+- There we set BLAS to Open (Enter Enter)
+- Then fill in the openblas paths from module show openblas
+- Then press c again twice.
+
+make
+make test
+
+- Then login on a node and run there the tests:
+
+srun --ntasks=1 --time=00:15:00 -C TitanX --pty bash -i
+
