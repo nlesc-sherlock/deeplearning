@@ -172,36 +172,13 @@ ln -s $BUILDBASE/cuda/include/* $INSTALLITHERE/include/
 Caffe-nv
 ========
 
-- We're using the NVIDIA version of Caffe.
+- We're using the NVIDIA version of Caffe, since we need that for DIGITS.
 
 cd $GITBASE
 git clone git@github.com:NVIDIA/caffe.git
 mv caffe caffe_nv
 cd caffe_nv
 
-cp Makefile.config.example Makefile.config
-
-- Change in Makefile.config:
-
-CUDA_DIR := /cm/shared/apps/cuda70/toolkit/7.0.28
-
-BLAS := open
-BLAS_INCLUDE := /cm/shared/apps/openblas/0.2.8/include/openblas
-BLAS_LIB := /cm/shared/apps/openblas/0.2.8/lib
-
-PYTHON_INCLUDE := /usr/include/python2.7 \
-                  /usr/lib64/python2.7/site-packages/numpy/core/include
-
-PYTHON_LIB := /usr/lib64
-
-WITH_PYTHON_LAYER := 1
-
-INCLUDE_DIRS := $(PYTHON_INCLUDE) /usr/local/include /home/pbos/sw/include /cm/shared/apps/hdf5_18/1.8.12/include
-LIBRARY_DIRS := $(BLAS_LIB) $(CUDA_DIR)/lib64 $(PYTHON_LIB) /usr/lib64 /home/pbos/sw/lib /cm/shared/apps/hdf5_18/1.8.12/lib
-
-
-- Of course, replace "/home/pbos/sw/" with your $INSTALLITHERE.
-- If you don't want to use cuDNN, then also comment out USE_CUDNN := 1.
 - Build:
 
 mkdir buildcmake
@@ -211,7 +188,7 @@ cmake .. -DCMAKE_INSTALL_PREFIX:PATH=$INSTALLITHERE
 ccmake ..
 
 - There we set BLAS to Open (Enter Enter). Press c.
-- You'll probably get an error saying it can't find openblas. Press e.
+- You should get an error saying it can't find openblas. Press e.
 - Then fill in the openblas paths from `module show openblas`:
 BLAS_INCLUDE := /cm/shared/apps/openblas/0.2.8/include/openblas
 BLAS_LIB := /cm/shared/apps/openblas/0.2.8/lib/libopenblas.so
@@ -221,10 +198,9 @@ make all -j16
 
 - It might happen that you get errors like:
 
-caffe.pb.h
-compilation terminated.
+... compilation terminated.
 The bug is not reproducible, so it is likely a hardware or OS problem.
 
-  This is a race condition; apparently the caffe Makefile isn't robust
+  This is a race condition thing; apparently the caffe Makefile isn't robust
   enough to do multiple jobs (-j16). Just run again and it'll likely be
   fixed.
