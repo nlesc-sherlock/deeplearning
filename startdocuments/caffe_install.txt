@@ -1,22 +1,45 @@
 
+Basics
+======
+
+- Do this every time you want to build this stuff or run it.
+
 module load cuda70/toolkit
 module load cuda70/blas
 module load hdf5_18/1.8.12
 module load openblas
 
 
-# EDIT THIS FOR YOUR PATH:
+- Edit these for your own installation paths:
+export GITBASE=$HOME/git
+export BUILDBASE=$HOME/build
 export INSTALLITHERE=$HOME/sw
+
+
+- Possibly you'll need to setup an SSH key for GitHub on the machine first:
+https://help.github.com/articles/generating-ssh-keys/
+
+
+Dependencies
+============
 
 boost
 -----
-wget http://downloads.sourceforge.net/project/boost/boost/1.59.0/boost_1_59_0.tar.bz2?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fboost%2Ffiles%2Fboost%2F1.59.0%2F&ts=1448357224&use_mirror=skylink
+- Roughly following http://wiki.tiker.net/BoostInstallationHowto:
+
+cd $BUILDBASE
+wget http://downloads.sourceforge.net/project/boost/boost/1.59.0/boost_1_59_0.tar.bz2
 mv boost_1_59_0.tar.bz2\?r\=http\:%2F%2Fsourceforge.net%2Fprojects%2Fboost%2Ffiles%2Fboost%2F1.59.0%2F boost_1_59_0.tar.bz2
 tar xjf boost_1_59_0.tar.bz2
+cd boost_1_59_0
+./bootstrap.sh --prefix=$INSTALLITHERE --libdir=$INSTALLITHERE/lib
+./b2 -j 16
+./b2 install
 
 
 protobuf
 --------
+cd $GITBASE
 git clone git@github.com:google/protobuf.git
 cd protobuf/
 ./autogen.sh
@@ -25,9 +48,12 @@ make -j16
 make check
 make install
 
+
 glog
 ----
+cd $GITBASE
 git clone git@github.com:google/glog.git
+cd glog
 git checkout tags/v0.3.4
 touch configure.ac aclocal.m4 configure Makefile.am Makefile.in
 ./configure --prefix=$INSTALLITHERE
@@ -37,98 +63,144 @@ make install
 
 cmake
 -----
+- The version on DAS5 was too low for gflags (25 Nov 2015).
+
+cd $BUILDBASE
 wget https://cmake.org/files/v3.4/cmake-3.4.0.tar.gz
 tar xzf cmake-3.4.0.tar.gz 
+cd cmake-3.4.0
 cmake . -DCMAKE_INSTALL_PREFIX:PATH=$INSTALLITHERE
-make -j8
+make -j16
 make install
 
-Put in your ~/.profile or ~/.bash_profile:
+
+- Put in your ~/.profile or ~/.bash_profile:
   export PATH=$INSTALLITHERE/bin:$PATH
+- Resource it for the current session:
+. ~/.bash_profile
 
 
 gflags
 ------
+cd $GITBASE
+git clone git@github.com:gflags/gflags.git
+cd gflags
 mkdir build && cd build
-CXXFLAGS="-fPIC" ccmake .. -DCMAKE_INSTALL_PREFIX:PATH=$INSTALLITHERE
+CXXFLAGS="-fPIC" cmake .. -DCMAKE_INSTALL_PREFIX:PATH=$INSTALLITHERE
 make
 make install
 
 
+Non-optional optional packages
+==============================
+The installation guide mentions a few packages as optional. This may be true
+for the official Berkeley version (we didn't try that), but it certainly is not
+for the NVIDIA version. The flags to turn off the optional dependencies are
+missing in Makefile.config, so they can't be turned off the regular way. So,
+let's just build them too.
 
-OPTIONAL: opencv
-----------------
-wget https://github.com/Itseez/opencv/archive/3.0.0.zip
-mv 3.0.0.zip opencv_3.0.0.zip
-unzip opencv_3.0.0.zip
-cd opencv-3.0.0/
 
-
-NOT SO OPTIONAL: opencv2
-------------------------
+opencv2
+-------
+cd $BUILDBASE
 wget https://github.com/Itseez/opencv/archive/2.4.11.zip
 mv 2.4.11.zip opencv_2.4.11.zip
 unzip opencv_2.4.11.zip
 cd opencv-2.4.11/
 mkdir build
 cd build/
-cmake -D CMAKE_BUILD_TYPE=RELEASE -D CUDA_GENERATION=Maxwell -D CMAKE_INSTALL_PREFIX=$INSTALLITHERE ..
-make -j8
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CUDA_GENERATION=Kepler -D CMAKE_INSTALL_PREFIX=$INSTALLITHERE ..
+make -j16
 make install
 
-ALSO NOT OPTIONAL: snappy, leveldb
-----------------------------------
+
+snappy
+------
+cd $GITBASE
 git clone git@github.com:google/snappy.git
 cd snappy/
 ./autogen.sh
 ./configure --prefix=$INSTALLITHERE
-make -j8
+make -j16
 make install
 
+
+leveldb
+-------
+cd $GITBASE
 git clone git@github.com:google/leveldb.git
 cd leveldb
-make
+make -j16
 cp libleveldb.* $INSTALLITHERE/lib
 cp -r include/leveldb $INSTALLITHERE/include
 
 
-ALSO NOT OPTIONAL: lmdb
------------------------
+lmdb
+----
+cd $GITBASE
 git clone git@github.com:LMDB/lmdb.git
 cd lmdb/libraries/liblmdb
-make
+make -j16
 cp liblmdb.* $INSTALLITHERE/lib
 cp lmdb.h $INSTALLITHERE/include
 
 
-ATLAS BLAS
-----------
-wget http://downloads.sourceforge.net/project/math-atlas/Stable/3.10.2/atlas3.10.2.tar.bz2?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fmath-atlas%2F&ts=1448369849&use_mirror=kent
-mv atlas3.10.2.tar.bz2\?r\=http\:%2F%2Fsourceforge.net%2Fprojects%2Fmath-atlas%2F atlas3.10.2.tar.bz2
-tar xjf atlas3.10.2.tar.bz2
+Actually optional
+=================
 
+cuDNN
+-----
+- For this you need to register for NVIDIA's developer/researcher program.
+  Register here: https://developer.nvidia.com/cudnn, wait a day or two and
+  download it from their webpage. Copy the file to DAS from your machine:
+
+scp cudnn-7.0-linux-x64-v3.0-prod.tgz das5vu:./build/
+
+
+- and install:
+
+cd $BUILDBASE
+tar xzf cudnn-7.0-linux-x64-v3.0-prod.tgz
+ln -s $BUILDBASE/cuda/lib64/* $INSTALLITHERE/lib/
+ln -s $BUILDBASE/cuda/include/* $INSTALLITHERE/include/
+
+- Note that this installs the files as links, so keep the build dir there!
 
 
 Caffe-nv
---------
+========
 
-Change in Makefile.config:
+- We're using the NVIDIA version of Caffe.
 
-#CUDA_DIR := /usr/local/cuda
+cd $GITBASE
+git clone git@github.com:NVIDIA/caffe.git
+mv caffe caffe_nv
+cd caffe_nv
+
+cp Makefile.config.example Makefile.config
+
+- Change in Makefile.config:
+
 CUDA_DIR := /cm/shared/apps/cuda70/toolkit/7.0.28
-
-#PYTHON_INCLUDE := /usr/include/python2.7 \
-#               /usr/lib/python2.7/dist-packages/numpy/core/include \
-#               /usr/local/lib/python2.7/dist-packages/numpy/core/include
-
-#PYTHON_LIB := /usr/lib
 
 BLAS := open
 BLAS_INCLUDE := /cm/shared/apps/openblas/0.2.8/include/openblas
 BLAS_LIB := /cm/shared/apps/openblas/0.2.8/lib
 
+PYTHON_INCLUDE := /usr/include/python2.7 \
+                  /usr/lib64/python2.7/site-packages/numpy/core/include
+
+PYTHON_LIB := /usr/lib64
+
+WITH_PYTHON_LAYER := 1
+
 INCLUDE_DIRS := $(PYTHON_INCLUDE) /usr/local/include /home/pbos/sw/include /cm/shared/apps/hdf5_18/1.8.12/include
-LIBRARY_DIRS := $(BLAS_LIB) $(CUDA_DIR)/lib $(PYTHON_LIB) /usr/local/lib /usr/lib /home/pbos/sw/lib /cm/shared/apps/hdf5_18/1.8.12/lib
+LIBRARY_DIRS := $(BLAS_LIB) $(CUDA_DIR)/lib64 $(PYTHON_LIB) /usr/lib64 /home/pbos/sw/lib /cm/shared/apps/hdf5_18/1.8.12/lib
+
+
+- Of course, replace "/home/pbos/sw/" with your $INSTALLITHERE.
+- If you don't want to use cuDNN, then also comment out USE_CUDNN := 1.
+- Build:
 
 mkdir buildcmake
 cd buildcmake
@@ -136,14 +208,21 @@ cmake .. -DCMAKE_INSTALL_PREFIX:PATH=$INSTALLITHERE
 
 ccmake ..
 
-- There we set BLAS to Open (Enter Enter)
-- Then fill in the openblas paths from module show openblas
-- Then press c again twice.
+- There we set BLAS to Open (Enter Enter). Press c.
+- You'll probably get an error saying it can't find openblas. Press e.
+- Then fill in the openblas paths from `module show openblas`:
+BLAS_INCLUDE := /cm/shared/apps/openblas/0.2.8/include/openblas
+BLAS_LIB := /cm/shared/apps/openblas/0.2.8/lib/libopenblas.so
+- Then press c again twice. Press g to generate and exit.
 
-make
-make test
+make all -j16
 
-- Then login on a node and run there the tests:
+- It might happen that you get errors like:
 
-srun --ntasks=1 --time=00:15:00 -C TitanX --pty bash -i
+caffe.pb.h
+compilation terminated.
+The bug is not reproducible, so it is likely a hardware or OS problem.
 
+  This is a race condition; apparently the caffe Makefile isn't robust
+  enough to do multiple jobs (-j16). Just run again and it'll likely be
+  fixed.
