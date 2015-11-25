@@ -57,10 +57,79 @@ make[1]: *** [src/caffe/test/CMakeFiles/runtest.dir/rule] Error 2
 make: *** [runtest] Error 2 
 
 
-Try 2
------
+Try 2: failed
+-------------
 
-export LD_LIBRARY_PATH=$HOME/sw/lib:/cm/shared/apps/cuda70/toolkit/7.0.28/lib64:/cm/shared/apps/hdf5_18/1.8.
-12/lib:/cm/shared/apps/openblas/0.2.8/lib:/cm/local/apps/cuda/libs/current/lib64
+export LD_LIBRARY_PATH=$HOME/sw/lib:/cm/shared/apps/cuda70/toolkit/7.0.28/lib64:/cm/shared/apps/hdf5_18/1.8.12/lib:/cm/shared/apps/openblas/0.2.8/lib:/cm/local/apps/cuda/libs/current/lib64
+
+[  2%] Built target proto
+[ 65%] Built target caffe
+[ 67%] Built target gtest
+[100%] Built target test.testbin
+Cuda number of devices: 0
+Current device id: 0
+Note: Randomizing tests' orders with a seed of 16001 .
+[==========] Running 1217 tests from 212 test cases.
+[----------] Global test environment set-up.
+[----------] 2 tests from SigmoidCrossEntropyLossLayerTest/3, where TypeParam = caffe::GPUDevice<double>
+[ RUN      ] SigmoidCrossEntropyLossLayerTest/3.TestGradient
+E1125 15:36:24.175609 19657 common.cpp:110] Cannot create Cublas handle. Cublas won't be available.
+E1125 15:36:24.180255 19657 common.cpp:117] Cannot create Curand generator. Curand won't be available.
+E1125 15:36:24.184286 19657 common.cpp:121] Cannot create cuDNN handle. cuDNN won't be available.
+F1125 15:36:24.184387 19657 syncedmem.hpp:19] Check failed: error == cudaSuccess (38 vs. 0)  no CUDA-capable device is detected
+*** Check failure stack trace: ***
+    @     0x2aaaaba5ea8d  google::LogMessage::Fail()
+    @     0x2aaaaba6094f  google::LogMessage::SendToLog()
+    @     0x2aaaaba5e623  google::LogMessage::Flush()
+    @     0x2aaaaba6126e  google::LogMessageFatal::~LogMessageFatal()
+    @     0x2aaaaaed0fc5  caffe::SyncedMemory::mutable_cpu_data()
+    @     0x2aaaaadd2ab2  caffe::Blob<>::mutable_cpu_data()
+    @           0x6c1faa  caffe::GaussianFiller<>::Fill()
+    @           0x98e299  caffe::SigmoidCrossEntropyLossLayerTest<>::SigmoidCrossEntropyLossLayerTest()
+    @           0x98e57b  testing::internal::TestFactoryImpl<>::CreateTest()
+    @           0xa1fb73  testing::internal::HandleExceptionsInMethodIfSupported<>()
+    @           0xa16105  testing::TestInfo::Run()
+    @           0xa16225  testing::TestCase::Run()
+    @           0xa18f58  testing::internal::UnitTestImpl::RunAllTests()
+    @           0xa191f7  testing::UnitTest::Run()
+    @           0x6b76fa  main
+    @     0x2aaab972eaf5  __libc_start_main
+    @           0x6bca05  (unknown)
+/bin/sh: line 1: 19657 Aborted                 /home/pbos/git/caffe_nv/cmakebuild/test/test.testbin --gtest_shuffle
+make[3]: *** [src/caffe/test/CMakeFiles/runtest] Error 134
+make[2]: *** [src/caffe/test/CMakeFiles/runtest.dir/all] Error 2
+make[1]: *** [src/caffe/test/CMakeFiles/runtest.dir/rule] Error 2
 
 
+Try 3: failed
+-------------
+
+srun --ntasks=1 --time=00:15:00 -C K40 --pty bash -i
+
+module load cuda70/toolkit
+module load cuda70/blas
+module load hdf5_18/1.8.12
+module load openblas
+
+export LD_LIBRARY_PATH=$HOME/sw/lib:/cm/shared/apps/cuda70/toolkit/7.0.28/lib64:/cm/shared/apps/hdf5_18/1.8.12/lib:/cm/shared/apps/openblas/0.2.8/lib:/cm/local/apps/cuda/libs/current/lib64
+
+
+Again no fish.
+
+
+Try 4: success!
+---------------
+From the DAS5 page (http://www.cs.vu.nl/das5/gpu.shtml), the option --gres=gpu:1
+is apparently crucial:
+
+srun --ntasks=1 --time=00:15:00 --gres=gpu:1 -C TitanX --pty bash -i
+
+module load cuda70/toolkit
+module load cuda70/blas
+module load hdf5_18/1.8.12
+module load openblas
+
+make runtest
+
+
+w00t!
