@@ -204,3 +204,48 @@ The bug is not reproducible, so it is likely a hardware or OS problem.
   This is a race condition thing; apparently the caffe Makefile isn't robust
   enough to do multiple jobs (-j16). Just run again and it'll likely be
   fixed.
+
+make install
+
+- Add $INSTALLITHERE to PYTHONPATH in ~/.profile or ~/.bash_profile:
+
+PYTHONPATH=$HOME/sw/lib/python2.7/site-packages:$PYTHONPATH
+PYTHONPATH=$HOME/sw/python:$PYTHONPATH
+PYTHONPATH=$HOME/.local/lib/python2.7/site-packages:$PYTHONPATH
+
+export PYTHONPATH
+
+
+DIGITS
+------
+Web-based front-end to Caffe-nv.
+
+- First we install some Python modules with anaconda. Not with pip as the
+  package authors suggest, since then we have to compile SciPy, for which we
+  need to point pip to BLAS libraries at non-default locations. Anaconda is less
+  of a hassle.
+
+cd $BUILDBASE
+wget https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda2-2.4.0-Linux-x86_64.sh
+sh Anaconda2-2.4.0-Linux-x86_64.sh
+
+
+- Follow the instructions to install Anaconda. Logout, login. Reload the modules
+  and export the paths (top of the file). Then:
+
+conda install pillow protobuf Flask Flask-WTF gunicorn
+conda install --channel https://conda.anaconda.org/pmlandwehr flask-socketio
+pip install --user lmdb pydot2
+
+cd $GITBASE
+git clone git@github.com:NVIDIA/DIGITS.git digits
+cd digits
+pip install --user -r requirements.txt
+
+- Start up on a node with GPU (load modules there):
+
+./digits-devserver
+
+- See also https://github.com/NVIDIA/DIGITS/blob/master/docs/BuildDigits.md
+
+Doesn't work yet... (25 nov 2015 17:37)
