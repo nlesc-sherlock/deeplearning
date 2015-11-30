@@ -11,7 +11,11 @@
 ## Day 2
 **Learn about DIGITS**
 * Do the [DIGITS tutorial](https://www.microway.com/hpc-tech-tips/caffe-deep-learning-using-nvidia-digits-tesla-gpus/) 
+* Train a chosen (geenrally pre-trained) CNN architecture
+     * fetch data from a chosen category from ImageNet
+     * train
+     * classify
 
 ## Day 3
-**Processing **
+**Processing... **
 * 
