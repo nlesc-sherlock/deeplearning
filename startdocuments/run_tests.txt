@@ -133,3 +133,23 @@ make runtest
 
 
 w00t!
+
+
+
+Try 5: ...
+---------------
+After rebuilding with protobuf 2.5.0 (for pycaffe), now need to load protobuf
+module as well.
+
+srun --ntasks=1 --time=00:15:00 --gres=gpu:1 -C TitanX --pty bash -i
+
+module load cuda70/toolkit
+module load cuda70/blas
+module load hdf5_18/1.8.12
+module load openblas
+
+. ~/.bash_profile
+
+module load protobuf
+
+make runtest

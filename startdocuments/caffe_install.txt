@@ -22,6 +22,47 @@ export INSTALLITHERE=$HOME/sw
 https://help.github.com/articles/generating-ssh-keys/
 
 
+EasyBuild
+=========
+- Following http://easybuild.readthedocs.org/en/latest/Installation.html (with a
+  few additions):
+
+export PATH=$PATH:/cm/local/apps/environment-modules/3.2.10/bin
+EBPREFIX=$HOME/.local/easybuild
+curl -O https://raw.githubusercontent.com/hpcugent/easybuild-framework/develop/easybuild/scripts/bootstrap_eb.py
+python bootstrap_eb.py $EBPREFIX
+module use $EBPREFIX/modules/all
+module load EasyBuild
+
+- Add stuff to .bash_profile:
+
+export EBPREFIX=$HOME/.local/easybuild
+
+export PYTHONPATH=$HOME/.local/easybuild/software/EasyBuild/2.4.0/lib/python2.7/site-packages/:$PYTHONPATH
+
+module use $EBPREFIX/modules/all
+module load EasyBuild
+
+
+- Run some tests (load github key first? doesn't seem to make a difference...)
+
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa_github
+ssh -T git@github.com
+
+python -m test.framework.suite
+python -m test.easyblocks.suite
+python -m test.easyconfigs.suite
+
+- The last two didn't run for me.
+
+
+protobuf 2.5.0 with eb
+----------------------
+eb protobuf-2.5.0.eb
+module load protobuf
+
+
 Dependencies
 ============
 
@@ -41,6 +82,9 @@ cd boost_1_59_0
 
 protobuf
 --------
+N.B.: PROBABLY SHOULDN'T INSTALL NEWEST VERSION! INCOMPATIBLE WITH PYCAFFE.
+CONFIRMED: THIS IS OBSOLETE, INSTALL WITH EASYBUILD (SEE ABOVE).
+
 cd $GITBASE
 git clone git@github.com:google/protobuf.git
 cd protobuf/
@@ -188,10 +232,18 @@ cmake .. -DCMAKE_INSTALL_PREFIX:PATH=$INSTALLITHERE
 ccmake ..
 
 - There we set BLAS to Open (Enter Enter). Press c.
-- You should get an error saying it can't find openblas. Press e.
-- Then fill in the openblas paths from `module show openblas`:
-BLAS_INCLUDE := /cm/shared/apps/openblas/0.2.8/include/openblas
-BLAS_LIB := /cm/shared/apps/openblas/0.2.8/lib/libopenblas.so
+- Option 1:
+  If you installed Anaconda Python, cmake will find a ATLAS CBLAS include dir
+  and also the OpenBLAS_INCLUDE_DIR and OpenBLAS_LIB (press t to check if you
+  like).
+  We want to fill in BLAS_INCLUDE and BLAS_LIB ourselves, so press t (advanced)
+  and scroll down until you find them.
+  Option 2:
+  You get an error saying it can't find openblas. Press e. BLAS_INCLUDE and
+  BLAS_LIB will now show on top as BLABLA-NOTFOUND.
+  Fill in the openblas paths from `module show openblas`:
+    BLAS_INCLUDE := /cm/shared/apps/openblas/0.2.8/include/openblas
+    BLAS_LIB := /cm/shared/apps/openblas/0.2.8/lib/libopenblas.so
 - Then press c again twice. Press g to generate and exit.
 
 make all -j16
