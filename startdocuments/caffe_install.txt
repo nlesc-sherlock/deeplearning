@@ -295,39 +295,4 @@ cd digits
 pip install --user -r requirements.txt
 
 
-- Set up an SSH proxy on your local machine to the DAS headnode:
-
-ssh -TnN -D 8080 pbos@fs0.das5.cs.vu.nl
-
-- To use the proxy from Firefox, go to Preferences, Advanced, Network, press
-  "Settings...", select Manual proxy configuration and fill in the SOCKS Host
-  as "localhost" and the port as 8080 (select Socks v5 below that).
-  To use the proxy from Chrome, start up a new session with command:
-
-chromium-browser --proxy-server="socks5://localhost:8080" --host-resolver-rules="MAP * 0.0.0.0 , EXCLUDE localhost"
-
-
-- Start up on a node with GPU (load modules there) and start the DIGITS server:
-
-srun --ntasks=1 --time=00:15:00 --gres=gpu:1 -C TitanX --pty bash -i
-
-module load cuda70/toolkit
-module load cuda70/blas
-module load hdf5_18/1.8.12
-module load openblas
-
-. ~/.bash_profile
-
-module load protobuf
-
-cd $GITBASE/digits
-./digits-devserver
-
-- See also https://github.com/NVIDIA/DIGITS/blob/master/docs/BuildDigits.md
-
-- Get the IP address of the node that the server is running on. E.g. for
-  node001, do ping node001 from the head node and note down the IP address
-  (10.141.0.1 in this case).
-
-- Finally, from your browser that is connected to the proxy, browse to your
-  DIGITS server at 10.141.0.1:5000.
+That's it for installation!
