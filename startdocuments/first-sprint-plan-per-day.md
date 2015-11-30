@@ -1,4 +1,4 @@
-# First sprint plan
+# First sprint plan (20-22 Oct 2015)
 
 ## Day 1
 **Learn about deep learning**
