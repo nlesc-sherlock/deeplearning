@@ -1,4 +1,5 @@
 # sudo docker run -u $UID -v $PWD:/data sfm_image
+# sudo docker run -v $PWD:/data imagenet data/someimage.jpg
 
 FROM tleyden5iwx/caffe-cpu-master
 RUN pip install jupyter
