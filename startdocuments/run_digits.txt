@@ -1,7 +1,7 @@
 Running DIGITS
 ==============
 
-Setup server
+Setup server - interactive
 ------------
 
 - Start up on a node with GPU (load modules there) and start the DIGITS server:
@@ -27,6 +27,34 @@ cd $GITBASE/digits
 - Get the IP address of the node that the server is running on. E.g. for
   node001, do ping node001 from the head node and note down the IP address
   (10.141.0.1 in this case).
+
+
+Setup server - non-interactive (can logout)
+------------
+
+First start a screen on the head node. In the screen, start a dummy job to
+reserve a GPU node (adjust sleep time to match job time):
+
+srun --ntasks=1 --time=3-11:00:00 --gres=gpu:1 -C TitanX /bin/sleep 298800
+
+Open a new screen tab (`CTRL-a c`) and login to the node you got assigned to
+(find out which with squeue), e.g. for node001:
+
+ssh node001
+
+There, set up a screen as well, just to be sure (it's probably not really
+necessary). In the screen, start the server, just as in the interactive way:
+
+module load cuda70/toolkit
+module load cuda70/blas
+module load hdf5_18/1.8.12
+module load openblas
+. ~/.bash_profile
+module load protobuf
+cd $GITBASE/digits
+./digits-devserver
+
+Now, you can detach from the screen with `CTRL-a d`.
 
 
 Setup proxy to server
