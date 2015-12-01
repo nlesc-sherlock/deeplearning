@@ -19,13 +19,13 @@ working on the "Deep  learning for computer vision" topic.
 OR use the docker container with Caffe installed (CPU or GPU flavours). [CPU flavour](https://hub.docker.com/r/tleyden5iwx/caffe-cpu-master/). **The docker instructions are valid for a laptop with CPU only. To use Cafee on the DAS5 cluster see [caffe_install.txt](https://github.com/nlesc-sherlock/deeplearning/blob/master/startdocuments/caffe_install.txt)**: 
      * If you don't have docker installed use  `wget -qO- https://get.docker.com/ | sh`
      * If that doesn't work, try it again, and again. ( i had to run it without the "| sh" first)
-     * Make a Dockerfile called caffejupyter, it should contain the following:  
+     * Make a docker file called Dockerfile, it should contain the following:  
        `FROM tleyden5iwx/caffe-cpu-master`  
        `RUN pip install jupyter`  
        `RUN /opt/caffe/scripts/download_model_binary.py /opt/caffe/models/bvlc_reference_caffenet`  
        `EXPOSE 8888`  
-     * run `docker build -t caffejupyter .`
      * Start docker deamon: `sudo service docker start`
+     * run `docker build -t caffejupyter .`
      * Go to your working directory, say deeplearning (our git hub repo): `cd deeplearning`
      * Define an alias `alias caffe-docker='sudo docker run -ti --rm  -v $PWD:/deeplearning -p 8888:8888 caffejupyter bash'`
      * Run `caffe-docker`
