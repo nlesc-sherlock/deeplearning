@@ -21,6 +21,8 @@
 # the current working directory will be mounted in the docker container at /data. To 
 # classify 'someimage.jpg' in your cwd run the following.
 # sudo docker run -v $PWD:/data imagenet data/someimage.jpg
+# Alternatively, use the run_imagenet.sh script (from any directory):
+# ./run_imagenet.sh someimage.jpg
 
 FROM tleyden5iwx/caffe-cpu-master
 RUN pip install jupyter
