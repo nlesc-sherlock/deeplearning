@@ -30,7 +30,7 @@ OR use the docker container with Caffe installed (CPU or GPU flavours). [CPU fla
      * Go to your working directory, say deeplearning (our git hub repo): `cd deeplearning`
      * Define an alias `alias caffe-docker='sudo docker run -ti --rm  -v $PWD:/deeplearning -p 8888:8888 caffejupyter bash'`
      * Run `caffe-docker`
-     * inside the docker, go the the appropriate directory (<caffe-root>/examples) and run `jupyter notebook --ip=0.0.0.0`
+     * inside the docker, go the the appropriate directory (<caffe-root>/notebooks) and run `jupyter notebook --ip=0.0.0.0`
      * Outside the docker open a browser and go to `http://localhost:8888/notebooks/`
      
     This will start the docker VM and map your local Sherlock directory to a Sherlock directory within docker. **Beware: all files generated from within the Docker VM will be owned by root!**
