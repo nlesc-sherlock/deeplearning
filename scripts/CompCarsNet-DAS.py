@@ -35,7 +35,7 @@ def classify(image_file, model_path, model_name, model_conf_name='deploy.prototx
 
 	input_image = caffe.io.load_image(image_file)
 
-	prediction = cars_net.predict([input_image])
+	prediction = net.predict([input_image])
 	if prediction[0].sum() == 1 and np.all(prediction[0] > 0):
 		probs = prediction[0]
 	else:
