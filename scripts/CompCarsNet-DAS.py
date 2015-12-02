@@ -62,10 +62,27 @@ def run(image_file, model_path, model_name, model_conf_name='deploy.prototxt',
 
 	
 if __name__ == '__main__':
+	import argparse
+	parser = argparse.ArgumentParser()
+	
+	parser.add_argument("image_file", help="The filename (including path, full or relative) of the image you want to classify.", type=argparse.FileType('r'))
+	parser.add_argument("model_name", help="The filename of the caffemodel snapshot in the model (without path, since it is assumed to be in model_path).")
+	parser.add_argument("model_path", help="The path to your model files. We assume this directory contains deploy.prototxt, labels.txt, mean.binaryproto and the caffemodel file. Default: current directory.", nargs='?', default=os.getcwd() + "/")
+
+	parser.add_argument("--model_conf_name", help="The deploy file name (default: deploy.prototxt).", default='deploy.prototxt')
+	parser.add_argument("--labels_name", help="Labels file name (default: labels.txt).", default='labels.txt')
+	parser.add_argument("--mean_pixel_name", help="Mean pixel file name of the trained model (default: mean.binaryproto).", default='mean.binaryproto')
+	parser.add_argument("--gray_range", help="Gray range of the images (default: 255).", type=int, default=255)
+	parser.add_argument("--channel_swap", help="Use numbers 0, 1 and 2 to give the order of the color-channels that the model used, for instance 0 1 2 for RGB. Some models swap the channels from RGB to BGR (this is the default: 2 1 0).", nargs=3, default=[2,1,0])
+
+	args = parser.parse_args()
+
 	# Configuration example
-	model_path = '/home/pbos/git/deeplearning/Models/lotsacars_20151201-173534-9b16_E60/'
-	model_name = 'snapshot_iter_66900.caffemodel'
+	#model_path = '/home/pbos/git/deeplearning/Models/lotsacars_20151201-173534-9b16_E60/'
+	#model_name = 'snapshot_iter_66900.caffemodel'
+	#image_file = '/home/pbos/ferrari-09.jpg'
 
-	image_file = '/home/pbos/ferrari-09.jpg'
-
-	run(image_file, model_path, model_name)
+	run(args.image_file.name, args.model_path, args.model_name,
+	    model_conf_name=args.model_conf_name, labels_name=args.labels_name,
+ 	    mean_pixel_name=args.mean_pixel_name, gray_range=args.gray_range,
+	    channel_swap=args.channel_swap)
