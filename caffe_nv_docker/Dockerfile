@@ -1,3 +1,11 @@
+# Build:
+# cd to deeplearning/caffe_nv_docker, then:
+# docker build -t cnn_classify .
+# Run:
+# cd to directory with images, then:
+# docker run -v $PWD:/data cnn_classify -v --gpu_id=-1 --batch_size=59 -m /opt/deeplearning/Models/lotsacars-20151202-170935-03d3/snapshot_iter_334500.caffemodel /data/image1.jpg /data/image2.jpg
+# Put " 2> /dev/null " behind it to cut out all the Caffe model setup messages.
+
 FROM tleyden5iwx/ubuntu-cuda
 
 MAINTAINER Traun Leyden <traun.leyden@gmail.com>
@@ -85,3 +93,15 @@ RUN cd /opt/caffe && \
 
 # Add binaries to path
 RUN bash -c 'echo "export PATH=/opt/caffe/.build_release/tools:\$PATH" >> ~/.bashrc'
+
+# Add PYTHONPATH
+RUN bash -c 'echo "export PYTHONPATH=/opt/caffe/python:\$PYTHONPATH" >> ~/.bashrc'
+
+# Get the deeplearning git repo
+RUN cd /opt && \
+  git clone https://github.com/nlesc-sherlock/deeplearning.git
+
+ENV PATH /opt/caffe/.build_release/tools:$PATH
+ENV PYTHONPATH /opt/caffe/python:$PYTHONPATH
+
+ENTRYPOINT ["/opt/deeplearning/scripts/cnn_classify.py"]
