@@ -5,6 +5,11 @@ import sys
 import caffe
 import os
 
+# fix mysterious error for some files (https://github.com/BVLC/caffe/issues/438)
+from skimage import io; io.use_plugin('matplotlib')
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
 def softmax(w, t = 1.0):
 	e = np.exp(np.array(w) / t)
 	distribution = e / np.sum(e)
@@ -21,7 +26,7 @@ def get_channel_mean(mean_pixel_file):
 
 def classify(image_files, model_path, model_name, model_conf_name='deploy.prototxt',
 	     mean_pixel_name='mean.binaryproto',
-	     gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=0):
+	     gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=False):
 	# paths
 	model_configuration = os.path.join(model_path, model_conf_name)
 	model = os.path.join(model_path, model_name)
@@ -47,7 +52,7 @@ def classify(image_files, model_path, model_name, model_conf_name='deploy.protot
 			print "Caffe is running in GPU mode!"
 	
 	if verbose:
-		print "Builging a CNN classifier..."
+		print "Building a CNN classifier..."
 	net = caffe.Classifier(model_configuration, model, mean=channel_mean,
 	                       channel_swap=channel_swap, raw_scale=gray_range)
 	image_x, image_y = net.blobs['data'].data.shape[-2:]
@@ -63,9 +68,11 @@ def classify(image_files, model_path, model_name, model_conf_name='deploy.protot
 			
 	net.blobs['data'].reshape(batch_size, channels, image_x, image_y)
 
-	print "Loading image(s) to classify..."
+	if verbose:
+		print "Loading image(s) to classify..."
 	input_images = []
 	for image_file in image_files:
+	    print image_file
 	    input_images.append(caffe.io.load_image(image_file))
 
 	# batch process the images:
@@ -96,7 +103,7 @@ def print_classification(probs, image_files, model_path, labels_name='labels.txt
 
 def run(image_files, model_path, model_name, model_conf_name='deploy.prototxt',
 	labels_name='labels.txt', mean_pixel_name='mean.binaryproto',
-	gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=0):
+	gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=False):
 	probs = classify(image_files, model_path, model_name, model_conf_name=model_conf_name,
 			 mean_pixel_name=mean_pixel_name,
 			 gray_range=gray_range, channel_swap=channel_swap, batch_size=batch_size,
@@ -118,7 +125,7 @@ if __name__ == '__main__':
 	parser.add_argument("--channel_swap", help="Use numbers 0, 1 and 2 to give the order of the color-channels that the model used, for instance 0 1 2 for RGB. Some models swap the channels from RGB to BGR (this is the default: 2 1 0).", nargs=3, default=[2,1,0])
 	parser.add_argument("--batch_size", help="Number of images processed simultaneously. Default: taken from model configuration.", type=int, default=0)
 	parser.add_argument("--gpu_id", help="To use GPU mode, specify the gpu_id that you want to use. Default: CPU mode (-1).", type=int, default=-1)
-	parser.add_argument("-v", "--verbose", help="Duh.", action="store_true")
+	parser.add_argument("-v", "--verbose", help="Verbose mode.", action="store_true", default=0)
 
 	args = parser.parse_args()
 
@@ -130,3 +137,4 @@ if __name__ == '__main__':
 	    model_conf_name=args.model_conf_name, labels_name=args.labels_name,
  	    mean_pixel_name=args.mean_pixel_name, gray_range=args.gray_range,
 	    channel_swap=args.channel_swap, batch_size=args.batch_size, gpu_id=args.gpu_id, verbose=args.verbose)
+
