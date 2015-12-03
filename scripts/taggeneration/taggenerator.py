@@ -40,13 +40,8 @@ def generate_tags(input_image_file):
     image = caffe.io.load_image(input_image_file)
     net.blobs['data'].data[...] = transformer.preprocess('data', image)
 
-    print("Starting forward pass")
     out = net.forward()
-    print("Predicted class is #{}.".format(out['prob'].argmax()))
-
-
     labels = load_labels(imagenet_labels_filename)
-
 
     top_k = net.blobs['prob'].data[0].flatten().argsort()[::-1]
     probs = net.blobs['prob'].data[0].flatten()
@@ -62,7 +57,7 @@ def load_labels(labels_filename):
 
 def assert_file_exists(path):
     if os.path.isfile(path):
-        print("Loading input image ...")
+        pass
     else:
         raise Exception("The specified file (" + path + ") cannot be found.")
 
