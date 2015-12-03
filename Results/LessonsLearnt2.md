@@ -6,7 +6,7 @@
 - Installed DIGITS on the das super, DIGITS is the graphical user interface for Caffe with NVIDIA Cuda support.  
   - We quickly decided to add more than one running DIGITS node so we could parellalize.  
   - We started several training jobs on das with DIGITS to find out what training methods are best for this type of network.  
-  - DIGITS cannot load pre-trained models. It is useful for training your own etworks though.  
+  - DIGITS cannot load pre-trained models. It is useful for training your own networks (and getting them out) though.  
 - Training a neural network requires several parameters, we learned that:  
   - Increasing the number of epochs gives the network more time to train, but it costs more time (duh).  
   - The learning rate should not be highr than 0.01, since that is not useful for training.  
