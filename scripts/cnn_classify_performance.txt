@@ -1,0 +1,35 @@
+time ./cnn_classify.py --batch_size 500 -m ../Models/lotsacars_20151201-173534-9b16_E60/snapshot_iter_66900.caffemodel /var/scratch/eranguel/SherlockDeepLearning/Datasets/CompCars/image/73/434/2012/* 2> /dev/null
+real    18m46.886s
+
+time ./cnn_classify.py --batch_size 59 -m ../Models/lotsacars_20151201-173534-9b16_E60/snapshot_iter_66900.caffemodel /var/scratch/eranguel/SherlockDeepLearning/Datasets/CompCars/image/73/434/2012/* 2> /dev/null
+real    16m51.733s
+
+
+[pbos@node024 scripts]$ time ./cnn_classify.py --batch_size 59 -m ../Models/lotsacars_20151201-173534-9b16_E60/snapshot_iter_66900.caffemodel /var/scratch/eranguel/SherlockDeepLearning/Datasets/CompCars/image/73/434/2012/01f46a40ae3c24.jpg 2> /dev/null
+Predicted class & probabilities (top 5) for image /var/scratch/eranguel/SherlockDeepLearning/Datasets/CompCars/image/73/434/2012/01f46a40ae3c24.jpg:
+[('Volkswagen', 0.99860942), ('Renault', 0.0010311013), ('Buck', 8.7023196e-05), ('GreatWall', 8.1616199e-05), ('MG', 5.4646633e-05)]
+
+
+real    0m37.130s
+user    1m9.451s
+sys     1m8.189s
+
+
+[pbos@node024 scripts]$ time ./cnn_classify.py --gpu_id=0 --batch_size 59 -m ../Models/lotsacars_20151201-173534-9b16_E60/snapshot_iter_66900.caffemodel /var/scratch/eranguel/SherlockDeepLearning/Datasets/CompCars/image/73/434/2012/01f46a40ae3c24.jpg 2> /dev/null
+Predicted class & probabilities (top 5) for image /var/scratch/eranguel/SherlockDeepLearning/Datasets/CompCars/image/73/434/2012/01f46a40ae3c24.jpg:
+[('Volkswagen', 0.99860942), ('Renault', 0.0010311004), ('Buck', 8.7022214e-05), ('GreatWall', 8.1615734e-05), ('MG', 5.4646272e-05)]
+
+
+real    0m3.872s
+user    0m3.421s
+sys     0m3.975s
+
+
+[pbos@node024 scripts]$ time ./cnn_classify.py --gpu_id=0 --batch_size 59 -m ../Models/lotsacars_20151201-173534-9b16_E60/snapshot_iter_66900.caffemodel /var/scratch/eranguel/SherlockDeepLearning/Datasets/CompCars/image/73/434/2012/* 2> /dev/null
+
+real    0m7.674s
+
+
+[pbos@node024 scripts]$ time ./cnn_classify.py --gpu_id=0 -m ../Models/lotsacars_20151201-173534-9b16_E60/snapshot_iter_66900.caffemodel /var/scratch/eranguel/SherlockDeepLearning/Datasets/CompCars/image/73/434/2012/* 2> /dev/null
+
+real    0m13.415s
