@@ -1,11 +1,16 @@
 # Lessons learnt from Sprint 2: 1-3 December 2015
 
-## Day 1
+- updated the other 2 team members of what we have done on the first sprint.  
+  - We looked at the age and gender use case. 
+  - We learned to install the iptyhon notebook for caffe and use it to classify some images.  
+- Installed DIGITS on the das super, DIGITS is the graphical user interface for Caffe with NVIDIA Cuda support.  
+  - We quickly decided to add more than one running DIGITS node so we could parellalize.  
+  - We started several training jobs on das with DIGITS to find out what training methods are best for this type of network.  
+- Quite a few data preparation tasks were performed.  
+  - Bash scripting to rename and squash direcory structures.  
+  - Bash scripting to scrape google images for testing purposes.  
+  - Perl script to scrape a car sales website for pre-classified images.  
+  - Python script to scrape an auction site for more pre-classified car images.  
+- Built a docker container to classify images given an arbitrary DIGITS trained model.  
 
-We have updated the other 2 team members of what we have done on the first sprint. We looked at the age and gender use case.
-
-## Day 2 
-
-
-## Day 3
-
+- And we all relearned lots of shell commands ....  
