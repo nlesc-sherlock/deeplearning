@@ -21,38 +21,56 @@ def get_channel_mean(mean_pixel_file):
 
 def classify(image_files, model_path, model_name, model_conf_name='deploy.prototxt',
 	     mean_pixel_name='mean.binaryproto',
-	     gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1):
+	     gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=0):
 	# paths
 	model_configuration = os.path.join(model_path, model_conf_name)
 	model = os.path.join(model_path, model_name)
 	mean_pixel_file = os.path.join(model_path, mean_pixel_name)
 
+        if verbose:
+		print "Model used: " + model   
+
 	# other stuff
+	if verbose:
+		print "Getting the mean channel pixel values..."
 	channel_mean = get_channel_mean(mean_pixel_file)
 
 	# CPU or GPU mode
 	if gpu_id < 0:
 		caffe.set_mode_cpu()
+		if verbose:
+			print "Caffe is running in CPU mode!"
 	else:
 		caffe.set_mode_gpu()
 		caffe.set_device(gpu_id)
+		if verbose:
+			print "Caffe is running in GPU mode!"
 	
+	if verbose:
+		print "Builging a CNN classifier..."
 	net = caffe.Classifier(model_configuration, model, mean=channel_mean,
 	                       channel_swap=channel_swap, raw_scale=gray_range)
 	image_x, image_y = net.blobs['data'].data.shape[-2:]
 	channels = net.blobs['data'].data.shape[1]
 	if batch_size == 0:
 	    batch_size = net.blobs['data'].data.shape[0]
-	print "ADD VERBOSITY FLAG!!!!!"
-	print "batch size: ", batch_size
+	if verbose:
+		print "Reshaping the data..."
+		print "batch size: ", batch_size
+		print "number of channels: ", channels
+		print "data shape: ", image_x, image_y
 	
+			
 	net.blobs['data'].reshape(batch_size, channels, image_x, image_y)
 
+	print "Loading image(s) to classify..."
 	input_images = []
 	for image_file in image_files:
 	    input_images.append(caffe.io.load_image(image_file))
 
 	# batch process the images:
+	if verbose:
+		print "Predicting the category classes of the image(s)..."
 	prediction = net.predict(input_images)
 
 	# convert to probabilities (if needed):
@@ -78,11 +96,11 @@ def print_classification(probs, image_files, model_path, labels_name='labels.txt
 
 def run(image_files, model_path, model_name, model_conf_name='deploy.prototxt',
 	labels_name='labels.txt', mean_pixel_name='mean.binaryproto',
-	gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1):
+	gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=0):
 	probs = classify(image_files, model_path, model_name, model_conf_name=model_conf_name,
 			 mean_pixel_name=mean_pixel_name,
 			 gray_range=gray_range, channel_swap=channel_swap, batch_size=batch_size,
-			 gpu_id=gpu_id)
+			 gpu_id=gpu_id, verbose=verbose)
 	print_classification(probs, image_files, model_path, labels_name=labels_name)
 
 	
@@ -111,4 +129,4 @@ if __name__ == '__main__':
 	run(image_filenames, model_path, model_name,
 	    model_conf_name=args.model_conf_name, labels_name=args.labels_name,
  	    mean_pixel_name=args.mean_pixel_name, gray_range=args.gray_range,
-	    channel_swap=args.channel_swap, batch_size=args.batch_size, gpu_id=args.gpu_id)
+	    channel_swap=args.channel_swap, batch_size=args.batch_size, gpu_id=args.gpu_id, verbose=args.verbose)
