@@ -79,9 +79,22 @@ def classify(image_files, model_path, model_name, model_conf_name='deploy.protot
 	if verbose:
 		print "Predicting the category classes of the image(s)..."
 	prediction = net.predict(input_images)
+	#out = net.forward()
+
+
+
+	#flattend = net.blobs['prob'].data[0].flatten()
+        #flattend.sort()
+        #print "From within the net: " 
+        #print flattend[-1:-6:-1]
+
+
 
 	# convert to probabilities (if needed):
 	probs = []
+        #probs = net.blobs['prob'].data[0].flatten()
+        #probs.sort()
+
 	for ix, image_file in enumerate(image_files):
 	    if prediction[ix].sum() == 1 and np.all(prediction[ix] > 0):
 	        probs.append(prediction[ix])
