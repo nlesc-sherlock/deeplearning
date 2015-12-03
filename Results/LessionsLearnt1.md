@@ -1,4 +1,4 @@
-# Lessons learnt from Sprint 1- 20-22 October 2015
+# Lessons learnt from Sprint 1: 20-22 October 2015
 
 ## Day 1
 
