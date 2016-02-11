@@ -2,6 +2,7 @@
 
 ## Day 1, Tue 16 Feb
 **Learn about SURF Sara HPC cloud; set up DIGITS on own DAS accounts**
+* Quick update Berend and Lars on the goals and previous activities
 * Set up Caffe and DIGITS on our onw accounts (all - Patrick). Please, refer to the [caffe-nv docker](
 https://github.com/nlesc-sherlock/deeplearning/blob/master/startdocuments/caffe_nv_docker.md) which he had added to the repo.
 * Set up a VM on the SURF Sara HPC cloud on a node with GPU (Patrick)
