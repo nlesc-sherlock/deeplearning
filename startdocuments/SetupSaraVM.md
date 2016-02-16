@@ -32,4 +32,6 @@ Follow https://doc.hpccloud.surfsara.nl/create-datablocks. One difference, we do
 
     echo "echo 4096 > /sys/block/vdb/queue/read_ahead_kb" > /etc/rc.local
 
-Since `/etc/rc.local` already exists, we don't need to `touch /etc/rc.d/rc.local`. It already has the right permissions as well, so don't do the `chmod` command either. We also follow the suggestion to add `/dev/vdb /data xfs defaults 0 0` to `/etc/fstab`.
+Since `/etc/rc.local` already exists, we don't need to `touch /etc/rc.d/rc.local`. It already has the right permissions as well, so don't do the `chmod` command either.
+
+We also follow the suggestion to add `/dev/vdb /data xfs defaults 0 0` to `/etc/fstab`.
