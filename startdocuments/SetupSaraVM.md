@@ -20,3 +20,6 @@ ssh -i .ssh/id_rsa ubuntu@145.100.59.54
 
 The ubuntu user has sudo rights. Using this user you can make new accounts. However, this template has disabled SSH password login, so to enable that edit the file '/etc/ssh/sshd_config' and modify or add the line 'PasswordAuthentication yes
 '. 
+Changes only have effect after restarting: 'sudo service ssh restart'.
+
+Now you can login using any of the accounts you created.
