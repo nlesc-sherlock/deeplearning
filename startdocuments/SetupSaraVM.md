@@ -16,7 +16,7 @@ Then instantiate the template.
 
 ## Login
 
-ssh -i .ssh/id_rsa ubuntu@145.100.59.54
+    ssh -i .ssh/id_rsa ubuntu@145.100.59.54
 
 The ubuntu user has sudo rights. Using this user you can make new accounts (`sudo adduser [USERNAME]` and then `sudo adduser [USERNAME] sudo` to add the user to the sudoers group). However, this VM template has disabled SSH password login, so to enable that edit the file '/etc/ssh/sshd_config' and modify or add the line 'PasswordAuthentication yes
 '. 
