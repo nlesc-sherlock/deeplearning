@@ -37,6 +37,7 @@ Since we're not using the SURFsara maintained image/template, we have to manuall
 
     sudo apt-get update
     sudo apt-get upgrade
+    sudo apt-get dist-upgrade
 
 ## Add data disk
 
