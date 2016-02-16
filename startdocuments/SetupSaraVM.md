@@ -57,8 +57,6 @@ Follow instructions at https://docs.docker.com/engine/installation/linux/ubuntul
 
 From the optional instructions: `sudo usermod -aG docker [USERNAME]`
 
-# Untested scratch/work-in-progress part of this document
-
 ## Install NVIDIA drivers
 
     sudo apt-get install ubuntu-drivers-common
@@ -90,6 +88,8 @@ Then reboot the VM. Once it's restarted, you can check whether the driver is loa
     lspci -vnn | grep -i VGA -A 12
 
 Which should show that the `nvidia` driver is in use, instead of the default `nouveau` driver.
+
+# Untested scratch/work-in-progress part of this document
 
 ## Install DIGITS Docker container
 
