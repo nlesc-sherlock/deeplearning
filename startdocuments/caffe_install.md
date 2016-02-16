@@ -1,24 +1,25 @@
 # These are the steps we did to install Caffe (NVIDIA flavour) on DAS-5
 
+## Basics
 
-Basics
-======
+Do this every time you want to build this stuff or run it:
 
-- Do this every time you want to build this stuff or run it.
-
+```sh
 module load cuda70/toolkit
 module load cuda70/blas
 module load hdf5_18/1.8.12
 module load openblas
+```
 
+Edit these for your own installation paths:
 
-- Edit these for your own installation paths:
+```sh
 export GITBASE=$HOME/git
 export BUILDBASE=$HOME/build
 export INSTALLITHERE=$HOME/sw
+```
 
-
-- Possibly you'll need to setup an SSH key for GitHub on the machine first:
+Possibly you'll need to setup an SSH key for GitHub on the machine first:
 https://help.github.com/articles/generating-ssh-keys/
 
 
