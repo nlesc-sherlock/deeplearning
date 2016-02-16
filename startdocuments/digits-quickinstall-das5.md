@@ -1,5 +1,5 @@
 # Digits on DAS5
-This manual will allow you to run a digits server on DAS5 with minimal installation.
+This manual will allow you to run a digits server on DAS5 with minimal installation. First log in to the headnode of das5.
 
 > You currently need access to the home directory of Patrick and the scratch directory of Berend
 
@@ -30,7 +30,7 @@ Copy the following from Berend's scratch directory. The bash_profile file sets u
     cp -r /var/scratch/bweel/git/digits .
 
 # Running digits server
-## interactive
+## Interactive
 
 Start up on a node with GPU and start the DIGITS server:
 
@@ -40,6 +40,18 @@ Load the bash_profile to set the environment variables:
 
     . ~/.bash_profile
 
+To actually access the server you need to get its ip-address, issue the following command and write down (or remember or copy) the ip address (eth0 is a good bet):
+
+    ifconfig
+
 Start the digits server:
 
     ./digits-devserver
+
+
+### Set up a tunnel to DAS5
+To be able to access the digits server from your local machine you need to set up a proxy tunnel to das5 and update the proxy server of your web browser. On your local machine do:
+
+     ssh -fTnN -D 8080 fs0.das5.cs.vu.nl
+
+Now you can direct your browser to use localhost:8080 as a SOCKS proxy and browse to the ip address you wrote down earlier.
