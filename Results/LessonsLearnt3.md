@@ -10,5 +10,6 @@ We have learnt
     The train_val shared in Caffe Zoo are not always accepted by DIGITS
     
   - Put your pretrained model in a reachable folder, i.e./var/scratch rather than in your homedirectory
-
+  
+- How to filter images from Internet using ImageNet category and pretrained network on 1000 categories
 
