@@ -28,5 +28,8 @@ Now you can login using any of the accounts you created.
 
 The default Ubuntu 14.04 image is only 10GB, so to save data one has to add a data image.
 
-Follow https://doc.hpccloud.surfsara.nl/create-datablocks. The only difference with the setup is that we set the format to *ext4* instead of *raw*, as suggested.
+Follow https://doc.hpccloud.surfsara.nl/create-datablocks. One difference, we do:
 
+    echo "echo 4096 > /sys/block/vdb/queue/read_ahead_kb" > /etc/rc.local
+
+Since `/etc/rc.local` already exists, we don't need to `touch /etc/rc.d/rc.local`. It already has the right permissions as well, so don't do the `chmod` command either.
