@@ -20,8 +20,8 @@ Install the following conda packages
     conda install --channel https://conda.anaconda.org/pmlandwehr flask-socketio
     pip install --user lmdb pydot2
 
-## Copying digits
-Create a directory in you scratch folder (it will get pretty big while you're using digits).
+## Copying DIGITS
+Create a directory in you scratch folder (it will get pretty big while you're using DIGITS).
 
     cd /var/scratch/<username>
     mkdir git
@@ -32,7 +32,7 @@ Copy the following from Berend's scratch directory. The bash_profile file sets u
     cd git
     cp -r /var/scratch/bweel/git/digits .
 
-# Running digits server
+# Running DIGITS server
 ## Interactive
 
 Start up on a node with GPU and start the DIGITS server:
@@ -47,7 +47,7 @@ To actually access the server you need to get its ip-address, issue the followin
 
     ifconfig
 
-Start the digits server:
+Start the DIGITS server:
 
     ./digits-devserver
 
