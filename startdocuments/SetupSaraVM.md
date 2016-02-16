@@ -35,3 +35,13 @@ Follow https://doc.hpccloud.surfsara.nl/create-datablocks. One difference, we do
 Since `/etc/rc.local` already exists, we don't need to `touch /etc/rc.d/rc.local`. It already has the right permissions as well, so don't do the `chmod` command either.
 
 We also follow the suggestion to add `/dev/vdb /data xfs defaults 0 0` to `/etc/fstab`.
+
+## Install Docker
+
+Follow instructions at https://docs.docker.com/engine/installation/linux/ubuntulinux/
+
+From the optional instructions: `sudo usermod -aG docker [USERNAME]`
+
+## Start DIGITS container
+
+    docker run kaixhin/digits
