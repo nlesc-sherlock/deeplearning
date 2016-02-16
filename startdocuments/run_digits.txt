@@ -62,7 +62,7 @@ Setup proxy to server
 
 - Set up an SSH proxy on your local machine to the DAS headnode:
 
-ssh -TnN -D 8080 pbos@fs0.das5.cs.vu.nl
+ssh -TnN -D 8080 ${USER}@fs0.das5.cs.vu.nl
 
 - To use the proxy from Firefox, go to Preferences, Advanced, Network, press
   "Settings...", select Manual proxy configuration and fill in the SOCKS Host
