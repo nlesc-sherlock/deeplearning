@@ -26,7 +26,7 @@ Create a directory in you scratch folder (it will get pretty big while you're us
     cd /var/scratch/<username>
     mkdir git
 
-Copy the following from Berend's scratch directory. The bash_profile file sets up the paths for running the digits server. The digits diretory has the digits server.
+Copy the following from Berend's scratch directory. The bash_profile file sets up the paths for running the digits server. The digits directory has the DIGITS server.
 
     cp /var/scratch/bweel/.bash_profile .
     cd git
@@ -38,6 +38,8 @@ Copy the following from Berend's scratch directory. The bash_profile file sets u
 Start up on a node with GPU and start the DIGITS server:
 
     srun --ntasks=1 --time=00:15:00 --gres=gpu:1 -C TitanX --pty bash -i
+
+Please note the available time one can reserve a node. Standart is 15 mins, unless more time it's reserved in advance. Then --time should be adjusted accordingly.
 
 Load the bash_profile to set the environment variables:
 
