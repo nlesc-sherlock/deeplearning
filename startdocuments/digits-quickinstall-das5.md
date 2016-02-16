@@ -59,5 +59,6 @@ To be able to access the digits server from your local machine you need to set u
 
      ssh -fTnN -D 8080 <username@DAS5>@fs0.das5.cs.vu.nl
 
-*Please note that if 8080  us already in use, use another one, e.g. 8081. *
+Please note that if 8080  us already in use, use another one, e.g. 8081. 
+
 Now you can direct your browser to use localhost:8080 as a SOCKS proxy and browse to the ip address you wrote down earlier.
