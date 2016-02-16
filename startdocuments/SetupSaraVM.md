@@ -22,13 +22,14 @@ Then instantiate the template.
 
 ## Login
 
-    ssh -i .ssh/id_rsa ubuntu@145.100.59.54
+    ssh -i .ssh/id_rsa root@145.100.59.54
 
-The ubuntu user has sudo rights. Using this user you can make new accounts (`sudo adduser [USERNAME]` and then `sudo adduser [USERNAME] sudo` to add the user to the sudoers group). However, this VM template has disabled SSH password login, so to enable that edit the file '/etc/ssh/sshd_config' and modify or add the line 'PasswordAuthentication yes
-'. 
-Changes only have effect after restarting: `sudo service ssh restart`.
+Using root access you can make new accounts (`adduser [USERNAME]` and then `adduser [USERNAME] sudo` to add the user to the sudoers group).
 
 Now you can login using any of the accounts you created.
+
+Note: when using the default SURFsara VM from the AppMarket (not this 50GB one), the only user you can login as is ubuntu, which has sudo-rights. However, this VM template has disabled SSH password login, so to enable that edit the file '/etc/ssh/sshd_config' and modify or add the line 'PasswordAuthentication yes
+'.  Changes only have effect after restarting: `sudo service ssh restart`.
 
 ## Update
 
