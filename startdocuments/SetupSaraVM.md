@@ -23,3 +23,10 @@ The ubuntu user has sudo rights. Using this user you can make new accounts. Howe
 Changes only have effect after restarting: 'sudo service ssh restart'.
 
 Now you can login using any of the accounts you created.
+
+## Add data disk
+
+The default Ubuntu 14.04 image is only 10GB, so to save data one has to add a data image.
+
+Follow https://doc.hpccloud.surfsara.nl/create-datablocks. The only difference with the setup is that we set the format to *ext4* instead of *raw*, as suggested.
+
