@@ -31,6 +31,11 @@ Copy the following from Berend's scratch directory. The bash_profile file sets u
     cp /var/scratch/bweel/.bash_profile .
     cd git
     cp -r /var/scratch/bweel/git/digits .
+    
+Now install the requirements for digits from the digits folder
+
+    cd digits
+    pip install --user -r requirements.txt
 
 # Running DIGITS server
 ## Interactive
