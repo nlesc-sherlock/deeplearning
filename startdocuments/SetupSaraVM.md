@@ -1,4 +1,4 @@
-# Setting up VM on SURFsara HPC Cloud
+# Setting up DIGITS Docker in VM on SURFsara HPC Cloud
 
 ## Create VM
 
@@ -101,6 +101,8 @@ Follow the quick start instructions at https://github.com/NVIDIA/nvidia-docker. 
     sudo apt-get install nvidia-modprobe
 
 ## Build and start DIGITS container
+
+Following https://github.com/NVIDIA/nvidia-docker/wiki/DIGITS
 
     cd ~/nvidia-docker/ubuntu/digits
     make
