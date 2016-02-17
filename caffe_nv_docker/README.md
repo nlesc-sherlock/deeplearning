@@ -7,9 +7,12 @@
 
 ## Run
 
-`cd` to directory with your images, then:
+`cd` to directory with your images, then run:
 
-    docker run -v $PWD:/data cnn_classify -v --gpu_id=-1 --batch_size=59 -m /opt/deeplearning/Models/lotsacars-20151202-170935-03d3/snapshot_iter_334500.caffemodel /data/image1.jpg /data/image2.jpg
+    docker run -v $PWD:/data cnn_classify \
+        -v --gpu_id=-1 --batch_size=59 \
+        -m /opt/deeplearning/Models/lotsacars-20151202-170935-03d3/snapshot_iter_334500.caffemodel \
+        /data/image1.jpg /data/image2.jpg
 
 Optional: Put ` 2> /dev/null` at the end of the command to cut out all the Caffe model setup messages which it sends to `STDERR`.
 
