@@ -55,7 +55,7 @@ To actually access the server you need to get its ip-address, issue the followin
 
 Start the DIGITS server:
 
-    cd digits
+    cd git/digits
     ./digits-devserver
 
 
