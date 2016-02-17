@@ -41,9 +41,13 @@ Start up on a node with GPU and start the DIGITS server:
 
 Please note the available time one can reserve a node. Standart is 15 mins, unless more time it's reserved in advance. Then --time should be adjusted accordingly.
 
+Make sure you are in the right directory
+
+    cd /var/scratch/<username>
+
 Load the bash_profile to set the environment variables:
 
-    . ~/.bash_profile
+    . .bash_profile
 
 To actually access the server you need to get its ip-address, issue the following command and write down (or remember or copy) the ip address (eth0 is a good bet):
 
@@ -51,6 +55,7 @@ To actually access the server you need to get its ip-address, issue the followin
 
 Start the DIGITS server:
 
+    cd digits
     ./digits-devserver
 
 
