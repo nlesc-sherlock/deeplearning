@@ -2,6 +2,48 @@
 
 ## Create VM
 
+Step-by-step:
+
+Get set up on https://ui.hpccloud.surfsara.nl/
+  1. log in using credentials in you mail.
+  2. Change Password
+    - go to settings (right top, click on username->settings)
+    - go to change password
+  3. Add SSH key (copy paste public key from terminal)
+  4. Go to settings (right top, click on username->settings) and 'change view'
+    - Change view from 'cloud' to 'user'
+
+Clone the pre-defined working disk image
+  Under 'Virtual Resources' -> 'Images' , 
+  - Select 'CLONEABLE Deeplearning Image - 50 GB'
+  - Click clone (top right)
+  - Name {MY_WORKING_IMAGE_NAME} and click 'Clone'
+
+Clone the pre-defined data disk image
+  Under 'Virtual Resources' -> 'Images' , 
+  - Select 'CLONEABLE Deeplearning Data - 300 GB'
+  - Click clone (top right)
+  - Name {MY_DATA_IMAGE_NAME} and click 'Clone'
+
+Clone the pre-defined template Patrick set up
+  Under 'Virtual Resources' -> 'Templates' , 
+  - Select 'CLONEABLE Deeplearning Template - 50 GB - with 50GB image'
+  - Click clone (top right)
+  - Name {MY_TEMPLATE_NAME} and click 'Clone'
+  
+Update the new template to use your own cloned versions of the disk images
+  Under 'Virtual Resources' -> 'Templates' , 
+  - Select the new template and click 'Update' (top right)
+  Under 'Storage' 
+  - Select 'Disk 0' (left side)
+  - Select {MY_WORKING_IMAGE_NAME} (right side)
+  - Select 'Disk 1' (left side)
+  - Select {MY_DATA_IMAGE_NAME} (right side)
+
+Old: 
+
+Instantiate the template
+
 Set up SSH key on your account:
 https://doc.hpccloud.surfsara.nl/SSHkey
 
