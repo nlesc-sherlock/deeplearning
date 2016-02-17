@@ -89,8 +89,6 @@ Then reboot the VM. Once it's restarted, you can check whether the driver is loa
 
 Which should show that the `nvidia` driver is in use, instead of the default `nouveau` driver.
 
-# Untested scratch/work-in-progress part of this document
-
 ## Install DIGITS Docker container
 
     sudo apt-get install git
@@ -106,4 +104,12 @@ Following https://github.com/NVIDIA/nvidia-docker/wiki/DIGITS
 
     cd ~/nvidia-docker/ubuntu/digits
     make
-    nvidia-docker run digits
+
+Then start two daemons (probably use two terminals, e.g. with `screen`), the first exposes the NVIDIA drivers in some abstracted way (see https://github.com/NVIDIA/nvidia-docker/wiki/Using%20nvidia-docker-plugin for more info) to the second.
+
+    sudo nvidia-docker-plugin
+    nvidia-docker run -d --publish=8008:34448 --volume=/data:/data nvidia/digits
+
+The last command starts the actual digits server and exposes it to port 8008 (you can change that to your liking).
+
+Some of the last commands with the nvidia-digits repo might be redundant, but at least it works ;)
