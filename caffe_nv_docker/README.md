@@ -1,4 +1,4 @@
-# *(Image, Model) -> Class* Docker image
+# *(Images, Model) -> Classification of Images* Docker image
 
 ## Build
 
