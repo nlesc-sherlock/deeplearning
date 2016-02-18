@@ -2,14 +2,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
-import caffe
 import os
-from datetime import datetime
+import io
 import json
+from datetime import datetime
 from string import join
 
+os.environ['GLOG_minloglevel'] = '2' # Surpress a lot of building messages
+import caffe
+
 # fix mysterious error for some files (https://github.com/BVLC/caffe/issues/438)
-from skimage import io; io.use_plugin('matplotlib')
+import skimage; skimage.io.use_plugin('matplotlib')
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -56,8 +59,10 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
 
     if verbose:
         print "Building a CNN classifier..."
+
     net = caffe.Classifier(model_configuration, model, mean=channel_mean,
                            channel_swap=channel_swap, raw_scale=gray_range)
+
     image_x, image_y = net.blobs['data'].data.shape[-2:]
     channels = net.blobs['data'].data.shape[1]
     if batch_size == 0:
@@ -76,13 +81,13 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
         print "Loading image(s) to classify..."
     input_images = []
     for image_file in image_files:
-        print image_file
+        #print image_file
         input_images.append(caffe.io.load_image(image_file))
 
     # batch process the images:
     if verbose:
         print "Predicting the category classes of the image(s)..."
-    prediction = net.predict(input_images)
+    prediction = net.predict(input_images, oversample=False)
     #out = net.forward()
 
 
@@ -119,7 +124,7 @@ def print_classification(probs, image_files, model_path, labels_name='labels.txt
 
 def print_json_classification(probs, image_files, model_path, model_name,
         labels_name, mean_pixel_name, model_deploy,
-        gray_range, channel_swap, batch_size):
+        gray_range, channel_swap, batch_size, outfile):
     """
         Print a json representation of the classification result
     """
@@ -139,18 +144,21 @@ def print_json_classification(probs, image_files, model_path, model_name,
             "gray_range": gray_range,
             "channel_swap": channel_swap,
             "batch_size": batch_size
-        }
+        },
+        "predictions" : {}
     }
 
     for ix, image_file in enumerate(image_files):
         tags = "%s" % dict(zip(labels[probs[ix].argsort()[:-6:-1]], probs[ix][probs[ix].argsort()[:-6:-1]]))
-        data[image_file] = {
+        data["predictions"][image_file] = {
             "tags" : tags
         }
-    print json.dumps(data, sort_keys=True, indent=4)
+
+    json_string = json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False)
+    outfile.write(unicode(json_string))
 
 def run(image_files, model_path, model_name, model_deploy,
-    labels_name, mean_pixel_name,
+    labels_name, mean_pixel_name, outfile,
     gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=False, json=False):
     probs = classify(image_files, model_path, model_name, model_deploy=model_deploy,
              mean_pixel_name=mean_pixel_name,
@@ -159,7 +167,7 @@ def run(image_files, model_path, model_name, model_deploy,
     if json:
         print_json_classification(probs, image_files, model_path=model_path, labels_name=labels_name,
             model_name=model_name, mean_pixel_name=mean_pixel_name, model_deploy=model_deploy,
-            gray_range=gray_range, channel_swap=channel_swap, batch_size=batch_size)
+            gray_range=gray_range, channel_swap=channel_swap, batch_size=batch_size, outfile=outfile)
     else:
         print_classification(probs, image_files, model_path, labels_name=labels_name)
 
@@ -181,6 +189,7 @@ if __name__ == '__main__':
 
     output_group = parser.add_argument_group(title="Output format.", description="Define the output format.")
     output_group.add_argument("--json", help="Output json format",action="store_true", default=0)
+    output_group.add_argument("-o", "--outfile", help="Output file path", type=argparse.FileType('w'), default="-")
 
     parser.add_argument("--gray_range", help="Gray range of the images (default: 255).", type=int, default=255)
     parser.add_argument("--channel_swap", help="Use numbers 0, 1 and 2 to give the order of the color-channels that the model used, for instance 0 1 2 for RGB. Some models swap the channels from RGB to BGR (this is the default: 2 1 0).", nargs=3, default=[2,1,0])
@@ -196,4 +205,6 @@ if __name__ == '__main__':
     run(image_filenames, args.model_path, args.model_snapshot,
         model_deploy=args.model_deploy, labels_name=args.model_labels,
         mean_pixel_name=args.mean_pixel_name, gray_range=args.gray_range,
-        channel_swap=args.channel_swap, batch_size=args.batch_size, gpu_id=args.gpu_id, verbose=args.verbose, json=args.json)
+        channel_swap=args.channel_swap, batch_size=args.batch_size,
+        gpu_id=args.gpu_id, verbose=args.verbose, json=args.json,
+        outfile=args.outfile)

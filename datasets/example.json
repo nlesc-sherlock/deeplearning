@@ -1,0 +1,51 @@
+{
+    "datetime": "2016-02-18T14:59:17.709174", 
+    "parameters": {
+        "batch_size": 10, 
+        "channel_swap": [
+            2, 
+            1, 
+            0
+        ], 
+        "gray_range": 255, 
+        "labels_name": "labels.txt", 
+        "mean_pixel_name": "mean.binaryproto", 
+        "model_deploy": "deploy.prototxt", 
+        "model_name": "snapshot.caffemodel", 
+        "model_path": "/models/lotsacars-20151202-170935-03d3"
+    }, 
+    "predictions": {
+        "/data/compcars/BMW/00057a026ae9bb.jpg": {
+            "tags": "{'Dodge': 5.0581565e-07, 'Qoros': 9.8868193e-05, 'AC': 0.017070858, 'Maserati': 1.0662902e-06, 'BMW': 0.98282725}"
+        }, 
+        "/data/compcars/BMW/0014f68100c1d3.jpg": {
+            "tags": "{'Skoda': 0.039911203, 'KIA': 0.61061168, 'Seat': 0.035382677, 'AC': 0.13727467, 'SAAB': 0.12588602}"
+        }, 
+        "/data/compcars/BMW/00199e658341a8.jpg": {
+            "tags": "{'Lotus': 0.040893823, 'Qoros': 0.024306895, 'Jianghuai': 0.017450275, 'BMW': 0.43600008, 'Roewe': 0.38723326}"
+        }, 
+        "/data/compcars/BMW/00203ddf0f5cec.jpg": {
+            "tags": "{'Lorinser': 0.63747269, 'Dodge': 0.083855554, 'ABT': 0.15602985, 'Pagani': 0.024263727, 'MINI': 0.017049974}"
+        }, 
+        "/data/compcars/BMW/0033eef3ce48f2.jpg": {
+            "tags": "{'Skoda': 0.0069140578, 'Maserati': 4.9225204e-05, 'BMW': 0.99265593, 'Maybach': 0.00024660345, 'Volvo': 7.6508724e-05}"
+        }, 
+        "/data/compcars/BMW/006c9b003e47e2.jpg": {
+            "tags": "{'Maybach': 7.5513622e-06, 'Maserati': 4.3115724e-05, 'BMW': 0.99977934, 'HongQi': 9.5561409e-05, 'Guangqichuanqi': 5.4706998e-05}"
+        }, 
+        "/data/compcars/BMW/00789ad2882378.jpg": {
+            "tags": "{'Dodge': 0.040082976, 'Benz': 0.048691113, 'Dongfengfengxing': 0.12669963, 'Honda': 0.44270068, 'Roewe': 0.17946614}"
+        }, 
+        "/data/compcars/BMW/00b0bff951eb29.jpg": {
+            "tags": "{'ABT': 0.19725327, 'Audi': 0.0086149285, 'Jaguar': 0.56928229, 'Maserati': 0.079649881, 'Infiniti': 0.13202731}"
+        }, 
+        "/data/compcars/BMW/00b1b467b2ed72.jpg": {
+            "tags": "{'Jeep': 0.48214069, 'MINI': 0.059522521, 'Lincoln': 0.060798921, 'BMW': 0.24117784, 'LAND-ROVER': 0.040904373}"
+        }, 
+        "/data/compcars/BMW/00c7fd3a3e925c.jpg": {
+            "tags": "{'Infiniti': 3.0725838e-07, 'AC': 0.97345001, 'ABT': 3.838652e-06, 'BMW': 0.026544798, 'SAAB': 5.928166e-07}"
+        }
+    }, 
+    "script": "cnn_classify.py", 
+    "type": "classification"
+}
