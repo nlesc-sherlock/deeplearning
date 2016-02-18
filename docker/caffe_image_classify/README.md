@@ -20,18 +20,21 @@ In the command below, replace `$DATADIR` and `$MODELDIR` with the directory in w
 Then run it like:
 
     docker run \
-        -v $DATADIR:/data \
+        -v $PWD:/data \
         -v $MODELDIR:/model \
         caffe_image_classify \
         -v --gpu_id=-1 --batch_size=59 \
-        -m /model/snapshot_iter_334500.caffemodel \
-        /data/image1.jpg /data/image2.jpg
+        -M /model --model_snapshot snapshot_iter_334500.caffemodel \
+        -D /data \
+        image1.jpg image2.jpg
+
+For convenience, replace `image1.jpg image2.jpg` with `$(ls *.jpg)`.
 
 In this example, the `snapshot_iter_334500.caffemodel` file from the `lotsacars-20151202-170935-03d3` model was used, replace this with the snapshot you want to use.
 
 Optional: Put ` 2> /dev/null` at the end of the command to cut out all the Caffe model setup messages which it sends to `STDERR`.
 
-Step by step, what this does:
+Step by step, what this does (**TODO: UPDATE AFTER NEW VERSION**):
 
 * `docker run` creates a Docker container out of a Docker image
 * `-v $PWD:/data` takes the current working directory on the host (the one with your images, that you `cd`ed to, `$PWD`) and maps it to `/data` inside the Docker container.
