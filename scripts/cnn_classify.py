@@ -32,7 +32,7 @@ def classify(image_files, model_path, model_name, model_conf_name='deploy.protot
     model = os.path.join(model_path, model_name)
     mean_pixel_file = os.path.join(model_path, mean_pixel_name)
 
-        if verbose:
+    if verbose:
         print "Model used: " + model   
 
     # other stuff
