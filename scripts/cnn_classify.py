@@ -6,6 +6,7 @@ import caffe
 import os
 from datetime import datetime
 import json
+from string import join
 
 # fix mysterious error for some files (https://github.com/BVLC/caffe/issues/438)
 from skimage import io; io.use_plugin('matplotlib')
@@ -110,24 +111,33 @@ def print_classification(probs, image_files, model_path, labels_name='labels.txt
     labels_file = os.path.join(model_path, labels_name)
     labels = np.loadtxt(labels_file, str)
 
-    data = {}
-        #"type" : "classification",
-        #"script" : "cnn_classify.py",
-        #"time" : datetime()
-    #}
+    for ix, image_file in enumerate(image_files):
+        print 'Predicted class & probabilities (top 5) for image ' + image_file + ":"
+        print(zip(labels[probs[ix].argsort()[:-6:-1]], probs[ix][probs[ix].argsort()[:-6:-1]]))
+        print("")
+
+def print_json_classification(probs, image_files, model_path, labels_name='labels.txt'):
+    labels_file = os.path.join(model_path, labels_name)
+    labels = np.loadtxt(labels_file, str)
+
+    data = {
+        "type" : "classification",
+        "script" : "cnn_classify.py",
+        "time" : datetime.now().isoformat()
+    }
 
     for ix, image_file in enumerate(image_files):
         #print 'Predicted class & probabilities (top 5) for image ' + image_file + ":"
+    #    print image_file + ": " + join(zip(labels[probs[ix].argsort()[:-6:-1]], probs[ix][probs[ix].argsort()[:-6:-1]]))
         data[image_file] = {
-            "tags" : zip(labels[probs[ix].argsort()[:-6:-1]], probs[ix][probs[ix].argsort()[:-6:-1]])
+            "tags" : ""
         }
 
         #print("")
     print json.dumps(data)
 
-
-def run(image_files, model_path, model_name='snapshot.caffemodel', model_conf_name='deploy.prototxt',
-    labels_name='labels.txt', mean_pixel_name='mean.binaryproto',
+def run(image_files, model_path, model_name, model_conf_name,
+    labels_name, mean_pixel_name,
     gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=False):
     probs = classify(image_files, model_path, model_name, model_conf_name=model_conf_name,
              mean_pixel_name=mean_pixel_name,
@@ -143,11 +153,11 @@ if __name__ == '__main__':
     parser.add_argument("image_files", help="The filename(s) (including path, full or relative) of the image(s) you want to classify.", nargs="+", type=argparse.FileType('r'))
 
     # model file parameters
-    parser.add_argument("-M", "--model_path", help="Model files directory. Should contain the files: snapshot.caffemodel, deploy.prototxt and labels.txt. Any files with other filenames can be given with other parameters (see below). If all the other files are given explicitly, just set this to `.` or any other dummy value.", required=True)
+    parser.add_argument("-M", "--model_path", help="Model files directory. Should contain the files: snapshot.caffemodel, deploy.prototxt and labels.txt. Any files with other filenames can be given with other parameters (see below).", required=True)
     model_group = parser.add_argument_group(title="Model file names.", description="Override the default filenames of the model.")
-    model_group.add_argument("--model_snapshot", help="The filename of the caffemodel snapshot in the model relative to the model directory.", type=argparse.FileType('r'))
-    model_group.add_argument("--model_deploy", help="The full deploy file filename", type=argparse.FileType('r'))
-    model_group.add_argument("--model_labels", help="Full labels file filename.", type=argparse.FileType('r'))
+    model_group.add_argument("--model_snapshot", help="The filename of the caffemodel snapshot in the model directory.", default='snapshot.caffemodel')
+    model_group.add_argument("--model_deploy", help="The filename of the deploy file in the model directory.", default='deploy.prototxt')
+    model_group.add_argument("--model_labels", help="The filename of the labels file in the model directory.", default='labels.txt')
 
     parser.add_argument("--mean_pixel_name", help="Mean pixel file name of the trained model (default: mean.binaryproto).", default='mean.binaryproto')
     parser.add_argument("--gray_range", help="Gray range of the images (default: 255).", type=int, default=255)
@@ -158,11 +168,9 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    # model_path, model_name = os.path.split(args.model_file.name)
-
     image_filenames = [image_file.name for image_file in args.image_files]
 
-    run(image_filenames, args.model_path.name, args.model_snapshot.name,
-        model_conf_name=args.model_deploy.name, labels_name=args.model_labels.name,
+    run(image_filenames, args.model_path, args.model_snapshot,
+        model_conf_name=args.model_deploy, labels_name=args.model_labels,
         mean_pixel_name=args.mean_pixel_name, gray_range=args.gray_range,
         channel_swap=args.channel_swap, batch_size=args.batch_size, gpu_id=args.gpu_id, verbose=args.verbose)
