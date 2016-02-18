@@ -20,12 +20,15 @@ In the command below, replace `$DATADIR` and `$MODELDIR` with the directory in w
 Then run it like:
 
     docker run \
-        -v $DATADIR:/data \
+        -v $PWD:/data \
         -v $MODELDIR:/model \
         caffe_image_classify \
         -v --gpu_id=-1 --batch_size=59 \
-        -m /model/snapshot_iter_334500.caffemodel \
-        /data/image1.jpg /data/image2.jpg
+        -M /model -m snapshot_iter_334500.caffemodel \
+        -D /data \
+        image1.jpg image2.jpg
+
+For convenience, replace `image1.jpg image2.jpg` with `$(ls *.jpg)`.
 
 In this example, the `snapshot_iter_334500.caffemodel` file from the `lotsacars-20151202-170935-03d3` model was used, replace this with the snapshot you want to use.
 
