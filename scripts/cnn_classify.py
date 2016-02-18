@@ -61,7 +61,8 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
     image_x, image_y = net.blobs['data'].data.shape[-2:]
     channels = net.blobs['data'].data.shape[1]
     if batch_size == 0:
-        batch_size = net.blobs['data'].data.shape[0]
+        # batch_size = net.blobs['data'].data.shape[0]
+        batch_size = len(image_files)
     if verbose:
         print "Reshaping the data..."
         print "batch size: ", batch_size
