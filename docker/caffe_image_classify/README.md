@@ -1,18 +1,33 @@
-# *(Images, Model) -> Classification of Images* Docker image
+# Caffe Image Classifier Docker image
+
+This Docker image is a wrapper around the `cnn_classify.py` script.
+
+* **Input**:
+	* a trained Caffe model 
+	* an image or a batch of images. It runs the image(s) through the model in a forward pass
+	* some parameters (see example below and `cnn_classify.py` for more)
+* **Output**: the top 5 of predicted class and corresponding probabilities according to the model, per image.
 
 ## Build
 
-    cd deeplearning/caffe_nv_docker
-    docker build -t cnn_classify .
+    cd deeplearning/docker/caffe_image_classify
+    docker build -t caffe_image_classify .
 
 ## Run
 
-`cd` to directory with your images, then run:
+In the command below, replace `$DATADIR` and `$MODELDIR` with the directory in which your image files reside and the directory in which your model files reside, respectively. E.g., one could use `MODELDIR=$GITBASE/deeplearning/Models/lotsacars-20151202-170935-03d3` (where `$GITBASE` is the location of your deeplearning git repo).
 
-    docker run -v $PWD:/data cnn_classify \
+Then run it like:
+
+    docker run \
+        -v $DATADIR:/data \
+        -v $MODELDIR:/model \
+        caffe_image_classify \
         -v --gpu_id=-1 --batch_size=59 \
-        -m /opt/deeplearning/Models/lotsacars-20151202-170935-03d3/snapshot_iter_334500.caffemodel \
+        -m /model/snapshot_iter_334500.caffemodel \
         /data/image1.jpg /data/image2.jpg
+
+In this example, the `snapshot_iter_334500.caffemodel` file from the `lotsacars-20151202-170935-03d3` model was used, replace this with the snapshot you want to use.
 
 Optional: Put ` 2> /dev/null` at the end of the command to cut out all the Caffe model setup messages which it sends to `STDERR`.
 
@@ -20,7 +35,7 @@ Step by step, what this does:
 
 * `docker run` creates a Docker container out of a Docker image
 * `-v $PWD:/data` takes the current working directory on the host (the one with your images, that you `cd`ed to, `$PWD`) and maps it to `/data` inside the Docker container.
-* `cnn_classify` is the name of the Docker image
+* `caffe_image_classify` is the name of the Docker image
 
 All the options after the image name are passed on to the `cnn_classify.py` script that is run inside the Docker container. In this example:
 
