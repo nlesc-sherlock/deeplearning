@@ -64,11 +64,11 @@ BMW,2-Serie,111
 BMW,3-Serie,3508
 BMW,3-Serie GT,19
 BMW,4-Serie,72
-BMW,4-Serie Gran Coupé,11
+BMW,4-Serie Gran Coupe,11
 BMW,5-Serie,1774
 BMW,5-Serie GT,26
 BMW,6-Serie,119
-BMW,6-Serie Gran Coupé,9
+BMW,6-Serie Gran Coupe,9
 BMW,7-Serie,235
 BMW,8-Serie,7
 BMW,i3,15
@@ -133,35 +133,35 @@ Chrysler,PT Cruiser,218
 Chrysler,Sebring,57
 Chrysler,Stratus,20
 Chrysler,Voyager,160
-Citroën,2CV,25
-Citroën,AX,12
-Citroën,Berlingo,291
-Citroën,BX,9
-Citroën,C-Zero,3
-Citroën,C-Crosser,15
-Citroën,C1,1140
-Citroën,C2,236
-Citroën,C3,1109
-Citroën,C3 Picasso,135
-Citroën,C4,455
-Citroën,C4 Aircross,17
-Citroën,C4 Cactus,291
-Citroën,C4 (Grand) Picasso,482
-Citroën,C5,743
-Citroën,C6,22
-Citroën,C8,55
-Citroën,CX,7
-Citroën,DS,7
-Citroën,DS3,400
-Citroën,DS4,54
-Citroën,DS5,72
-Citroën,Evasion,11
-Citroën,Nemo,20
-Citroën,Saxo,330
-Citroën,Xantia,55
-Citroën,Xsara,905
-Citroën,XM,34
-Citroën,ZX,14
+Citroen,2CV,25
+Citroen,AX,12
+Citroen,Berlingo,291
+Citroen,BX,9
+Citroen,C-Zero,3
+Citroen,C-Crosser,15
+Citroen,C1,1140
+Citroen,C2,236
+Citroen,C3,1109
+Citroen,C3 Picasso,135
+Citroen,C4,455
+Citroen,C4 Aircross,17
+Citroen,C4 Cactus,291
+Citroen,C4 (Grand) Picasso,482
+Citroen,C5,743
+Citroen,C6,22
+Citroen,C8,55
+Citroen,CX,7
+Citroen,DS,7
+Citroen,DS3,400
+Citroen,DS4,54
+Citroen,DS5,72
+Citroen,Evasion,11
+Citroen,Nemo,20
+Citroen,Saxo,330
+Citroen,Xantia,55
+Citroen,Xsara,905
+Citroen,XM,34
+Citroen,ZX,14
 Dacia,Duster,105
 Dacia,Lodgy,13
 Dacia,Logan,94
@@ -258,7 +258,7 @@ Ford,C-Max,645
 Ford,Cougar,26
 Ford,Ecosport,34
 Ford,Escort,78
-Ford,Fiësta,1844
+Ford,Fiesta,1844
 Ford,Focus,2960
 Ford,Fusion,251
 Ford,Galaxy,225
@@ -307,7 +307,7 @@ Hummer,H2,5
 Hummer,H3,3
 Hyundai,Accent,123
 Hyundai,Atos,444
-Hyundai,Coupé,72
+Hyundai,Coupe,72
 Hyundai,Elantra,30
 Hyundai,Excel,73
 Hyundai,Galloper,1
@@ -456,7 +456,7 @@ Mercedes-Benz,GLA,4
 Mercedes-Benz,GLA Klasse,55
 Mercedes-Benz,GLK-Klasse,59
 Mercedes-Benz,GLE Klasse,20
-Mercedes-Benz,GLE Coupé,1
+Mercedes-Benz,GLE Coupe,1
 Mercedes-Benz,M-Klasse,315
 Mercedes-Benz,R-Klasse,39
 Mercedes-Benz,S-Klasse,421
@@ -614,9 +614,9 @@ Renault,Kangoo,373
 Renault,Koleos,33
 Renault,Laguna,935
 Renault,Modus,223
-Renault,Mégane,3203
+Renault,Megane,3203
 Renault,Safrane,19
-Renault,Scénic,1339
+Renault,Scenic,1339
 Renault,Talisman,12
 Renault,Twingo,1752
 Renault,Twizy,22
