@@ -24,7 +24,7 @@ Then run it like:
         -v $MODELDIR:/model \
         caffe_image_classify \
         -v --gpu_id=-1 --batch_size=59 \
-        -M /model -m snapshot_iter_334500.caffemodel \
+        -M /model --model_snapshot snapshot_iter_334500.caffemodel \
         -D /data \
         image1.jpg image2.jpg
 
@@ -34,7 +34,7 @@ In this example, the `snapshot_iter_334500.caffemodel` file from the `lotsacars-
 
 Optional: Put ` 2> /dev/null` at the end of the command to cut out all the Caffe model setup messages which it sends to `STDERR`.
 
-Step by step, what this does:
+Step by step, what this does (**TODO: UPDATE AFTER NEW VERSION**):
 
 * `docker run` creates a Docker container out of a Docker image
 * `-v $PWD:/data` takes the current working directory on the host (the one with your images, that you `cd`ed to, `$PWD`) and maps it to `/data` inside the Docker container.
