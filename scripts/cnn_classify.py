@@ -117,33 +117,36 @@ def print_classification(probs, image_files, model_path, labels_name='labels.txt
         print("")
 
 def print_json_classification(probs, image_files, model_path, labels_name='labels.txt'):
+    """
+        Print a json representation of the classification result
+    """
     labels_file = os.path.join(model_path, labels_name)
     labels = np.loadtxt(labels_file, str)
 
     data = {
         "type" : "classification",
         "script" : "cnn_classify.py",
-        "time" : datetime.now().isoformat()
+        "datetime" : datetime.now().isoformat()
     }
 
     for ix, image_file in enumerate(image_files):
-        #print 'Predicted class & probabilities (top 5) for image ' + image_file + ":"
-    #    print image_file + ": " + join(zip(labels[probs[ix].argsort()[:-6:-1]], probs[ix][probs[ix].argsort()[:-6:-1]]))
+        tags = "%s" % dict(zip(labels[probs[ix].argsort()[:-6:-1]], probs[ix][probs[ix].argsort()[:-6:-1]]))
         data[image_file] = {
-            "tags" : ""
+            "tags" : tags
         }
-
-        #print("")
     print json.dumps(data)
 
 def run(image_files, model_path, model_name, model_conf_name,
     labels_name, mean_pixel_name,
-    gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=False):
+    gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=False, json=False):
     probs = classify(image_files, model_path, model_name, model_conf_name=model_conf_name,
              mean_pixel_name=mean_pixel_name,
              gray_range=gray_range, channel_swap=channel_swap, batch_size=batch_size,
              gpu_id=gpu_id, verbose=verbose)
-    print_classification(probs, image_files, model_path, labels_name=labels_name)
+    if json:
+        print_json_classification(probs, image_files, model_path, labels_name=labels_name)
+    else:
+        print_classification(probs, image_files, model_path, labels_name=labels_name)
 
 
 if __name__ == '__main__':
@@ -159,6 +162,9 @@ if __name__ == '__main__':
     model_group.add_argument("--model_deploy", help="The filename of the deploy file in the model directory.", default='deploy.prototxt')
     model_group.add_argument("--model_labels", help="The filename of the labels file in the model directory.", default='labels.txt')
 
+    output_group = parser.add_argument_group(title="Output format.", description="Define the output format.")
+    output_group.add_argument("--json", help="Output json format",action="store_true", default=0)
+
     parser.add_argument("--mean_pixel_name", help="Mean pixel file name of the trained model (default: mean.binaryproto).", default='mean.binaryproto')
     parser.add_argument("--gray_range", help="Gray range of the images (default: 255).", type=int, default=255)
     parser.add_argument("--channel_swap", help="Use numbers 0, 1 and 2 to give the order of the color-channels that the model used, for instance 0 1 2 for RGB. Some models swap the channels from RGB to BGR (this is the default: 2 1 0).", nargs=3, default=[2,1,0])
@@ -173,4 +179,4 @@ if __name__ == '__main__':
     run(image_filenames, args.model_path, args.model_snapshot,
         model_conf_name=args.model_deploy, labels_name=args.model_labels,
         mean_pixel_name=args.mean_pixel_name, gray_range=args.gray_range,
-        channel_swap=args.channel_swap, batch_size=args.batch_size, gpu_id=args.gpu_id, verbose=args.verbose)
+        channel_swap=args.channel_swap, batch_size=args.batch_size, gpu_id=args.gpu_id, verbose=args.verbose, json=args.json)
