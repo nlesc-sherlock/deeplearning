@@ -177,11 +177,11 @@ if __name__ == '__main__':
     model_group.add_argument("--model_snapshot", help="The filename of the caffemodel snapshot in the model directory.", default='snapshot.caffemodel')
     model_group.add_argument("--model_deploy", help="The filename of the deploy file in the model directory.", default='deploy.prototxt')
     model_group.add_argument("--model_labels", help="The filename of the labels file in the model directory.", default='labels.txt')
+    model_group.add_argument("--mean_pixel_name", help="Mean pixel file name of the trained model (default: mean.binaryproto).", default='mean.binaryproto')
 
     output_group = parser.add_argument_group(title="Output format.", description="Define the output format.")
     output_group.add_argument("--json", help="Output json format",action="store_true", default=0)
 
-    parser.add_argument("--mean_pixel_name", help="Mean pixel file name of the trained model (default: mean.binaryproto).", default='mean.binaryproto')
     parser.add_argument("--gray_range", help="Gray range of the images (default: 255).", type=int, default=255)
     parser.add_argument("--channel_swap", help="Use numbers 0, 1 and 2 to give the order of the color-channels that the model used, for instance 0 1 2 for RGB. Some models swap the channels from RGB to BGR (this is the default: 2 1 0).", nargs=3, default=[2,1,0])
     parser.add_argument("--batch_size", help="Number of images processed simultaneously. Default: taken from model configuration.", type=int, default=0)
