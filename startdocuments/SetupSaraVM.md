@@ -135,10 +135,19 @@ Which should show that the `nvidia` driver is in use, instead of the default `no
 
     sudo apt-get install git
     git clone https://github.com/NVIDIA/nvidia-docker.git
-    
-Follow the quick start instructions at https://github.com/NVIDIA/nvidia-docker. The `nvidia-docker run nvidia/cuda nvidia-smi` command might give an error (`nvidia-docker | 2016/02/16 17:33:15 Error: exec: "nvidia-modprobe": executable file not found in $PATH`). Fix this with
-
     sudo apt-get install nvidia-modprobe
+
+From the quick start instructions at https://github.com/NVIDIA/nvidia-docker, we follow:
+
+    git clone https://github.com/NVIDIA/nvidia-docker
+    cd nvidia-docker
+
+    # Initial setup
+    sudo make install
+    sudo nvidia-docker volume setup
+    
+    # Run nvidia-smi
+    nvidia-docker run nvidia/cuda nvidia-smi
 
 ## Build and start DIGITS container
 
