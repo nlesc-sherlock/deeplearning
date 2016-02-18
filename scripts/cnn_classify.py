@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import sys
 import caffe
 import os
+from datetime import datetime
+import json
 
 # fix mysterious error for some files (https://github.com/BVLC/caffe/issues/438)
 from skimage import io; io.use_plugin('matplotlib')
@@ -33,7 +35,7 @@ def classify(image_files, model_path, model_name, model_conf_name='deploy.protot
     mean_pixel_file = os.path.join(model_path, mean_pixel_name)
 
     if verbose:
-        print "Model used: " + model   
+        print "Model used: " + model
 
     # other stuff
     if verbose:
@@ -50,7 +52,7 @@ def classify(image_files, model_path, model_name, model_conf_name='deploy.protot
         caffe.set_device(gpu_id)
         if verbose:
             print "Caffe is running in GPU mode!"
-    
+
     if verbose:
         print "Building a CNN classifier..."
     net = caffe.Classifier(model_configuration, model, mean=channel_mean,
@@ -64,8 +66,8 @@ def classify(image_files, model_path, model_name, model_conf_name='deploy.protot
         print "batch size: ", batch_size
         print "number of channels: ", channels
         print "data shape: ", image_x, image_y
-    
-            
+
+
     net.blobs['data'].reshape(batch_size, channels, image_x, image_y)
 
     if verbose:
@@ -85,7 +87,7 @@ def classify(image_files, model_path, model_name, model_conf_name='deploy.protot
 
     #flattend = net.blobs['prob'].data[0].flatten()
         #flattend.sort()
-        #print "From within the net: " 
+        #print "From within the net: "
         #print flattend[-1:-6:-1]
 
 
@@ -100,21 +102,31 @@ def classify(image_files, model_path, model_name, model_conf_name='deploy.protot
             probs.append(prediction[ix])
         else:
             probs.append(softmax(prediction[ix]))
-    
+
     return probs
 
 
 def print_classification(probs, image_files, model_path, labels_name='labels.txt'):
     labels_file = os.path.join(model_path, labels_name)
     labels = np.loadtxt(labels_file, str)
-    
+
+    data = {}
+        #"type" : "classification",
+        #"script" : "cnn_classify.py",
+        #"time" : datetime()
+    #}
+
     for ix, image_file in enumerate(image_files):
-        print 'Predicted class & probabilities (top 5) for image ' + image_file + ":"
-        print(zip(labels[probs[ix].argsort()[:-6:-1]], probs[ix][probs[ix].argsort()[:-6:-1]]))
-        print("")
+        #print 'Predicted class & probabilities (top 5) for image ' + image_file + ":"
+        data[image_file] = {
+            "tags" : zip(labels[probs[ix].argsort()[:-6:-1]], probs[ix][probs[ix].argsort()[:-6:-1]])
+        }
+
+        #print("")
+    print json.dumps(data)
 
 
-def run(image_files, model_path, model_name, model_conf_name='deploy.prototxt',
+def run(image_files, model_path, model_name='snapshot.caffemodel', model_conf_name='deploy.prototxt',
     labels_name='labels.txt', mean_pixel_name='mean.binaryproto',
     gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=False):
     probs = classify(image_files, model_path, model_name, model_conf_name=model_conf_name,
@@ -123,7 +135,7 @@ def run(image_files, model_path, model_name, model_conf_name='deploy.prototxt',
              gpu_id=gpu_id, verbose=verbose)
     print_classification(probs, image_files, model_path, labels_name=labels_name)
 
-    
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
@@ -133,7 +145,7 @@ if __name__ == '__main__':
     # model file parameters
     parser.add_argument("-M", "--model_path", help="Model files directory. Should contain the files: snapshot.caffemodel, deploy.prototxt and labels.txt. Any files with other filenames can be given with other parameters (see below). If all the other files are given explicitly, just set this to `.` or any other dummy value.", required=True)
     model_group = parser.add_argument_group(title="Model file names.", description="Override the default filenames of the model.")
-    model_group.add_argument("--model_snapshot", help="The full filename of the caffemodel snapshot in the model (including path).", type=argparse.FileType('r'))
+    model_group.add_argument("--model_snapshot", help="The filename of the caffemodel snapshot in the model relative to the model directory.", type=argparse.FileType('r'))
     model_group.add_argument("--model_deploy", help="The full deploy file filename", type=argparse.FileType('r'))
     model_group.add_argument("--model_labels", help="Full labels file filename.", type=argparse.FileType('r'))
 
@@ -154,4 +166,3 @@ if __name__ == '__main__':
         model_conf_name=args.model_deploy.name, labels_name=args.model_labels.name,
         mean_pixel_name=args.mean_pixel_name, gray_range=args.gray_range,
         channel_swap=args.channel_swap, batch_size=args.batch_size, gpu_id=args.gpu_id, verbose=args.verbose)
-
