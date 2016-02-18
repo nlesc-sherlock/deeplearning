@@ -27,11 +27,11 @@ def get_channel_mean(mean_pixel_file):
     return channel_mean
 
 
-def classify(image_files, model_path, model_name, model_conf_name='deploy.prototxt',
+def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt',
          mean_pixel_name='mean.binaryproto',
          gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=False):
     # paths
-    model_configuration = os.path.join(model_path, model_conf_name)
+    model_configuration = os.path.join(model_path, model_deploy)
     model = os.path.join(model_path, model_name)
     mean_pixel_file = os.path.join(model_path, mean_pixel_name)
 
@@ -61,7 +61,8 @@ def classify(image_files, model_path, model_name, model_conf_name='deploy.protot
     image_x, image_y = net.blobs['data'].data.shape[-2:]
     channels = net.blobs['data'].data.shape[1]
     if batch_size == 0:
-        batch_size = net.blobs['data'].data.shape[0]
+        # batch_size = net.blobs['data'].data.shape[0]
+        batch_size = len(image_files)
     if verbose:
         print "Reshaping the data..."
         print "batch size: ", batch_size
@@ -116,7 +117,9 @@ def print_classification(probs, image_files, model_path, labels_name='labels.txt
         print(zip(labels[probs[ix].argsort()[:-6:-1]], probs[ix][probs[ix].argsort()[:-6:-1]]))
         print("")
 
-def print_json_classification(probs, image_files, model_path, labels_name='labels.txt'):
+def print_json_classification(probs, image_files, model_path, model_name,
+        labels_name, mean_pixel_name, model_deploy,
+        gray_range, channel_swap, batch_size):
     """
         Print a json representation of the classification result
     """
@@ -126,7 +129,17 @@ def print_json_classification(probs, image_files, model_path, labels_name='label
     data = {
         "type" : "classification",
         "script" : "cnn_classify.py",
-        "datetime" : datetime.now().isoformat()
+        "datetime" : datetime.now().isoformat(),
+        "parameters": {
+            "model_path": model_path,
+            "model_name": model_name,
+            "model_deploy": model_deploy,
+            "labels_name": labels_name,
+            "mean_pixel_name": mean_pixel_name,
+            "gray_range": gray_range,
+            "channel_swap": channel_swap,
+            "batch_size": batch_size
+        }
     }
 
     for ix, image_file in enumerate(image_files):
@@ -134,17 +147,19 @@ def print_json_classification(probs, image_files, model_path, labels_name='label
         data[image_file] = {
             "tags" : tags
         }
-    print json.dumps(data)
+    print json.dumps(data, sort_keys=True, indent=4)
 
-def run(image_files, model_path, model_name, model_conf_name,
+def run(image_files, model_path, model_name, model_deploy,
     labels_name, mean_pixel_name,
     gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=False, json=False):
-    probs = classify(image_files, model_path, model_name, model_conf_name=model_conf_name,
+    probs = classify(image_files, model_path, model_name, model_deploy=model_deploy,
              mean_pixel_name=mean_pixel_name,
              gray_range=gray_range, channel_swap=channel_swap, batch_size=batch_size,
              gpu_id=gpu_id, verbose=verbose)
     if json:
-        print_json_classification(probs, image_files, model_path, labels_name=labels_name)
+        print_json_classification(probs, image_files, model_path=model_path, labels_name=labels_name,
+            model_name=model_name, mean_pixel_name=mean_pixel_name, model_deploy=model_deploy,
+            gray_range=gray_range, channel_swap=channel_swap, batch_size=batch_size)
     else:
         print_classification(probs, image_files, model_path, labels_name=labels_name)
 
@@ -153,19 +168,20 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("image_files", help="The filename(s) (including path, full or relative) of the image(s) you want to classify.", nargs="+", type=argparse.FileType('r'))
+    parser.add_argument("image_files", help="The filename(s) (including path, full or relative) of the image(s) you want to classify.", nargs="+")
 
     # model file parameters
     parser.add_argument("-M", "--model_path", help="Model files directory. Should contain the files: snapshot.caffemodel, deploy.prototxt and labels.txt. Any files with other filenames can be given with other parameters (see below).", required=True)
+    parser.add_argument("-D", "--data_path", help="Directory path of where the data is mounted. If this script is running whithin a docker it should be the docker local path", default="/data")
     model_group = parser.add_argument_group(title="Model file names.", description="Override the default filenames of the model.")
     model_group.add_argument("--model_snapshot", help="The filename of the caffemodel snapshot in the model directory.", default='snapshot.caffemodel')
     model_group.add_argument("--model_deploy", help="The filename of the deploy file in the model directory.", default='deploy.prototxt')
     model_group.add_argument("--model_labels", help="The filename of the labels file in the model directory.", default='labels.txt')
+    model_group.add_argument("--mean_pixel_name", help="Mean pixel file name of the trained model (default: mean.binaryproto).", default='mean.binaryproto')
 
     output_group = parser.add_argument_group(title="Output format.", description="Define the output format.")
     output_group.add_argument("--json", help="Output json format",action="store_true", default=0)
 
-    parser.add_argument("--mean_pixel_name", help="Mean pixel file name of the trained model (default: mean.binaryproto).", default='mean.binaryproto')
     parser.add_argument("--gray_range", help="Gray range of the images (default: 255).", type=int, default=255)
     parser.add_argument("--channel_swap", help="Use numbers 0, 1 and 2 to give the order of the color-channels that the model used, for instance 0 1 2 for RGB. Some models swap the channels from RGB to BGR (this is the default: 2 1 0).", nargs=3, default=[2,1,0])
     parser.add_argument("--batch_size", help="Number of images processed simultaneously. Default: taken from model configuration.", type=int, default=0)
@@ -174,9 +190,10 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    image_filenames = [image_file.name for image_file in args.image_files]
+    data_path = args.data_path
+    image_filenames = [os.path.join(data_path, image_file) for image_file in args.image_files]
 
     run(image_filenames, args.model_path, args.model_snapshot,
-        model_conf_name=args.model_deploy, labels_name=args.model_labels,
+        model_deploy=args.model_deploy, labels_name=args.model_labels,
         mean_pixel_name=args.mean_pixel_name, gray_range=args.gray_range,
         channel_swap=args.channel_swap, batch_size=args.batch_size, gpu_id=args.gpu_id, verbose=args.verbose, json=args.json)
