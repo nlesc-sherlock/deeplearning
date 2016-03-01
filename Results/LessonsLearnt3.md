@@ -14,3 +14,4 @@ We have learnt
 - How to filter images from Internet using ImageNet category and pretrained network on 1000 categories
 - Importing a pre-trained Caffe model in DIGITS (and avoiding leanring with a trick) is not beneficial for using it as a classifier nor for performance evaluation. 
 
+- How to setup an SURFsara HPC cloud VM with GPU access and run a DIGITS server there.
