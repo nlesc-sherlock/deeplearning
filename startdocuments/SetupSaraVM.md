@@ -51,6 +51,8 @@ Follow "Import appliances from the AppMarket" and "Adding a GPU device to your V
 http://doc.hpccloud.surfsara.nl/gpu-attach
 But don't launch the VM yet!
 
+- **Addition 25 April 2016**: Make sure to also install CUDA: https://developer.nvidia.com/cuda-downloads
+
 Actually, in the above step you can also add two GPUs to the template.
 
 The AppMarket image is unfortunately too small to fit all software we need. We will use instead the 50GB image that @nielsdrost created. Clone this image (called `sherlock-os-hdd-50Gb-master-image`). In the advanced cloning options, put the image on the `images_ssd_gpu` datastore.
