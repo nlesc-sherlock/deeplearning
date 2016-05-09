@@ -6,9 +6,10 @@
 
 ## Day 1, Tue 10 May
 **Prepare datasets; Learn how to fine-tune a model**
-* Prepare a (mostly Dutch) car dataset (Lars, Maarten, Christiaan)
+* Prepare a (mostly Dutch) car dataset (Lars, Christiaan)
 * Prepare a demo/test DB of about 10-15 (holiday?) images (Maarten/Berend/Christiaan)
-* Train a car model (M, B, C)
+* Train a car model (B, C)
+* "Deep dreaming" (M)
 * Learn how to fine-tune a model in DIGITS/Caffe (Patrick, Elena, Berend)
 * Lessions learnt text (Elena)
 
