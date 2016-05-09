@@ -1,7 +1,7 @@
 ##Fourth sprint (10-12 May 2016)
 
 ## Preparation
-* email Kees from VU for access to DAS-5 GUs (Maarten)
+* email Kees from VU for access to DAS-5 GPUs (Maarten)
 * refresh what have we done in the last sprint (All)
 
 ## Day 1, Tue 10 May
