@@ -60,7 +60,7 @@ def filter_file(dir, name, non_car_dir):
         print('std out: ' + output)
         print('std err: ' + error)
 
-    print(original + ' ' + 'is a car.' if is_car(output) else 'is NOT a car.')
+    print(original + ' ' + ('is a car.' if is_car(output) else 'is NOT a car.'))
     if is_car(output) == False:
         target = non_car_dir + '/' + name
         os.rename(original, target)
