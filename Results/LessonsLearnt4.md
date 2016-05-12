@@ -1,6 +1,6 @@
 #Lessons learnt from Sprint 4: 10 - 12 May 2016
 
-* Collecting images of cars (~700 models, 70 000 images) via Bing from Internet. The dataset is quite noisy.
+* Collecting images of cars (~700 models, 70 000 images) via the Bing API from Internet. The dataset is quite noisy.
 * Using another solver can improve performance.
 
 * Fine tuning of a CNN in DIGITS doesn't work smoothly, instead we train it directly in Caffe. For more info see the IPython notebook:
