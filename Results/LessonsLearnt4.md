@@ -6,8 +6,8 @@
 * Fine tuning of a CNN in DIGITS doesn't work smoothly, instead we train it directly in Caffe. For more info see the IPython notebook:
    * https://github.com/BVLC/caffe/tree/master/examples/finetune_flickr_style
 
-* Visualizing a netwrok using VisDeep toolbox:
-    * Works nicely for the caffenet-yos model, gives a lot of insight.
+* Visualizing a network using VisDeep toolbox:
+    * Works nicely for the example model (caffenet-yos), gives a lot of insight.
     * Very hard to adapt to other model, ran into many issues (size of mean image, size of input images, missing parameters, everything undocumented).
          * https://github.com/BVLC/caffe/issues/290#issuecomment-62846228
          
