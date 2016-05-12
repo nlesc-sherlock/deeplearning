@@ -5,4 +5,5 @@
 * Visualizing a netwrok using VisDeep toolbox....
     * Works nicely for the caffenet-yos model, gives a lot of insight.
     * Very hard to adapt to other model, ran into many issues (size of mean image, size of input images, missing parameters, everything undocumented).
+         * https://github.com/BVLC/caffe/issues/290#issuecomment-62846228
 * Docker is very useful for **deployment**, not for containerizing every random piece of software. Don't use it by default, use it mainly for server-like-thingies.
