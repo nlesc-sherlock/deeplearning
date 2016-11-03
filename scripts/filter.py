@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-"""Filter a folder with images. All images of non-cars will be moved to the non-car folder while keeping all car images.
+"""Filter a folder with images. All images of non-cars will be moved to the non-car folder while all car images are
+moved to the car directory.
 Any of the following ImageNet categories will be marked as car:
 	n04285008 sports car, sport car'
 	n03100240 convertible
