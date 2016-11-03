@@ -19,10 +19,13 @@ Usage:
 import os
 import subprocess
 from docopt import docopt
+
 verbose = False
 
+
 def is_car(tags):
-    categories = ['n04285008', 'n03100240', 'n03770679', 'n04037443', 'n02814533', 'n03670208', 'n03594945', 'n03977966', 'n03895866', 'n03769881']
+    categories = ['n04285008', 'n03100240', 'n03770679', 'n04037443', 'n02814533', 'n03670208', 'n03594945',
+                  'n03977966', 'n03895866', 'n03769881']
     for category in categories:
         if category in tags:
             return True
@@ -60,16 +63,16 @@ def get_or_create_dir(basedir, sub):
     return non_car_dir
 
 
-def filter_file(dir, name, non_car_dir, car_dir):
-    original = os.path.join(dir, name)
-    bashCommand = ['docker', 'run', '-v', os.path.abspath(dir) + ':/data', 'nlesc/imagenet1000', '/data/' + name]
-    process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+def filter_file(current_dir, name, non_car_dir, car_dir):
+    original = os.path.join(current_dir, name)
+    bash_command = ['docker', 'run', '-v', os.path.abspath(current_dir) + ':/data', 'nlesc/imagenet1000', '/data/' + name]
+    process = subprocess.Popen(bash_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     communication = process.communicate()
     output = str(communication[0])
     error = str(communication[1])
 
     if verbose:
-        print('command: ' + str(bashCommand))
+        print('command: ' + str(bash_command))
         print('std out: ' + output)
         print('std err: ' + error)
 
@@ -78,9 +81,7 @@ def filter_file(dir, name, non_car_dir, car_dir):
     target = os.path.join(car_dir if is_car(output) else non_car_dir, name)
     os.rename(original, target)
 
+
 if __name__ == '__main__':
     args = docopt(__doc__)
     filter_including_subs(args['<basepath>'])
-
-
-
