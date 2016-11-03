@@ -27,27 +27,39 @@ def is_car(tags):
             return True
     return False
 
+
 def filter_including_subs(basedir):
     if verbose:
         print('entering ' + basedir)
 
-    non_car_dir = get_or_create_noncar(basedir)
+    non_car_dir = get_or_create_noncar_dir(basedir)
+    car_dir = get_or_create_car_dir(basedir)
 
     for entry in os.listdir(basedir):
         path = os.path.join(basedir, entry)
         if os.path.isdir(path):
-            if path != non_car_dir:
+            if path != non_car_dir and path != car_dir:
                 filter_including_subs(path)
         else:
-            filter_file(basedir, entry, non_car_dir)
+            filter_file(basedir, entry, non_car_dir, car_dir)
 
-def get_or_create_noncar(basedir):
-    non_car_dir = os.path.join(basedir, 'non_car')
-    if os.path.exists(non_car_dir) == False:
+
+def get_or_create_noncar_dir(basedir):
+    return get_or_create_dir(basedir, 'non_car')
+
+
+def get_or_create_car_dir(basedir):
+    return get_or_create_dir(basedir, 'car')
+
+
+def get_or_create_dir(basedir, sub):
+    non_car_dir = os.path.join(basedir, sub)
+    if not os.path.exists(non_car_dir):
         os.mkdir(non_car_dir)
     return non_car_dir
 
-def filter_file(dir, name, non_car_dir):
+
+def filter_file(dir, name, non_car_dir, car_dir):
     original = os.path.join(dir, name)
     bashCommand = ['docker', 'run', '-v', os.path.abspath(dir) + ':/data', 'nlesc/imagenet1000', '/data/' + name]
     process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -61,9 +73,9 @@ def filter_file(dir, name, non_car_dir):
         print('std err: ' + error)
 
     print(original + ' ' + ('is a car.' if is_car(output) else 'is NOT a car.'))
-    if is_car(output) == False:
-        target = non_car_dir + '/' + name
-        os.rename(original, target)
+
+    target = os.path.join(car_dir if is_car(output) else non_car_dir, name)
+    os.rename(original, target)
 
 if __name__ == '__main__':
     args = docopt(__doc__)
