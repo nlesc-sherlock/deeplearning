@@ -72,6 +72,9 @@ RUN apt-get install -y \
   python-yaml \
   python-imaging
 
+# Upgrade Cython
+RUN sudo pip install cython --upgrade
+
 RUN cd /opt/caffe/python && \
 #  (pip install -r requirements.txt; easy_install numpy; pip install -r requirements.txt) && \
   sudo pip install -r requirements.txt
