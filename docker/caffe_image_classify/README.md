@@ -8,10 +8,14 @@ This Docker image is a wrapper around the `cnn_classify.py` script.
 	* some parameters (see example below and `cnn_classify.py` for more)
 * **Output**: the top 5 of predicted class and corresponding probabilities according to the model, per image.
 
+## Pull
+
+    docker pull nlesc/caffe_image_classify
+
 ## Build
 
     cd deeplearning/docker/caffe_image_classify
-    docker build -t caffe_image_classify .
+    docker build -t nlesc/caffe_image_classify .
 
 ## Run
 
@@ -38,7 +42,7 @@ Step by step, what this does (**TODO: UPDATE AFTER NEW VERSION**):
 
 * `docker run` creates a Docker container out of a Docker image
 * `-v $PWD:/data` takes the current working directory on the host (the one with your images, that you `cd`ed to, `$PWD`) and maps it to `/data` inside the Docker container.
-* `caffe_image_classify` is the name of the Docker image
+* `nlesc/caffe_image_classify` is the name of the Docker image
 
 All the options after the image name are passed on to the `cnn_classify.py` script that is run inside the Docker container. In this example:
 
