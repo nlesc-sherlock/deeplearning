@@ -1,6 +1,7 @@
 cwlVersion: cwl:draft-3
 class: CommandLineTool
 baseCommand: ""
+stdout: output.txt
 hints:
   - class: DockerRequirement
     dockerPull: nlesc/imagenet1000
@@ -9,4 +10,8 @@ inputs:
     type: File
     inputBinding:
       position: 1
-outputs: []
+outputs:
+  - id: output
+    type: File
+    outputBinding:
+      glob: output.txt
