@@ -1,0 +1,11 @@
+best hyperparameters so far:
+
+25 cars subset:
+30ep-sgd0_0005-nov2016_dutchcars_subset_25-lotsacars_model
+top5 85%
+acc 60%
+
+30ep-sgd0_001-sd10p0_7g-nov2016_dutchcars_subset_25-lotsacars_model
+top5 85%
+acc 58%
+
