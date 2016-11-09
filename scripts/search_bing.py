@@ -20,11 +20,14 @@ def search_bing(keyword):
     return results
 
 
-db = "../results/carmodels.db"
+db = "../results/carmodels_images_10May2016.db"
 conn = sqlite3.connect(db)
 curs = conn.cursor()
-#curs.execute("CREATE TABLE images (make TEXT, model TEXT, url TEXT, title TEXT)")
-#conn.commit()
+try:
+    curs.execute("CREATE TABLE images (make TEXT, model TEXT, url TEXT, title TEXT)")
+    conn.commit()
+except:
+    pass
 
 i=0
 for row in open('../results/carmodels.csv', 'r').readlines()[0:]:
