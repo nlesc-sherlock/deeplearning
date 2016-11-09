@@ -1,3 +1,8 @@
-image:
+image_in:
     class: File
     path: carandbike.jpeg
+crop_region: 120x100+10+80
+image_out: cropped.jpg
+output:
+    class: File
+    path: output.txt

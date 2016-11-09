@@ -8,8 +8,12 @@ To run a CWL workflow install a CWL runner, e.g. a reference implementation in p
 ```
 pip install cwlref-runner
 ```
+Further dependencies:
+```
+sudo apt-get install imagemagick
+```
 
 Then run the workflow by:
 ```
-sudo cwl-runner classify_image.cwl image.yml
+sudo cwl-runner workflow.cwl image.yml
 ```
