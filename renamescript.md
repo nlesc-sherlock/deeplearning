@@ -1,14 +1,13 @@
 To move all of the files from the subdirectory called car to their parent directory:  
-``
+```
 find . -type f -wholename '*/car/*' -print | awk -F'/' '{system("mv \""$2"\"/car/"$4" \""$2"\"/"$4)}'
-``
+```
 
 To delete all of the non_car/ and car/ subdirectories in the directories in this folder:  
-``
+```
 for d in ./*/ ; do (rm -rf "$d/non_car/"); done
-
 for d in ./*/ ; do (rm -rf "$d/car/"); done
-``
+```
 
 To rename all of the .jpg images (according to mime type) {}.jpg
 ```
