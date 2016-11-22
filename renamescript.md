@@ -23,8 +23,3 @@ To delete all of the non-jpg and non-png images
 ```
 find . -mindepth 1 -type f -print | xargs -I {} file --mime-type "{}" | grep -v 'jpeg\|png' | awk -F':' '{print $1}' | xargs -I {} rm {}
 ```
-
-To rename all of the .jpg images that were apparantly not .jpg but .png images to .png:
-```
- cat  /data/DIGITS/digits/jobs/20161107-144707-e748/create_val_db.log |grep LoadImageError | awk {'print $4'} | sed 's/\[//' | sed 's/\]//' | sed 's/.jpg//' | xargs -I {} mv {}.jpg {}.png
-```
