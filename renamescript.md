@@ -6,6 +6,7 @@ find . -type f -wholename '*/car/*' -print | awk -F'/' '{system("mv \""$2"\"/car
 To delete all of the non_car/ and car/ subdirectories in the directories in this folder:  
 ``
 for d in ./*/ ; do (rm -rf "$d/non_car/"); done
+
 for d in ./*/ ; do (rm -rf "$d/car/"); done
 ``
 
