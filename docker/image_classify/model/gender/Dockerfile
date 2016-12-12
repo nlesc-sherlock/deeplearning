@@ -29,4 +29,4 @@ RUN cd /opt/deeplearning/Models/GoogleNet_AgeGender_Gender && \
 RUN cd /opt/deeplearning/Models/GoogleNet_AgeGender_Gender && \
   tar xzf 20161108-091520-60bd_epoch_5.0.tar.gz
 
-ENTRYPOINT ["/opt/deeplearning/scripts/cnn_classify.py -M /opt/deeplearning/Models/GoogleNet_AgeGender_Gender --model_snapshot snapshot_iter_1665.caffemodel"]
+ENTRYPOINT ["/opt/deeplearning/scripts/cnn_classify.py", "-M", "/opt/deeplearning/Models/GoogleNet_AgeGender_Gender", "--model_snapshot", "snapshot_iter_1665.caffemodel"]
