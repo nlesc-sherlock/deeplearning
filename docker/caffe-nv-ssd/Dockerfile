@@ -1,6 +1,6 @@
-FROM nlescsherlockdl/ubuntu-16.04-cuda-8
+FROM nlescsherlockdl/cuda7.5-cudnn5-devel
 
-RUN apt install -y git cmake \
+RUN apt update && apt install -y git cmake \
     libatlas-base-dev \
     libboost-all-dev \
     libgflags-dev \
@@ -12,6 +12,8 @@ RUN apt install -y git cmake \
     libprotobuf-dev \
     libsnappy-dev \
     protobuf-compiler \
+    python-protobuf \
+    python-zmq \
     python-dev \
     python-numpy \
     python-pip \
