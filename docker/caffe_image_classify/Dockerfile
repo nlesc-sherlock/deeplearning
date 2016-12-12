@@ -110,7 +110,7 @@ RUN cd /opt && \
 
 # update A if you want to repull
 RUN A=0
-RUN cd /opt && \
+RUN cd /opt/deeplearning && \
   git pull
 
 ENV PATH /opt/caffe/.build_release/tools:$PATH
