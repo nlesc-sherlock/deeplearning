@@ -10,7 +10,7 @@
 # Alternatively, use the run_imagenet.sh script (from any directory):
 # docker run -v $PWD:/data/ nlescsherlockdl/yolo /data/someimage.jpg
 
-FROM nlescsherlockdl/ubuntu-16.04-cuda-8
+FROM nlescsherlockdl/cuda7.5-cudnn5-devel
 RUN apt update
 RUN apt -y install git
 WORKDIR /
