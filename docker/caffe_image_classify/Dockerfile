@@ -109,7 +109,7 @@ RUN cd /opt && \
   git clone https://github.com/nlesc-sherlock/deeplearning.git
 
 # update A if you want to repull
-RUN A=2
+RUN A=3
 RUN cd /opt/deeplearning && \
   git pull
 

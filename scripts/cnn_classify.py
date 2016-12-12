@@ -122,7 +122,7 @@ def print_classification(probs, image_files, model_path, labels_name='labels.txt
     for ix, image_file in enumerate(image_files):
         print 'Predicted class & probabilities (top) for image ' + image_file + ":"
         ix_topN = probs[ix].argsort()[::-1][:ind]
-        topN_classes = zip(labels, probs[ix])[ix_topN]
+        topN_classes = zip(labels[ix_topN], probs[ix][ix_topN])
         print(topN_classes)
         print("")
 
@@ -156,7 +156,7 @@ def print_json_classification(probs, image_files, model_path, model_name,
 
     for ix, image_file in enumerate(image_files):
         ix_topN = probs[ix].argsort()[::-1][:ind]
-        topN_classes = zip(labels, probs[ix])[ix_topN]
+        topN_classes = zip(labels[ix_topN], probs[ix][ix_topN])
         tags = "%s" % dict(topN_classes)
         data["predictions"][image_file] = {
             "tags" : tags
