@@ -105,7 +105,7 @@ RUN apt-get install -y \
 # RUN bash -c 'echo "export PYTHONPATH=/opt/caffe/python:\$PYTHONPATH" >> ~/.bashrc'
 
 # Get the deeplearning git repo
-RUN A=1
+RUN A=2
 RUN cd /opt && \
   git clone https://github.com/nlesc-sherlock/deeplearning.git
 
