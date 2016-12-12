@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import sys
 import os
 import io
@@ -12,7 +12,7 @@ os.environ['GLOG_minloglevel'] = '2' # Surpress a lot of building messages
 import caffe
 
 # fix mysterious error for some files (https://github.com/BVLC/caffe/issues/438)
-import skimage; skimage.io.use_plugin('matplotlib')
+# import skimage; skimage.io.use_plugin('matplotlib')
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -117,9 +117,13 @@ def print_classification(probs, image_files, model_path, labels_name='labels.txt
     labels_file = os.path.join(model_path, labels_name)
     labels = np.loadtxt(labels_file, str)
 
+    ind = min(len(labels), 5)
+            
     for ix, image_file in enumerate(image_files):
-        print 'Predicted class & probabilities (top 5) for image ' + image_file + ":"
-        print(zip(labels[probs[ix].argsort()[:-6:-1]], probs[ix][probs[ix].argsort()[:-6:-1]]))
+        print 'Predicted class & probabilities (top) for image ' + image_file + ":"
+        ix_topN = probs[ix].argsort()[::-1][:ind]
+        topN_classes = zip(labels[ix_topN], probs[ix][ix_topN])
+        print(topN_classes)
         print("")
 
 def print_json_classification(probs, image_files, model_path, model_name,
@@ -148,8 +152,12 @@ def print_json_classification(probs, image_files, model_path, model_name,
         "predictions" : {}
     }
 
+    ind = min(len(labels), 5)
+
     for ix, image_file in enumerate(image_files):
-        tags = "%s" % dict(zip(labels[probs[ix].argsort()[:-6:-1]], probs[ix][probs[ix].argsort()[:-6:-1]]))
+        ix_topN = probs[ix].argsort()[::-1][:ind]
+        topN_classes = zip(labels[ix_topN], probs[ix][ix_topN])
+        tags = "%s" % dict(topN_classes)
         data["predictions"][image_file] = {
             "tags" : tags
         }

@@ -108,6 +108,11 @@ RUN apt-get install -y \
 RUN cd /opt && \
   git clone https://github.com/nlesc-sherlock/deeplearning.git
 
+# update A if you want to repull
+RUN A=4
+RUN cd /opt/deeplearning && \
+  git pull
+
 ENV PATH /opt/caffe/.build_release/tools:$PATH
 ENV PYTHONPATH /opt/caffe/python:$PYTHONPATH
 

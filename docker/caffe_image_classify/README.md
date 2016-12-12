@@ -8,6 +8,30 @@ This Docker image is a wrapper around the `cnn_classify.py` script.
 	* some parameters (see example below and `cnn_classify.py` for more)
 * **Output**: the top 5 of predicted class and corresponding probabilities according to the model, per image.
 
+## Example
+
+Example on HPC cloud VM (dl-primus), using the GoogleNet gender classifier from our own Models directory (`$DLGIT` is the git clone directory):
+```sh
+cd $DLGIT/Models/GoogleNet_AgeGender_Gender/
+tar xzf 20161108-091520-60bd_epoch_5.0.tar.gz
+docker pull nlescsherlockdl/caffe_image_classify
+DATADIR=/data/patrick_data/faces
+MODELDIR=$DLGIT/Models/GoogleNet_AgeGender_Gender/
+SNAPFILE=snapshot_iter_1665.caffemodel
+nvidia-docker run \
+    -v $DATADIR:/data \
+    -v $MODELDIR:/model \
+    nlescsherlockdl/caffe_image_classify \
+    -v --batch_size=59 \
+    -M /model \
+    --model_snapshot $SNAPFILE \
+    -D /data `ls $DATADIR` \
+    --json \
+    --gpu_id=0
+```
+
+Remove `--gpu_id=0` to use CPU (change to `=1` to use GPU 1, etc. if you have several GPUs). CPU version is a lot slower, of course.
+
 ## Pull
 
     docker pull nlesc/caffe_image_classify
