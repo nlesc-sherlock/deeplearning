@@ -10,11 +10,13 @@ This Docker image is a wrapper around the `cnn_classify.py` script.
 
 ## Example
 
-Example on HPC cloud VM (dl-primus):
+Example on HPC cloud VM (dl-primus), using the GoogleNet gender classifier from our own Models directory (`$DLGIT` is the git clone directory):
 ```sh
+cd $DLGIT/Models/GoogleNet\ AgeGender\ Gender/
+tar xzf 20161108-091520-60bd_epoch_5.0.tar.gz
 docker pull nlescsherlockdl/caffe_image_classify
 DATADIR=/data/patrick_data/faces
-MODELDIR=/data/patrick_models/20161212_googlenet_agegender
+MODELDIR=$DLGIT/Models/GoogleNet\ AgeGender\ Gender/
 SNAPFILE=snapshot_iter_1665.caffemodel
 nvidia-docker run \
     -v $DATADIR:/data \
