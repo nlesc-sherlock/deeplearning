@@ -25,10 +25,12 @@ nvidia-docker run \
     -v --batch_size=59 \
     -M /model \
     --model_snapshot $SNAPFILE \
-    -D /data `ls $DATADIR`
+    -D /data `ls $DATADIR` \
+    --json \
+    --gpu_id=0
 ```
 
-Add `--gpu_id=0` to use GPU 0 (=1 to use GPU 1, etc. if you have several GPUs). CPU version is a lot slower, of course.
+Remove `--gpu_id=0` to use CPU (change to `=1` to use GPU 1, etc. if you have several GPUs). CPU version is a lot slower, of course.
 
 ## Pull
 
