@@ -1,4 +1,4 @@
-Description
+# Description
 # ---
 # Object detection on an image
 # ---
@@ -10,14 +10,16 @@ Description
 # Alternatively, use the run_imagenet.sh script (from any directory):
 # docker run -v $PWD:/data/ nlescsherlockdl/yolo /data/someimage.jpg
 
-FROM nlescsherlockdl/ubuntu-16.04-cuda-8
+FROM nlescsherlockdl/cuda7.5-cudnn5-devel
 RUN apt update
 RUN apt -y install git
-RUN git clone https://github.com/cwmeijer/darknet.git
+WORKDIR /
+RUN a=2 git clone https://github.com/cwmeijer/darknet.git && cd darknet && make
 WORKDIR /darknet
-RUN make
-RUN wget http://pjreddie.com/media/files/yolo.weights --output-document=/darknet/yolo.weights
+RUN apt -y install wget
+RUN wget http://pjreddie.com/media/files/yolo.weights
 RUN apt -y install python python-pip
 RUN pip install docopt
 ADD . /scripts
-ENTRYPOINT ["python", "/scripts/run_yolo.py"]
+ENTRYPOINT ["./darknet", "detect", "cfg/yolo.cfg", "yolo.weights"]
+
