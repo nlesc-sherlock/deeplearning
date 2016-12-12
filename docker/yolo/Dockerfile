@@ -5,11 +5,12 @@
 FROM nlescsherlockdl/ubuntu-16.04-cuda-8
 RUN apt update
 RUN apt -y install git
-RUN git clone https://github.com/cwmeijer/darknet.git
+WORKDIR /
+RUN git clone https://github.com/cwmeijer/darknet.git && cd darknet && make
 WORKDIR /darknet
-RUN make
-RUN wget http://pjreddie.com/media/files/yolo.weights --output-document=/darknet/yolo.weights
+RUN wget http://pjreddie.com/media/files/yolov1.weights
 RUN apt -y install python python-pip
 RUN pip install docopt
 ADD . /scripts
-ENTRYPOINT ["python", "/scripts/run_yolo.py"]
+ENTRYPOINT ["/darknet/darknet", "yolo", "test", "cfg/yolo.cfg", "yolov1.weights"]
+
