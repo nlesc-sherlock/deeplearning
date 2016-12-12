@@ -102,6 +102,7 @@ cropped_image:
                     "bbox" : [x, y, w, h],
                     "cropped_image": "/another/cropped/image",
                      "classification": [
+                     {
                         "classifier": "gender/model/name",
                         "tags": [
                             {"name": "f",
@@ -110,13 +111,16 @@ cropped_image:
                             {"name": "m",
                              "pobability": <float>
                             }
-                        ],                    
+                        ]
+                     },
+                     {
                         "classifier": "age/model/name",
                         "tags": [
                             {"name": "25 32",
                              "probability": <float>
                             }
-                        ]                                            
+                        ]
+                     }   
                     ]
                 }
             ],
@@ -125,8 +129,9 @@ cropped_image:
                     "path" : "/yet/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/yet/another/cropped/image"
+                    "cropped_image": "/yet/another/cropped/image",                    
                     "classification": [
+                    {
                         "classifier": "gender/model/name",
                         "tags": [
                             {"name": "f",
@@ -135,13 +140,16 @@ cropped_image:
                             {"name": "m",
                              "pobability": <float>
                             }
-                        ],                    
+                        ]
+                     },
+                     {
                         "classifier": "age/model/name",
                         "tags": [
                             {"name": "25 32",
                              "probability": <float>
                             }
-                        ]                                            
+                        ]
+                     }   
                     ]
                 }
             ]
