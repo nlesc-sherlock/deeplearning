@@ -193,17 +193,24 @@ def print_json_classification(probs, image_files, model_path, model_name,
     json_string = json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False)
     outfile.write(unicode(json_string))
 
+
 def run(image_files, model_path, model_name, model_deploy,
-    labels_name, mean_pixel_name, outfile,
-    gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=False, json=False):
-    probs = classify(image_files, model_path, model_name, model_deploy=model_deploy,
-             mean_pixel_name=mean_pixel_name,
-             gray_range=gray_range, channel_swap=channel_swap, batch_size=batch_size,
-             gpu_id=gpu_id, verbose=verbose)
+        labels_name, mean_pixel_name, outfile,
+        gray_range=255, channel_swap=(2, 1, 0), batch_size=0, gpu_id=-1,
+        verbose=False, json=False):
+    probs = classify(image_files, model_path, model_name,
+                     model_deploy=model_deploy, mean_pixel_name=mean_pixel_name,
+                     gray_range=gray_range, channel_swap=channel_swap,
+                     batch_size=batch_size, gpu_id=gpu_id, verbose=verbose)
     if json:
-        print_json_classification(probs, image_files, model_path=model_path, labels_name=labels_name,
-            model_name=model_name, mean_pixel_name=mean_pixel_name, model_deploy=model_deploy,
-            gray_range=gray_range, channel_swap=channel_swap, batch_size=batch_size, outfile=outfile)
+        print_json_classification(probs, image_files, model_path=model_path,
+                                  labels_name=labels_name,
+                                  model_name=model_name,
+                                  mean_pixel_name=mean_pixel_name,
+                                  model_deploy=model_deploy,
+                                  gray_range=gray_range,
+                                  channel_swap=channel_swap,
+                                  batch_size=batch_size, outfile=outfile)
     else:
         print_classification(probs, image_files, model_path, labels_name=labels_name)
 
