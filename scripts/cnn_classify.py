@@ -12,7 +12,7 @@ os.environ['GLOG_minloglevel'] = '2' # Surpress a lot of building messages
 import caffe
 
 # fix mysterious error for some files (https://github.com/BVLC/caffe/issues/438)
-import skimage; skimage.io.use_plugin('matplotlib')
+# import skimage; skimage.io.use_plugin('matplotlib')
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
