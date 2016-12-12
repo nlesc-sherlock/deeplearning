@@ -218,14 +218,12 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
     image_x, image_y = net.blobs['data'].data.shape[-2:]
     channels = net.blobs['data'].data.shape[1]
     if batch_size == 0:
-        # batch_size = net.blobs['data'].data.shape[0]
         batch_size = len(image_files)
     if verbose:
         print "Reshaping the data..."
         print "batch size: ", batch_size
         print "number of channels: ", channels
         print "data shape: ", image_x, image_y
-
 
     net.blobs['data'].reshape(batch_size, channels, image_x, image_y)
 
@@ -240,21 +238,9 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
     if verbose:
         print "Predicting the category classes of the image(s)..."
     prediction = net.predict(input_images, oversample=False)
-    #out = net.forward()
-
-
-
-    #flattend = net.blobs['prob'].data[0].flatten()
-        #flattend.sort()
-        #print "From within the net: "
-        #print flattend[-1:-6:-1]
-
-
 
     # convert to probabilities (if needed):
     probs = []
-        #probs = net.blobs['prob'].data[0].flatten()
-        #probs.sort()
 
     for ix, image_file in enumerate(image_files):
         if prediction[ix].sum() == 1 and np.all(prediction[ix] > 0):
@@ -317,17 +303,24 @@ def print_json_classification(probs, image_files, model_path, model_name,
     json_string = json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False)
     outfile.write(unicode(json_string))
 
+
 def run(image_files, model_path, model_name, model_deploy,
-    labels_name, mean_pixel_name, outfile,
-    gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=False, json=False):
-    probs = classify(image_files, model_path, model_name, model_deploy=model_deploy,
-             mean_pixel_name=mean_pixel_name,
-             gray_range=gray_range, channel_swap=channel_swap, batch_size=batch_size,
-             gpu_id=gpu_id, verbose=verbose)
+        labels_name, mean_pixel_name, outfile,
+        gray_range=255, channel_swap=(2, 1, 0), batch_size=0, gpu_id=-1,
+        verbose=False, json=False):
+    probs = classify(image_files, model_path, model_name,
+                     model_deploy=model_deploy, mean_pixel_name=mean_pixel_name,
+                     gray_range=gray_range, channel_swap=channel_swap,
+                     batch_size=batch_size, gpu_id=gpu_id, verbose=verbose)
     if json:
-        print_json_classification(probs, image_files, model_path=model_path, labels_name=labels_name,
-            model_name=model_name, mean_pixel_name=mean_pixel_name, model_deploy=model_deploy,
-            gray_range=gray_range, channel_swap=channel_swap, batch_size=batch_size, outfile=outfile)
+        print_json_classification(probs, image_files, model_path=model_path,
+                                  labels_name=labels_name,
+                                  model_name=model_name,
+                                  mean_pixel_name=mean_pixel_name,
+                                  model_deploy=model_deploy,
+                                  gray_range=gray_range,
+                                  channel_swap=channel_swap,
+                                  batch_size=batch_size, outfile=outfile)
     else:
         print_classification(probs, image_files, model_path, labels_name=labels_name)
 

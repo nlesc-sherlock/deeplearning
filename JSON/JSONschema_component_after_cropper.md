@@ -67,25 +67,33 @@ cropped_image:
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
                     "cropped_image": "/path/to/cropped/image",
-                     "classification": [
-                        "classifier": "car/model/name",
-                        "tags": [
-                            {"name": "Ford Fiesta",
-                             "probability": <float>
-                            },
-                            {"name": "Opel Astra",
-                             "pobability": <float>
-                            }
-                        ],                    
-                        "classifier": "car/color/name",
-                        "tags": [
-                            {"name": "white",
-                             "probability": <float>
-                            },
-                            {"name": "gray",
-                             "probability": <float>
-                            }
-                        ]                                            
+                    "classification": [
+                        {
+                            "classifier": "car/model/name",
+                            "tag": [
+                                {
+                                    "name": "Ford Fiesta",
+                                    "probability": <float>
+                                },
+                                {
+                                    "name": "Opel Astra",
+                                    "pobability": <float>
+                                }
+                            ],
+                        },                        
+                        {
+                            "classifier": "car/color/name",
+                            "tag": [
+                                {
+                                    "name": "white",
+                                    "probability": <float>
+                                },
+                                {
+                                    "name": "gray",
+                                    "pobability": <float>
+                                }
+                            ],
+                        },                                           
                     ]
                 },
                 {
