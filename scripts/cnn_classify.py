@@ -108,14 +108,12 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
     image_x, image_y = net.blobs['data'].data.shape[-2:]
     channels = net.blobs['data'].data.shape[1]
     if batch_size == 0:
-        # batch_size = net.blobs['data'].data.shape[0]
         batch_size = len(image_files)
     if verbose:
         print "Reshaping the data..."
         print "batch size: ", batch_size
         print "number of channels: ", channels
         print "data shape: ", image_x, image_y
-
 
     net.blobs['data'].reshape(batch_size, channels, image_x, image_y)
 
@@ -130,21 +128,9 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
     if verbose:
         print "Predicting the category classes of the image(s)..."
     prediction = net.predict(input_images, oversample=False)
-    #out = net.forward()
-
-
-
-    #flattend = net.blobs['prob'].data[0].flatten()
-        #flattend.sort()
-        #print "From within the net: "
-        #print flattend[-1:-6:-1]
-
-
 
     # convert to probabilities (if needed):
     probs = []
-        #probs = net.blobs['prob'].data[0].flatten()
-        #probs.sort()
 
     for ix, image_file in enumerate(image_files):
         if prediction[ix].sum() == 1 and np.all(prediction[ix] > 0):
