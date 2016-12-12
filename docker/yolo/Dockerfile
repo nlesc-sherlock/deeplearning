@@ -14,11 +14,12 @@ FROM nlescsherlockdl/cuda7.5-cudnn5-devel
 RUN apt update
 RUN apt -y install git
 WORKDIR /
-RUN git clone https://github.com/cwmeijer/darknet.git && cd darknet && make
+RUN a=2 git clone https://github.com/cwmeijer/darknet.git && cd darknet && make
 WORKDIR /darknet
-RUN wget http://pjreddie.com/media/files/yolov1.weights
+RUN apt -y install wget
+RUN wget http://pjreddie.com/media/files/yolo.weights
 RUN apt -y install python python-pip
 RUN pip install docopt
 ADD . /scripts
-ENTRYPOINT ["/darknet/darknet", "yolo", "test", "cfg/yolo.cfg", "yolov1.weights"]
+ENTRYPOINT ["./darknet", "detect", "cfg/yolo.cfg", "yolo.weights"]
 
