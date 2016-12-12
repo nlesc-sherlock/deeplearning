@@ -117,9 +117,14 @@ def print_classification(probs, image_files, model_path, labels_name='labels.txt
     labels_file = os.path.join(model_path, labels_name)
     labels = np.loadtxt(labels_file, str)
 
+    if len(labels) < 5:
+        ind = len(labels)
+    else:
+        ind = 6
+            
     for ix, image_file in enumerate(image_files):
-        print 'Predicted class & probabilities (top 5) for image ' + image_file + ":"
-        print(zip(labels[probs[ix].argsort()[:-6:-1]], probs[ix][probs[ix].argsort()[:-6:-1]]))
+        print 'Predicted class & probabilities (top) for image ' + image_file + ":"
+        print(zip(labels[probs[ix].argsort()[:-ind:-1]], probs[ix][probs[ix].argsort()[:-ind:-1]]))
         print("")
 
 def print_json_classification(probs, image_files, model_path, model_name,
