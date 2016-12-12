@@ -1,4 +1,46 @@
 #!/usr/bin/env python
+"""
+The input JSON for this script comes from the cropper component and looks like:
+
+{
+    "files" : [
+        "/path/to/image",
+        "/and/another/image"
+    ],
+    {
+        "classes":{
+            "car" : [
+                {
+                    "path" : "/path/to/image",
+                    "probability" : <float>,
+                    "bbox" : [x, y, w, h],
+                    "cropped_image": "/path/to/cropped/image"
+                },
+                {
+                    "path" : "/and/another/image",
+                    "probability" : <float>,
+                    "bbox" : [x, y, w, h],
+                    "cropped_image": "/another/cropped/image"
+                }
+            ],
+            "person" : [
+                {
+                    "path" : "/yet/another/image",
+                    "probability" : <float>,
+                    "bbox" : [x, y, w, h],
+                    "cropped_image": "/yet/another/cropped/image"
+                }
+            ]
+        }
+    }
+}
+
+In addition, the script takes two more arguments: <class (string)> and
+<threshold (number)>, e.g. "car" and "0.8".
+
+Output JSON is the same, but added to each object a classifier description:
+
+"""
 import numpy as np
 # import matplotlib.pyplot as plt
 import sys
