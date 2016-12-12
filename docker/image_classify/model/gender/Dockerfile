@@ -26,6 +26,7 @@ RUN A=0
 RUN cd /opt/deeplearning/Models/GoogleNet_AgeGender_Gender && \
   git pull
 
-RUN tar xzf 20161108-091520-60bd_epoch_5.0.tar.gz
+RUN cd /opt/deeplearning/Models/GoogleNet_AgeGender_Gender && \
+  tar xzf 20161108-091520-60bd_epoch_5.0.tar.gz
 
 ENTRYPOINT ["/opt/deeplearning/scripts/cnn_classify.py -M /opt/deeplearning/Models/GoogleNet_AgeGender_Gender --model_snapshot snapshot_iter_1665.caffemodel"]
