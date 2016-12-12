@@ -8,6 +8,26 @@ This Docker image is a wrapper around the `cnn_classify.py` script.
 	* some parameters (see example below and `cnn_classify.py` for more)
 * **Output**: the top 5 of predicted class and corresponding probabilities according to the model, per image.
 
+## Example
+
+Example on HPC cloud VM (dl-primus):
+```sh
+docker pull nlescsherlockdl/caffe_image_classify
+DATADIR=/data/patrick_data/faces
+MODELDIR=/data/patrick_models/20161212_googlenet_agegender
+SNAPFILE=snapshot_iter_1665.caffemodel
+nvidia-docker run \
+    -v $DATADIR:/data \
+    -v $MODELDIR:/model \
+    nlescsherlockdl/caffe_image_classify \
+    -v --batch_size=59 \
+    -M /model \
+    --model_snapshot $SNAPFILE \
+    -D /data `ls $DATADIR`
+```
+
+Add `--gpu_id=0` to use GPU 0 (=1 to use GPU 1, etc. if you have several GPUs). CPU version is a lot slower, of course.
+
 ## Pull
 
     docker pull nlesc/caffe_image_classify
