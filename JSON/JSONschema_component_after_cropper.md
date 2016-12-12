@@ -46,7 +46,7 @@ For the Bounding Boxes, the (x,y)  coordinates refer to the top left corner of
 the bounding box.
 
 In addition, the script takes two more arguments: <class (list of string)> and
-<threshold (number)>, e.g. "car" and "0.8". The class ilist of strings are the
+<threshold (number)>, e.g. {"sports car","family car"} and "0.8". The class list of strings are the
 class keys of interest in the input JSON file and the threshold is the minimum 
 class probability above which the class probabilities should be reported in the
 output JSON file.
