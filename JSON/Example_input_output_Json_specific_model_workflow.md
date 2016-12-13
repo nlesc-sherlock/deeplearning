@@ -44,7 +44,7 @@ The input JSON example:
                     }
                 }
             ]
-            "dog" : [
+            "animal" : [
                 {
                     "path" : "path/to/yet/another/image",
                     "probability" : <float>,
@@ -77,12 +77,44 @@ cropped_image:
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
                     "cropped_image": "/path/to/cropped/image"            # from cropper
+                    "classification": [
+                    {
+                        "classifier": "car/model/name",                  # added by car model classifier
+                        "tags": [
+                            {   
+                            "name": "Ford Fiesta",
+                            "probability": 0.7
+                            },
+                            {
+                            "name": "Opel Astra",
+                            "probability": 0.3                        
+                            }
+                        ],
+                    },
+                    {
+                        "classifier": "car/color/name",                 # added by car color classifier
+                        "tags": [
+                            {   
+                            "name": "white",
+                            "probability": 0.6
+                            },
+                            {
+                            "name": "gray",
+                            "probability": 0.4
+                            }
+                        ],
+                    }
+                    ]
                 },
                 {
                     "path" : "path/to/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "path/to/another/cropped/image"    # from cropper
+                    "cropped_image": "path/to/another/cropped/image", # from cropper
+                    "classification: : [
+                    ...
+                    ]
+                    
                 }
             ],
             "person" : [
@@ -97,15 +129,57 @@ cropped_image:
                         "bbox" : [x, y, w, h],                              # in relation to the cropped person!
                         "probability": <float>,
                         "cropped_image" : "path/to/yet/another/cropped/face/image"    # from cropper
-                    }
-                }
-            ]
-            "dog" : [           
+                        "classification": [
+                             {
+                            "classifier": "face/gender",                    # added by face gender classifier
+                            "tags": [
+                                {   
+                                "name": "female",                           # the current docker exports "f"!
+                                "probability": 0.65
+                                },
+                                {
+                                "name": "male",                             # the current docker exports "m"!
+                                "probability": 0.35                        
+                                }
+                            ],
+                            },
+                            {
+                            "classifier": "face/age",                      # added by face age classifier
+                                "tags": [
+                                    {   
+                                    "name": "25 32",
+                                    "probability": 0.65
+                                    },
+                                    {
+                                    "name": "38 44",
+                                    "probability": 0.35
+                                    }
+                                ],
+                            }
+                        }
+                 }
+                ]
+            "animal" : [           
                 {
                     "path" : "path/to/yet/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "path/to/yet/another/cropped/image"            # from cropper
+                    "cropped_image": "path/to/yet/another/cropped/image"          # from cropper
+                    "classification": [
+                    {
+                        "classifier": "object class",                             # added by general 1000 classifier
+                        "tags": [
+                            {   
+                            "name": "dog",
+                            "probability": 0.9
+                            },
+                            {
+                            "name": "Gaerman sheperd",
+                            "probability": 0.1                        
+                            }
+                        ],
+                    }
+                    ]
                 }
             ]            
         }
