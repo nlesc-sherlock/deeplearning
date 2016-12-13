@@ -3,7 +3,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-13 16:40:41
+# @Last Modified time: 2016-12-13 16:52:14
 
 import cnn_classify
 import argparse
@@ -87,6 +87,7 @@ if __name__ == '__main__':
                              json=args.json, outfile=outfile)
 
         with file(outfn, "r") as fp:
+            print(fp.readlines())
             gender_classification = json.load(fp)
 
         print(gender_classification)
