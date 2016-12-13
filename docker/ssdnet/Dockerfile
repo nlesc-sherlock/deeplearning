@@ -1,6 +1,15 @@
 FROM nlescsherlockdl/caffe-nv-ssd
 
-WORKDIR $CAFFE_ROOT
-RUN wget http://www.cs.unc.edu/~wliu/projects/SSD/models_VGGNet_ilsvrc15_SSD_300x300.tar.gz \
-    && tar zxvf models_VGGNet_ilsvrc15_SSD_300x300.tar.gz
+RUN apt install -y wget
+
+
+RUN mkdir /models
+WORKDIR /models
+RUN wget http://www.cs.unc.edu/~wliu/projects/SSD/models_VGGNet_ilsvrc15_SSD_500x500.tar.gz
+COPY models /models
+
+COPY test.py /opt/caffe
+
+WORKDIR $CAFFE_ROOT/data/ilsvrc12
+RUN ./get_ilsvrc_aux.sh
 

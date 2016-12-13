@@ -1,4 +1,156 @@
 #!/usr/bin/env python
+"""
+The input JSON for a component comming after the cropper component looks like:
+
+{
+    "files" : [
+        "/path/to/image",
+        "/and/another/image"
+    ],
+    {
+        "classes":{
+            "car" : [
+                {
+                    "path" : "/path/to/image",
+                    "probability" : <float>,
+                    "bbox" : [x, y, w, h],
+                    "cropped_image": "/path/to/cropped/image"
+                },
+                {
+                    "path" : "/and/another/image",
+                    "probability" : <float>,
+                    "bbox" : [x, y, w, h],
+                    "cropped_image": "/another/cropped/image"
+                }
+            ],
+            "person" : [
+                {
+                    "path" : "/yet/another/image",
+                    "probability" : <float>,
+                    "bbox" : [x, y, w, h],
+                    "cropped_image": "/yet/another/cropped/image"
+                }
+            ]
+            "dog" : [
+                {
+                    "path" : "/yet/another/image",
+                    "probability" : <float>,
+                    "bbox" : [x, y, w, h],
+                    "cropped_image": "/yet/another/cropped/image"
+                }
+            ]            
+        }
+    }
+}
+
+For the Bounding Boxes, the (x,y)  coordinates refer to the top left corner of 
+the bounding box.
+
+In addition, the script takes two more arguments: <class (list of string)> and
+<threshold (number)>, e.g. "car" and "0.8". The class ilist of strings are the
+class keys of interest in the input JSON file and the threshold is the minimum 
+class probability above which the class probabilities should be reported in the
+output JSON file.
+
+The output JSON enriches the input JSON with a classifier results for each BBox/
+cropped_image:
+
+{
+    "files" : [
+        "/path/to/image",
+        "/and/another/image"
+    ],
+    {
+        "classes":{
+            "car" : [
+                {
+                    "path" : "/path/to/image",
+                    "probability" : <float>,
+                    "bbox" : [x, y, w, h],
+                    "cropped_image": "/path/to/cropped/image",
+                     "classification": [
+                        "classifier": "car/model/name",
+                        "tags": [
+                            {"name": "Ford Fiesta",
+                             "probability": <float>
+                            },
+                            {"name": "Opel Astra",
+                             "pobability": <float>
+                            }
+                        ],                    
+                        "classifier": "car/color/name",
+                        "tags": [
+                            {"name": "white",
+                             "probability": <float>
+                            },
+                            {"name": "gray",
+                             "probability": <float>
+                            }
+                        ]                                            
+                    ]
+                },
+                {
+                    "path" : "/and/another/image",
+                    "probability" : <float>,
+                    "bbox" : [x, y, w, h],
+                    "cropped_image": "/another/cropped/image",
+                     "classification": [
+                        "classifier": "gender/model/name",
+                        "tags": [
+                            {"name": "f",
+                             "probability": <float>
+                            },
+                            {"name": "m",
+                             "pobability": <float>
+                            }
+                        ],                    
+                        "classifier": "age/model/name",
+                        "tags": [
+                            {"name": "25 32",
+                             "probability": <float>
+                            }
+                        ]                                            
+                    ]
+                }
+            ],
+            "person" : [
+                {
+                    "path" : "/yet/another/image",
+                    "probability" : <float>,
+                    "bbox" : [x, y, w, h],
+                    "cropped_image": "/yet/another/cropped/image"
+                    "classification": [
+                        "classifier": "gender/model/name",
+                        "tags": [
+                            {"name": "f",
+                             "probability": <float>
+                            },
+                            {"name": "m",
+                             "pobability": <float>
+                            }
+                        ],                    
+                        "classifier": "age/model/name",
+                        "tags": [
+                            {"name": "25 32",
+                             "probability": <float>
+                            }
+                        ]                                            
+                    ]
+                }
+            ]
+            "dog" : [
+                {
+                    "path" : "/yet/another/image",
+                    "probability" : <float>,
+                    "bbox" : [x, y, w, h],
+                    "cropped_image": "/yet/another/cropped/image"
+                }
+            ]
+        }
+    }
+}
+
+"""
 import numpy as np
 # import matplotlib.pyplot as plt
 import sys
@@ -66,14 +218,12 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
     image_x, image_y = net.blobs['data'].data.shape[-2:]
     channels = net.blobs['data'].data.shape[1]
     if batch_size == 0:
-        # batch_size = net.blobs['data'].data.shape[0]
         batch_size = len(image_files)
     if verbose:
         print "Reshaping the data..."
         print "batch size: ", batch_size
         print "number of channels: ", channels
         print "data shape: ", image_x, image_y
-
 
     net.blobs['data'].reshape(batch_size, channels, image_x, image_y)
 
@@ -88,21 +238,9 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
     if verbose:
         print "Predicting the category classes of the image(s)..."
     prediction = net.predict(input_images, oversample=False)
-    #out = net.forward()
-
-
-
-    #flattend = net.blobs['prob'].data[0].flatten()
-        #flattend.sort()
-        #print "From within the net: "
-        #print flattend[-1:-6:-1]
-
-
 
     # convert to probabilities (if needed):
     probs = []
-        #probs = net.blobs['prob'].data[0].flatten()
-        #probs.sort()
 
     for ix, image_file in enumerate(image_files):
         if prediction[ix].sum() == 1 and np.all(prediction[ix] > 0):
@@ -165,17 +303,24 @@ def print_json_classification(probs, image_files, model_path, model_name,
     json_string = json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False)
     outfile.write(unicode(json_string))
 
+
 def run(image_files, model_path, model_name, model_deploy,
-    labels_name, mean_pixel_name, outfile,
-    gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=False, json=False):
-    probs = classify(image_files, model_path, model_name, model_deploy=model_deploy,
-             mean_pixel_name=mean_pixel_name,
-             gray_range=gray_range, channel_swap=channel_swap, batch_size=batch_size,
-             gpu_id=gpu_id, verbose=verbose)
+        labels_name, mean_pixel_name, outfile,
+        gray_range=255, channel_swap=(2, 1, 0), batch_size=0, gpu_id=-1,
+        verbose=False, json=False):
+    probs = classify(image_files, model_path, model_name,
+                     model_deploy=model_deploy, mean_pixel_name=mean_pixel_name,
+                     gray_range=gray_range, channel_swap=channel_swap,
+                     batch_size=batch_size, gpu_id=gpu_id, verbose=verbose)
     if json:
-        print_json_classification(probs, image_files, model_path=model_path, labels_name=labels_name,
-            model_name=model_name, mean_pixel_name=mean_pixel_name, model_deploy=model_deploy,
-            gray_range=gray_range, channel_swap=channel_swap, batch_size=batch_size, outfile=outfile)
+        print_json_classification(probs, image_files, model_path=model_path,
+                                  labels_name=labels_name,
+                                  model_name=model_name,
+                                  mean_pixel_name=mean_pixel_name,
+                                  model_deploy=model_deploy,
+                                  gray_range=gray_range,
+                                  channel_swap=channel_swap,
+                                  batch_size=batch_size, outfile=outfile)
     else:
         print_classification(probs, image_files, model_path, labels_name=labels_name)
 
@@ -203,9 +348,21 @@ if __name__ == '__main__':
     parser.add_argument("--channel_swap", help="Use numbers 0, 1 and 2 to give the order of the color-channels that the model used, for instance 0 1 2 for RGB. Some models swap the channels from RGB to BGR (this is the default: 2 1 0).", nargs=3, default=[2,1,0])
     parser.add_argument("--batch_size", help="Number of images processed simultaneously. Default: taken from model configuration.", type=int, default=0)
     parser.add_argument("--gpu_id", help="To use GPU mode, specify the gpu_id that you want to use. Default: CPU mode (-1).", type=int, default=-1)
+    parser.add_argument("C","-class_keys", help="Class keys of interest in the input JSON file.")
+    parser.add_argument("P","-min_prob", help="Minimum probability for a classification to be output in the output JSON file.", type =float, default = 0.1)
+
     parser.add_argument("-v", "--verbose", help="Verbose mode.", action="store_true", default=0)
 
+    # CWL workflow mode
+    subparsers = parser.add_subparsers(dest='subcommand', help='sub-command help')
+    parser_workflow = subparsers.add_parser('workflow', help='workflow-mode help')
+
+    parser_workflow.add_argument("json_file", help="The filename (including path, full or relative) of the json file with the input. This will usually be specified by the CWL workflow.", type=argparse.FileType('r'))
+    parser_workflow.add_argument("class", help="The class of objects from the input JSON file that will be processed by the specific classifier in the CWL component.", type=str)
+    parser_workflow.add_argument("threshold", help="A cut-off threshold for the probabilities of the classifications.", type=float)
+
     args = parser.parse_args()
+    print args
 
     data_path = args.data_path
     image_filenames = [os.path.join(data_path, image_file) for image_file in args.image_files]
