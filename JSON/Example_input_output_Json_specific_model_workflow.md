@@ -10,20 +10,20 @@ In addition, the JSON wrapper script takes two more arguments: <class (string)> 
 The input JSON example:
 ```
 {
-    "files" : [                                                          # comes from CWL input
+    "files" : [                                                          # from CWL input
         "/path/to/image",
         "/path/to/another/image",
         "path/to/yet/another/image",
         ...
     ],
     {
-        "classes":{                                                      # come from object detection (Yolo/SSD)
+        "classes":{                                                      # from object detection (Yolo/SSD)
             "car" : [
             {
                     "path" : "/path/to/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/path/to/cropped/image"           # comes from cropper
+                    "cropped_image": "/path/to/cropped/image"            # from cropper
                 },
                 {
                     "path" : "path/to/another/image",
@@ -37,13 +37,13 @@ The input JSON example:
                     "path" : "path/to/yet/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "path/to/yet/another/cropped/image"    # comes from cropper
-                    "face" :                                                # comes from face detector
+                    "cropped_image": "path/to/yet/another/cropped/image"    # from cropper
+                    "face" :                                                # from face detector
                     { 
                         "path" : "path/to/yet/another/cropped/image",
                         "bbox" : [x, y, w, h],                              # in relation to the cropped person!
                         "probability": <float>,
-                        "cropped_image" : "path/to/yet/another/cropped/face/image"     # comes from cropper
+                        "cropped_image" : "path/to/yet/another/cropped/face/image"     # from cropper
                     }
                 }
             ]
