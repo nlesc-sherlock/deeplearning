@@ -1,4 +1,4 @@
-FROM nlescsherlockdl/ubuntu-16.04-cuda-8
+FROM nlescsherlockdl/cuda7.5-cudnn5-devel
 
 RUN apt update \ 
     && apt install -y git cmake \
