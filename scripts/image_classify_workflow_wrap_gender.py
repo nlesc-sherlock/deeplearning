@@ -3,7 +3,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-13 16:27:12
+# @Last Modified time: 2016-12-13 16:32:20
 
 import cnn_classify
 import argparse
@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     # hard code the json output file, since we need to add this back into the
     # giant workflow json object
-    outfile = "/tmp/gender_classification.json"
+    outfile = file("/tmp/gender_classification.json", "w")
 
     input_json = json.load(args.json_input_file)
 
