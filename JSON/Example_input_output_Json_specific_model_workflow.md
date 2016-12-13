@@ -33,7 +33,7 @@ The input JSON example:
                 "path" : "path/to/yet/another/image",
                 "probability" : <float>,
                 "bbox" : [x, y, w, h],
-                "cropped_image": "path/to/yet/another/cropped/image"    # from cropper
+                "cropped_image": "path/to/yet/another/cropped/image",   # from cropper
                 "face" :                                                # from face detector
                 {
                     "path" : "path/to/yet/another/cropped/image",
@@ -73,7 +73,7 @@ cropped_image:
                 "path" : "/path/to/image",
                 "probability" : <float>,
                 "bbox" : [x, y, w, h],
-                "cropped_image": "/path/to/cropped/image"            # from cropper
+                "cropped_image": "/path/to/cropped/image",           # from cropper
                 "classification": [
                 {
                     "classifier": "car/model/name",                  # added by car model classifier
@@ -119,13 +119,13 @@ cropped_image:
                 "path" : "path/to/yet/another/image",
                 "probability" : <float>,
                 "bbox" : [x, y, w, h],
-                "cropped_image": "path/to/yet/another/cropped/image"    # from cropper
+                "cropped_image": "path/to/yet/another/cropped/image",   # from cropper
                 "face" :                                                # from face detector
                 { 
                     "path" : "path/to/yet/another/cropped/image",
                     "bbox" : [x, y, w, h],                              # in relation to the cropped person!
                     "probability": <float>,
-                    "cropped_image" : "path/to/yet/another/cropped/face/image"    # from cropper
+                    "cropped_image" : "path/to/yet/another/cropped/face/image",   # from cropper
                     "classification": [
                          {
                         "classifier": "face/gender",                    # added by face gender classifier
@@ -161,7 +161,7 @@ cropped_image:
                 "path" : "path/to/yet/another/image",
                 "probability" : <float>,
                 "bbox" : [x, y, w, h],
-                "cropped_image": "path/to/yet/another/cropped/image"          # from cropper
+                "cropped_image": "path/to/yet/another/cropped/image",         # from cropper
                 "classification": [
                 {
                     "classifier": "object class",                             # added by general 1000 classifier

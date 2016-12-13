@@ -14,8 +14,16 @@ caffe.set_mode_gpu()
 from google.protobuf import text_format
 from caffe.proto import caffe_pb2
 
+
+def get_channel_mean(mean_pixel_file):
+    proto_data = open(mean_pixel_file, "rb").read()
+    a = caffe.io.caffe_pb2.BlobProto.FromString(proto_data)
+    mean  = caffe.io.blobproto_to_array(a)[0]
+    channel_mean = mean.mean(axis=(1,2))
+    return channel_mean
+
 # load PASCAL VOC labels
-labelmap_file = 'data/VOC0712Plus/labelmap_voc.prototxt'
+labelmap_file = 'data/ILSVRC2016/labelmap_ilsvrc_det.prototxt'
 file = open(labelmap_file, 'r')
 labelmap = caffe_pb2.LabelMap()
 text_format.Merge(str(file.read()), labelmap)
@@ -38,8 +46,8 @@ def get_labelname(labelmap, labels):
 
 #model_def = 'models/VGGNet/VOC0712Plus/SSD_300x300_ft/deploy.prototxt'
 #model_weights = 'models/VGGNet/VOC0712Plus/SSD_300x300_ft/VGG_VOC0712Plus_SSD_300x300_ft_iter_160000.caffemodel'
-model_def = 'models/VGGNet/ilsvrc15/SSD_500x500/deploy.prototxt'
-model_weights = 'models/VGGNet/ilsvrc15/SSD_500x500/VGG_ilsvrc15_SSD_500x500_iter_480000.caffemodel'
+model_def = '/models/VGGNet/ilsvrc15/SSD_500x500/deploy.prototxt'
+model_weights = '/models/VGGNet/ilsvrc15/SSD_500x500/VGG_ilsvrc15_SSD_500x500_iter_480000.caffemodel'
 
 net = caffe.Net(model_def,      # defines the structure of the model
                 model_weights,  # contains the trained weights
@@ -54,11 +62,11 @@ transformer.set_channel_swap('data', (2,1,0))  # the reference model has channel
 
 
 # set net to batch size of 1
-image_resize = 300
+image_resize = 500
 net.blobs['data'].reshape(1,3,image_resize,image_resize)
 
 
-image = caffe.io.load_image('examples/images/cat.jpg')
+image = caffe.io.load_image('/data/new-york-street.jpg')
 
 transformed_image = transformer.preprocess('data', image)
 net.blobs['data'].data[...] = transformed_image
@@ -74,10 +82,8 @@ det_ymin = detections[0,0,:,4]
 det_xmax = detections[0,0,:,5]
 det_ymax = detections[0,0,:,6]
 
-print(det_conf)
-
 # Get detections with confidence higher than 0.6.
-top_indices = [i for i, conf in enumerate(det_conf) if conf >= 0.6]
+top_indices = [i for i, conf in enumerate(det_conf) if conf >= 0.1]
 
 top_conf = det_conf[top_indices]
 top_label_indices = det_label[top_indices].tolist()
