@@ -3,7 +3,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-13 15:45:12
+# @Last Modified time: 2016-12-13 16:05:21
 
 import cnn_classify
 import argparse
@@ -12,7 +12,7 @@ import json
 
 def get_person_face_image_filenames_from_json(json_object):
     filenames = []
-    if 'person' in json_object.keys():
+    if 'person' in json_object['classes'].keys():
         persons = json_object['classes']['person']
         for person in persons:
             if 'face' in person.keys():
