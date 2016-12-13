@@ -6,7 +6,7 @@
 
 # To run on all files in a data directory with batch size 59:
 
-# docker pull nlescsherlockdl/image_classify_age
+# docker pull nlescsherlockdl/car_model
 # DATADIR=/somewhere/on/your/local/filesystem/with/images
 # nvidia-docker run \
 #     -v $DATADIR:/data \
