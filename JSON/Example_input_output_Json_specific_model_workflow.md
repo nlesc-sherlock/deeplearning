@@ -1,59 +1,70 @@
-```
-The input JSON for a component comming after the cropper component looks like:
+Each spesific classification model takes a JSON input and adds to it to produce an output JSON file. Below are the examples of those.
 
+General remarks:
+
+For the Bounding Boxes, the (x,y)  coordinates refer to the top left corner of the bounding box.
+
+In addition, the JSON wrapper script takes two more arguments: <class (string)> and
+<threshold (number)>, e.g. {"car","face"} and "0.8". The class string is the class keys of interest in the input JSON file and the threshold is the minimum class probability above which the class probabilities should be reported in the output JSON file.
+
+The input JSON example:
+```
 {
-    "files" : [
+    "files" : [                                                          # comes from CWL input
         "/path/to/image",
-        "/and/another/image"
+        "/path/to/another/image",
+        "path/to/yet/another/image",
+        ...
     ],
     {
-        "classes":{
+        "classes":{                                                      # come from object detection (Yolo/SSD)
             "car" : [
-                {
+            {
                     "path" : "/path/to/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/path/to/cropped/image"
+                    "cropped_image": "/path/to/cropped/image"           # comes from cropper
                 },
                 {
-                    "path" : "/and/another/image",
+                    "path" : "path/to/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/another/cropped/image"
+                    "cropped_image": "path/to/another/cropped/image"
                 }
             ],
             "person" : [
                 {
-                    "path" : "/yet/another/image",
+                    "path" : "path/to/yet/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/yet/another/cropped/image"
+                    "cropped_image": "path/to/yet/another/cropped/image"    # comes from cropper
+                    "face" :                                                # comes from face detector
+                    { 
+                        "path" : "path/to/yet/another/cropped/image",
+                        "bbox" : [x, y, w, h],
+                        "probability": <float>,
+                        "cropped_image" : "path/to/yet/another/cropped/face/image"     # comes from cropper
+                    }
                 }
             ]
             "dog" : [
                 {
-                    "path" : "/yet/another/image",
+                    "path" : "path/to/yet/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/yet/another/cropped/image"
+                    "cropped_image": "path/to/yet/another/cropped/image"
                 }
             ]            
         }
     }
 }
-
-For the Bounding Boxes, the (x,y)  coordinates refer to the top left corner of 
-the bounding box.
-
-In addition, the script takes two more arguments: <class (list of string)> and
-<threshold (number)>, e.g. {"sports car","family car"} and "0.8". The class list of strings are the
-class keys of interest in the input JSON file and the threshold is the minimum 
-class probability above which the class probabilities should be reported in the
-output JSON file.
+'''
+```
 
 The output JSON enriches the input JSON with a classifier results for each BBox/
 cropped_image:
 
+```
 {
     "files" : [
         "/path/to/image",
