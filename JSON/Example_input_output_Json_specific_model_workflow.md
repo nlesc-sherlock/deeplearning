@@ -1,6 +1,14 @@
-```
-The input JSON for a component comming after the cropper component looks like:
+Each spesific classification model takes a JSON input and adds to it to produce an output JSON file. Below are the examples of those.
 
+General remarks:
+
+For the Bounding Boxes, the (x,y)  coordinates refer to the top left corner of the bounding box.
+
+In addition, the JSON wrapper script takes two more arguments: <class (string)> and
+<threshold (number)>, e.g. {"car","face"} and "0.8". The class string is the class keys of interest in the input JSON file and the threshold is the minimum class probability above which the class probabilities should be reported in the output JSON file.
+
+The input JSON example:
+```
 {
     "files" : [
         "/path/to/image",
@@ -41,19 +49,13 @@ The input JSON for a component comming after the cropper component looks like:
         }
     }
 }
-
-For the Bounding Boxes, the (x,y)  coordinates refer to the top left corner of 
-the bounding box.
-
-In addition, the script takes two more arguments: <class (list of string)> and
-<threshold (number)>, e.g. {"sports car","family car"} and "0.8". The class list of strings are the
-class keys of interest in the input JSON file and the threshold is the minimum 
-class probability above which the class probabilities should be reported in the
-output JSON file.
+'''
+```
 
 The output JSON enriches the input JSON with a classifier results for each BBox/
 cropped_image:
 
+```
 {
     "files" : [
         "/path/to/image",
