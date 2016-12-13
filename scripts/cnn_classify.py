@@ -143,14 +143,17 @@ def print_json_classification(probs, image_files, model_path, model_name,
 
     for ix, image_file in enumerate(image_files):
         ix_topN = probs[ix].argsort()[::-1][:ind]
-        topN_classes = zip(labels[ix_topN], probs[ix][ix_topN])
-        tags = "%s" % dict(topN_classes)
+        # need pure python floats for json.dumps serialization:
+        topN_probs = [float(p) for p in probs[ix][ix_topN]]
+        topN_classes = zip(labels[ix_topN], topN_probs)
+        # tags = "%s" % dict(topN_classes)
+        tags = dict(topN_classes)
         data["predictions"][image_file] = {
             "tags": tags
         }
 
     json_string = json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False)
-    outfile.write(unicode(json_string))
+    outfile.write(json_string)
 
 
 def run(image_files, model_path, model_name, model_deploy,
