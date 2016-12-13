@@ -20,13 +20,13 @@ The input JSON example:
                     "path" : "/path/to/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/path/to/cropped/image"            # from cropper
+                    "cropped_image": "/path/to/cropped/image"           # from cropper
                 },
                 {
                     "path" : "path/to/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "path/to/another/cropped/image"
+                    "cropped_image": "path/to/another/cropped/image"    # from cropper
                 }
             ],
             "person" : [
@@ -49,7 +49,7 @@ The input JSON example:
                     "path" : "path/to/yet/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "path/to/yet/another/cropped/image"
+                    "cropped_image": "path/to/yet/another/cropped/image"    # from cropper
                 }
             ]            
         }
@@ -63,113 +63,53 @@ cropped_image:
 
 ```
 {
-    "files" : [
+    "files" : [                                                          # from CWL input
         "/path/to/image",
-        "/and/another/image"
+        "/path/to/another/image",
+        "path/to/yet/another/image",
+        ...
     ],
     {
-        "classes":{
+        "classes":{                                                      # from object detector (Yolo/SSD)
             "car" : [
-                {
+            {
                     "path" : "/path/to/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/path/to/cropped/image",
-                    "classification": [
-                        {
-                            "classifier": "car/model/name",
-                            "tag": [
-                                {
-                                    "name": "Ford Fiesta",
-                                    "probability": <float>
-                                },
-                                {
-                                    "name": "Opel Astra",
-                                    "pobability": <float>
-                                }
-                            ],
-                        },                        
-                        {
-                            "classifier": "car/color/name",
-                            "tag": [
-                                {
-                                    "name": "white",
-                                    "probability": <float>
-                                },
-                                {
-                                    "name": "gray",
-                                    "pobability": <float>
-                                }
-                            ],
-                        },                                           
-                    ]
+                    "cropped_image": "/path/to/cropped/image"            # from cropper
                 },
                 {
-                    "path" : "/and/another/image",
+                    "path" : "path/to/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/another/cropped/image",
-                     "classification": [
-                     {
-                        "classifier": "gender/model/name",
-                        "tags": [
-                            {"name": "f",
-                             "probability": <float>
-                            },
-                            {"name": "m",
-                             "pobability": <float>
-                            }
-                        ]
-                     },
-                     {
-                        "classifier": "age/model/name",
-                        "tags": [
-                            {"name": "25 32",
-                             "probability": <float>
-                            }
-                        ]
-                     }   
-                    ]
+                    "cropped_image": "path/to/another/cropped/image"    # from cropper
                 }
             ],
             "person" : [
                 {
-                    "path" : "/yet/another/image",
+                    "path" : "path/to/yet/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/yet/another/cropped/image",                    
-                    "classification": [
-                    {
-                        "classifier": "gender/model/name",
-                        "tags": [
-                            {"name": "f",
-                             "probability": <float>
-                            },
-                            {"name": "m",
-                             "pobability": <float>
-                            }
-                        ]
-                     },
-                     {
-                        "classifier": "age/model/name",
-                        "tags": [
-                            {"name": "25 32",
-                             "probability": <float>
-                            }
-                        ]
-                     }   
-                    ]
+                    "cropped_image": "path/to/yet/another/cropped/image"    # from cropper
+                    "face" :                                                # from face detector
+                    { 
+                        "path" : "path/to/yet/another/cropped/image",
+                        "bbox" : [x, y, w, h],                              # in relation to the cropped person!
+                        "probability": <float>,
+                        "cropped_image" : "path/to/yet/another/cropped/face/image"    # from cropper
+                    }
                 }
             ]
-            "dog" : [
+            "dog" : [           
                 {
-                    "path" : "/yet/another/image",
+                    "path" : "path/to/yet/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/yet/another/cropped/image"
+                    "cropped_image": "path/to/yet/another/cropped/image"            # from cropper
                 }
-            ]
+            ]            
         }
     }
 }
+'''
 ```
