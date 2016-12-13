@@ -58,7 +58,7 @@ The input JSON example:
 '''
 ```
 
-The output JSON enriches the input JSON with a classifier results for each BBox/
+The output JSON is an enriched version of the input JSON with a classifier results for each BBox/
 cropped_image:
 
 ```
