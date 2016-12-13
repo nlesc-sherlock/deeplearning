@@ -3,7 +3,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-13 17:04:02
+# @Last Modified time: 2016-12-13 17:56:40
 
 import cnn_classify
 import argparse
@@ -34,21 +34,31 @@ def inflate_tags(tags):
     return new_tags
 
 
-def generate_output_json(input_json, gender_classification):
+def generate_output_json(input_json, gender_classification,
+                         probability_threshold):
     persons = input_json['classes']['person']
     predictions = gender_classification['predictions']
+    tags = {}
+    for fn, prediction in predictions.iteritems():
+        tags[fn] = {}
+        for name, probability in prediction['tags'].iteritems():
+            if probability > probability_threshold:
+                tags[fn][name] = probability
     classification = {'classifier': 'face/gender'}
     for person in persons:
         if 'face' in person.keys():
-            person['face'].setdefault('classification', []).append(classification)
-            filename = person['face']['cropped_image']
-            person['face']['classification'][-1]['tags'] = inflate_tags(predictions[filename]['tags'])
+            fn = person['face']['cropped_image']
+            person['face'].setdefault('classification', []).append(classification.copy())
+            person['face']['classification'][-1]['tags'] = inflate_tags(tags[fn])
 
     # note that we modified the input_json object!
     return input_json
 
 
 if __name__ == '__main__':
+    # determined empirically
+    probability_threshold = 0.6
+
     parser = cnn_classify.get_default_argument_parser()
 
     parser.add_argument("json_input_file",
@@ -89,9 +99,8 @@ if __name__ == '__main__':
         with file(outfn, "r") as fp:
             gender_classification = json.load(fp)
 
-        output_json = generate_output_json(input_json, gender_classification)
-
-        print(output_json)
+        output_json = generate_output_json(input_json, gender_classification,
+                                           probability_threshold)
 
         json.dump(output_json, args.workflow_out)
     else:
