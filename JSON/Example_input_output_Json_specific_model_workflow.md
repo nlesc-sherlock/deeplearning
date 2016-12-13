@@ -10,40 +10,49 @@ In addition, the JSON wrapper script takes two more arguments: <class (string)> 
 The input JSON example:
 ```
 {
-    "files" : [
+    "files" : [                                                          # comes from CWL input
         "/path/to/image",
-        "/and/another/image"
+        "/path/to/another/image",
+        "path/to/yet/another/image",
+        ...
     ],
     {
-        "classes":{
+        "classes":{                                                      # come from object detection (Yolo/SSD)
             "car" : [
-                {
+            {
                     "path" : "/path/to/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/path/to/cropped/image"
+                    "cropped_image": "/path/to/cropped/image"           # comes from cropper
                 },
                 {
-                    "path" : "/and/another/image",
+                    "path" : "path/to/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/another/cropped/image"
+                    "cropped_image": "path/to/another/cropped/image"
                 }
             ],
             "person" : [
                 {
-                    "path" : "/yet/another/image",
+                    "path" : "path/to/yet/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/yet/another/cropped/image"
+                    "cropped_image": "path/to/yet/another/cropped/image"    # comes from cropper
+                    "face" :                                                # comes from face detector
+                    { 
+                        "path" : "path/to/yet/another/cropped/image",
+                        "bbox" : [x, y, w, h],
+                        "probability": <float>,
+                        "cropped_image" : "path/to/yet/another/cropped/face/image"     # comes from cropper
+                    }
                 }
             ]
             "dog" : [
                 {
-                    "path" : "/yet/another/image",
+                    "path" : "path/to/yet/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/yet/another/cropped/image"
+                    "cropped_image": "path/to/yet/another/cropped/image"
                 }
             ]            
         }
