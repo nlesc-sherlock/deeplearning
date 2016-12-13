@@ -196,8 +196,6 @@ def get_default_argument_parser():
     parser.add_argument("--channel_swap", help="Use numbers 0, 1 and 2 to give the order of the color-channels that the model used, for instance 0 1 2 for RGB. Some models swap the channels from RGB to BGR (this is the default: 2 1 0).", nargs=3, default=[2, 1, 0])
     parser.add_argument("--batch_size", help="Number of images processed simultaneously. Default: taken from model configuration.", type=int, default=0)
     parser.add_argument("--gpu_id", help="To use GPU mode, specify the gpu_id that you want to use. Default: CPU mode (-1).", type=int, default=-1)
-    parser.add_argument("C", "-class_keys", help="Class keys of interest in the input JSON file.")
-    parser.add_argument("P", "-min_prob", help="Minimum probability for a classification to be output in the output JSON file.", type=float, default=0.1)
 
     parser.add_argument("-v", "--verbose", help="Verbose mode.", action="store_true", default=0)
 
