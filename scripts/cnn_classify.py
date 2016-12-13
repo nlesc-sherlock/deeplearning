@@ -150,7 +150,7 @@ def print_json_classification(probs, image_files, model_path, model_name,
         }
 
     json_string = json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False)
-    outfile.write(unicode(json_string))
+    outfile.write(json_string)
 
 
 def run(image_files, model_path, model_name, model_deploy,
