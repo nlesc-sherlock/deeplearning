@@ -101,7 +101,7 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
 
 def print_classification(probs, image_files, model_path, labels_name='labels.txt'):
     labels_file = os.path.join(model_path, labels_name)
-    labels = np.loadtxt(labels_file, str)
+    labels = np.loadtxt(labels_file, str, delimiter='do not use a delimiter')
 
     ind = min(len(labels), 5)
 

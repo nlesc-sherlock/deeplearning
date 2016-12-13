@@ -3,7 +3,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-13 15:45:12
+# @Last Modified time: 2016-12-13 16:27:12
 
 import cnn_classify
 import argparse
@@ -12,7 +12,7 @@ import json
 
 def get_person_face_image_filenames_from_json(json_object):
     filenames = []
-    if 'person' in json_object.keys():
+    if 'person' in json_object['classes'].keys():
         persons = json_object['classes']['person']
         for person in persons:
             if 'face' in person.keys():
@@ -59,7 +59,8 @@ if __name__ == '__main__':
     parser.add_argument("--workflow_out",
                         help="Filename (including path, full or relative) "
                              "of the output json file in the Sherlock workflow "
-                             "specification.", required=True)
+                             "specification.", required=True,
+                        type=argparse.FileType('w'))
 
     args = parser.parse_args()
     print args
@@ -88,7 +89,6 @@ if __name__ == '__main__':
 
         output_json = generate_output_json(input_json, gender_classification)
 
-        with file("/output/" + args.workflow_out, "w") as fp:
-            json.dump(output_json, fp)
+        json.dump(output_json, args.workflow_out)
     else:
         raise Exception("No person faces in input json file.")
