@@ -3,7 +3,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-13 15:43:39
+# @Last Modified time: 2016-12-13 15:45:12
 
 import cnn_classify
 import argparse
@@ -55,7 +55,7 @@ if __name__ == '__main__':
                         help="The filename (including path, full or relative) "
                              "of the json file that specifies the input to the "
                              "classifier.",
-                        type=argparse.FileType('r'), required=True)
+                        type=argparse.FileType('r'))
     parser.add_argument("--workflow_out",
                         help="Filename (including path, full or relative) "
                              "of the output json file in the Sherlock workflow "
