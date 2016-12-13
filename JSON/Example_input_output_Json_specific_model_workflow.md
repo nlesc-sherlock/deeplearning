@@ -2,7 +2,7 @@ Each spesific classification model takes a JSON input and enriches it to produce
 
 General remarks:
 * For the Bounding Boxes, the (x,y)  coordinates refer to the top left corner of the bounding box.
-* The JSON wrapper should look at a part of the JSON at a spesific _class (string)_ e.g. {"car","face"}. Also it should consider otputting classificaiton probabilities anly above a desired _threshold (number)_,  e.g. "0.8". 
+* The JSON wrapper should look at a part of the JSON at a spesific _class (string)_ e.g. {"car","face"}. Also it should consider outputting classification probabilities only above a desired _threshold (number)_,  e.g. "0.8". 
 
 The input JSON example:
 ```
