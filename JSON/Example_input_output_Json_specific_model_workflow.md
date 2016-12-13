@@ -41,7 +41,7 @@ The input JSON example:
                     "face" :                                                # comes from face detector
                     { 
                         "path" : "path/to/yet/another/cropped/image",
-                        "bbox" : [x, y, w, h],
+                        "bbox" : [x, y, w, h],                              # in relation to the cropped person!
                         "probability": <float>,
                         "cropped_image" : "path/to/yet/another/cropped/face/image"     # comes from cropper
                     }
