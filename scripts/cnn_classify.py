@@ -5,6 +5,7 @@ import numpy as np
 import os
 import json
 from datetime import datetime
+import argparse
 
 os.environ['GLOG_minloglevel'] = '2' # Surpress a lot of building messages
 import caffe
@@ -173,8 +174,7 @@ def run(image_files, model_path, model_name, model_deploy,
         print_classification(probs, image_files, model_path, labels_name=labels_name)
 
 
-if __name__ == '__main__':
-    import argparse
+def get_default_argument_parser():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("image_files", help="The filename(s) (including path, full or relative) of the image(s) you want to classify.", nargs="+")
@@ -202,6 +202,12 @@ if __name__ == '__main__':
     parser.add_argument("P", "-min_prob", help="Minimum probability for a classification to be output in the output JSON file.", type=float, default=0.1)
 
     parser.add_argument("-v", "--verbose", help="Verbose mode.", action="store_true", default=0)
+
+    return parser
+
+
+if __name__ == '__main__':
+    parser = get_default_argument_parser()
 
     # CWL workflow mode
     # subparsers = parser.add_subparsers(dest='subcommand', help='sub-command help')
