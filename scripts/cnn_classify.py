@@ -348,9 +348,21 @@ if __name__ == '__main__':
     parser.add_argument("--channel_swap", help="Use numbers 0, 1 and 2 to give the order of the color-channels that the model used, for instance 0 1 2 for RGB. Some models swap the channels from RGB to BGR (this is the default: 2 1 0).", nargs=3, default=[2,1,0])
     parser.add_argument("--batch_size", help="Number of images processed simultaneously. Default: taken from model configuration.", type=int, default=0)
     parser.add_argument("--gpu_id", help="To use GPU mode, specify the gpu_id that you want to use. Default: CPU mode (-1).", type=int, default=-1)
+    parser.add_argument("C","-class_keys", help="Class keys of interest in the input JSON file.")
+    parser.add_argument("P","-min_prob", help="Minimum probability for a classification to be output in the output JSON file.", type =float, default = 0.1)
+
     parser.add_argument("-v", "--verbose", help="Verbose mode.", action="store_true", default=0)
 
+    # CWL workflow mode
+    subparsers = parser.add_subparsers(dest='subcommand', help='sub-command help')
+    parser_workflow = subparsers.add_parser('workflow', help='workflow-mode help')
+
+    parser_workflow.add_argument("json_file", help="The filename (including path, full or relative) of the json file with the input. This will usually be specified by the CWL workflow.", type=argparse.FileType('r'))
+    parser_workflow.add_argument("class", help="The class of objects from the input JSON file that will be processed by the specific classifier in the CWL component.", type=str)
+    parser_workflow.add_argument("threshold", help="A cut-off threshold for the probabilities of the classifications.", type=float)
+
     args = parser.parse_args()
+    print args
 
     data_path = args.data_path
     image_filenames = [os.path.join(data_path, image_file) for image_file in args.image_files]
