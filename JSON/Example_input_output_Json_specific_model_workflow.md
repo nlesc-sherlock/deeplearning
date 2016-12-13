@@ -1,35 +1,32 @@
-Each spesific classification model takes a JSON input and adds to it to produce an output JSON file. Below are the examples of those.
+Each spesific classification model takes a JSON input and enriches it to produce an output JSON file. Below are the examples of those input/output files.
 
 General remarks:
-
-For the Bounding Boxes, the (x,y)  coordinates refer to the top left corner of the bounding box.
-
-In addition, the JSON wrapper script takes two more arguments: <class (string)> and
-<threshold (number)>, e.g. {"car","face"} and "0.8". The class string is the class keys of interest in the input JSON file and the threshold is the minimum class probability above which the class probabilities should be reported in the output JSON file.
+* For the Bounding Boxes, the (x,y)  coordinates refer to the top left corner of the bounding box.
+* The JSON wrapper should look at a part of the JSON at a spesific _class (string)_ e.g. {"car","face"}. Also it should consider otputting classificaiton probabilities anly above a desired _threshold (number)_,  e.g. "0.8". 
 
 The input JSON example:
 ```
 {
-    "files" : [                                                          # comes from CWL input
+    "files" : [                                                          # from CWL input
         "/path/to/image",
         "/path/to/another/image",
         "path/to/yet/another/image",
         ...
     ],
     {
-        "classes":{                                                      # come from object detection (Yolo/SSD)
+        "classes":{                                                      # from object detector (Yolo/SSD)
             "car" : [
             {
                     "path" : "/path/to/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/path/to/cropped/image"           # comes from cropper
+                    "cropped_image": "/path/to/cropped/image"           # from cropper
                 },
                 {
                     "path" : "path/to/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "path/to/another/cropped/image"
+                    "cropped_image": "path/to/another/cropped/image"    # from cropper
                 }
             ],
             "person" : [
@@ -37,22 +34,22 @@ The input JSON example:
                     "path" : "path/to/yet/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "path/to/yet/another/cropped/image"    # comes from cropper
-                    "face" :                                                # comes from face detector
+                    "cropped_image": "path/to/yet/another/cropped/image"    # from cropper
+                    "face" :                                                # from face detector
                     { 
                         "path" : "path/to/yet/another/cropped/image",
-                        "bbox" : [x, y, w, h],
+                        "bbox" : [x, y, w, h],                              # in relation to the cropped person!
                         "probability": <float>,
-                        "cropped_image" : "path/to/yet/another/cropped/face/image"     # comes from cropper
+                        "cropped_image" : "path/to/yet/another/cropped/face/image"     # from cropper
                     }
                 }
             ]
-            "dog" : [
+            "animal" : [
                 {
                     "path" : "path/to/yet/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "path/to/yet/another/cropped/image"
+                    "cropped_image": "path/to/yet/another/cropped/image"    # from cropper
                 }
             ]            
         }
@@ -61,118 +58,132 @@ The input JSON example:
 '''
 ```
 
-The output JSON enriches the input JSON with a classifier results for each BBox/
+The output JSON is an enriched version of the input JSON with a classifier results for each BBox/
 cropped_image:
 
 ```
 {
-    "files" : [
+    "files" : [                                                          # from CWL input
         "/path/to/image",
-        "/and/another/image"
+        "/path/to/another/image",
+        "path/to/yet/another/image",
+        ...
     ],
     {
-        "classes":{
+        "classes":{                                                      # from object detector (Yolo/SSD)
             "car" : [
-                {
+            {
                     "path" : "/path/to/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/path/to/cropped/image",
+                    "cropped_image": "/path/to/cropped/image"            # from cropper
                     "classification": [
-                        {
-                            "classifier": "car/model/name",
-                            "tag": [
-                                {
-                                    "name": "Ford Fiesta",
-                                    "probability": <float>
-                                },
-                                {
-                                    "name": "Opel Astra",
-                                    "pobability": <float>
-                                }
-                            ],
-                        },                        
-                        {
-                            "classifier": "car/color/name",
-                            "tag": [
-                                {
-                                    "name": "white",
-                                    "probability": <float>
-                                },
-                                {
-                                    "name": "gray",
-                                    "pobability": <float>
-                                }
-                            ],
-                        },                                           
+                    {
+                        "classifier": "car/model/name",                  # added by car model classifier
+                        "tags": [
+                            {   
+                            "name": "Ford Fiesta",
+                            "probability": 0.7
+                            },
+                            {
+                            "name": "Opel Astra",
+                            "probability": 0.3                        
+                            }
+                        ],
+                    },
+                    {
+                        "classifier": "car/color/name",                 # added by car color classifier
+                        "tags": [
+                            {   
+                            "name": "white",
+                            "probability": 0.6
+                            },
+                            {
+                            "name": "gray",
+                            "probability": 0.4
+                            }
+                        ],
+                    }
                     ]
                 },
                 {
-                    "path" : "/and/another/image",
+                    "path" : "path/to/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/another/cropped/image",
-                     "classification": [
-                     {
-                        "classifier": "gender/model/name",
-                        "tags": [
-                            {"name": "f",
-                             "probability": <float>
-                            },
-                            {"name": "m",
-                             "pobability": <float>
-                            }
-                        ]
-                     },
-                     {
-                        "classifier": "age/model/name",
-                        "tags": [
-                            {"name": "25 32",
-                             "probability": <float>
-                            }
-                        ]
-                     }   
+                    "cropped_image": "path/to/another/cropped/image", # from cropper
+                    "classification: : [
+                    ...
                     ]
+                    
                 }
             ],
             "person" : [
                 {
-                    "path" : "/yet/another/image",
+                    "path" : "path/to/yet/another/image",
                     "probability" : <float>,
                     "bbox" : [x, y, w, h],
-                    "cropped_image": "/yet/another/cropped/image",                    
+                    "cropped_image": "path/to/yet/another/cropped/image"    # from cropper
+                    "face" :                                                # from face detector
+                    { 
+                        "path" : "path/to/yet/another/cropped/image",
+                        "bbox" : [x, y, w, h],                              # in relation to the cropped person!
+                        "probability": <float>,
+                        "cropped_image" : "path/to/yet/another/cropped/face/image"    # from cropper
+                        "classification": [
+                             {
+                            "classifier": "face/gender",                    # added by face gender classifier
+                            "tags": [
+                                {   
+                                "name": "female",                           # the current docker exports "f"!
+                                "probability": 0.65
+                                },
+                                {
+                                "name": "male",                             # the current docker exports "m"!
+                                "probability": 0.35                        
+                                }
+                            ],
+                            },
+                            {
+                            "classifier": "face/age",                      # added by face age classifier
+                                "tags": [
+                                    {   
+                                    "name": "25 32",
+                                    "probability": 0.65
+                                    },
+                                    {
+                                    "name": "38 44",
+                                    "probability": 0.35
+                                    }
+                                ],
+                            }
+                        }
+                 }
+                ]
+            "animal" : [           
+                {
+                    "path" : "path/to/yet/another/image",
+                    "probability" : <float>,
+                    "bbox" : [x, y, w, h],
+                    "cropped_image": "path/to/yet/another/cropped/image"          # from cropper
                     "classification": [
                     {
-                        "classifier": "gender/model/name",
+                        "classifier": "object class",                             # added by general 1000 classifier
                         "tags": [
-                            {"name": "f",
-                             "probability": <float>
+                            {   
+                            "name": "dog",
+                            "probability": 0.9
                             },
-                            {"name": "m",
-                             "pobability": <float>
+                            {
+                            "name": "Gaerman sheperd",
+                            "probability": 0.1                        
                             }
-                        ]
-                     },
-                     {
-                        "classifier": "age/model/name",
-                        "tags": [
-                            {"name": "25 32",
-                             "probability": <float>
-                            }
-                        ]
-                     }   
+                        ],
+                    }
                     ]
                 }
-            ]
-            "dog" : [
-                {
-                    "path" : "/yet/another/image",
-                    "probability" : <float>,
-                    "bbox" : [x, y, w, h],
-                    "cropped_image": "/yet/another/cropped/image"
-                }
-            ]
+            ]            
         }
     }
 }
+'''
 ```

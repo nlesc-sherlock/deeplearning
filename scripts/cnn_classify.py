@@ -1,164 +1,11 @@
 #!/usr/bin/env python
-"""
-The input JSON for a component comming after the cropper component looks like:
 
-{
-    "files" : [
-        "/path/to/image",
-        "/and/another/image"
-    ],
-    {
-        "classes":{
-            "car" : [
-                {
-                    "path" : "/path/to/image",
-                    "probability" : <float>,
-                    "bbox" : [x, y, w, h],
-                    "cropped_image": "/path/to/cropped/image"
-                },
-                {
-                    "path" : "/and/another/image",
-                    "probability" : <float>,
-                    "bbox" : [x, y, w, h],
-                    "cropped_image": "/another/cropped/image"
-                }
-            ],
-            "person" : [
-                {
-                    "path" : "/yet/another/image",
-                    "probability" : <float>,
-                    "bbox" : [x, y, w, h],
-                    "cropped_image": "/yet/another/cropped/image"
-                }
-            ]
-            "dog" : [
-                {
-                    "path" : "/yet/another/image",
-                    "probability" : <float>,
-                    "bbox" : [x, y, w, h],
-                    "cropped_image": "/yet/another/cropped/image"
-                }
-            ]            
-        }
-    }
-}
-
-For the Bounding Boxes, the (x,y)  coordinates refer to the top left corner of 
-the bounding box.
-
-In addition, the script takes two more arguments: <class (list of string)> and
-<threshold (number)>, e.g. "car" and "0.8". The class ilist of strings are the
-class keys of interest in the input JSON file and the threshold is the minimum 
-class probability above which the class probabilities should be reported in the
-output JSON file.
-
-The output JSON enriches the input JSON with a classifier results for each BBox/
-cropped_image:
-
-{
-    "files" : [
-        "/path/to/image",
-        "/and/another/image"
-    ],
-    {
-        "classes":{
-            "car" : [
-                {
-                    "path" : "/path/to/image",
-                    "probability" : <float>,
-                    "bbox" : [x, y, w, h],
-                    "cropped_image": "/path/to/cropped/image",
-                     "classification": [
-                        "classifier": "car/model/name",
-                        "tags": [
-                            {"name": "Ford Fiesta",
-                             "probability": <float>
-                            },
-                            {"name": "Opel Astra",
-                             "pobability": <float>
-                            }
-                        ],                    
-                        "classifier": "car/color/name",
-                        "tags": [
-                            {"name": "white",
-                             "probability": <float>
-                            },
-                            {"name": "gray",
-                             "probability": <float>
-                            }
-                        ]                                            
-                    ]
-                },
-                {
-                    "path" : "/and/another/image",
-                    "probability" : <float>,
-                    "bbox" : [x, y, w, h],
-                    "cropped_image": "/another/cropped/image",
-                     "classification": [
-                        "classifier": "gender/model/name",
-                        "tags": [
-                            {"name": "f",
-                             "probability": <float>
-                            },
-                            {"name": "m",
-                             "pobability": <float>
-                            }
-                        ],                    
-                        "classifier": "age/model/name",
-                        "tags": [
-                            {"name": "25 32",
-                             "probability": <float>
-                            }
-                        ]                                            
-                    ]
-                }
-            ],
-            "person" : [
-                {
-                    "path" : "/yet/another/image",
-                    "probability" : <float>,
-                    "bbox" : [x, y, w, h],
-                    "cropped_image": "/yet/another/cropped/image"
-                    "classification": [
-                        "classifier": "gender/model/name",
-                        "tags": [
-                            {"name": "f",
-                             "probability": <float>
-                            },
-                            {"name": "m",
-                             "pobability": <float>
-                            }
-                        ],                    
-                        "classifier": "age/model/name",
-                        "tags": [
-                            {"name": "25 32",
-                             "probability": <float>
-                            }
-                        ]                                            
-                    ]
-                }
-            ]
-            "dog" : [
-                {
-                    "path" : "/yet/another/image",
-                    "probability" : <float>,
-                    "bbox" : [x, y, w, h],
-                    "cropped_image": "/yet/another/cropped/image"
-                }
-            ]
-        }
-    }
-}
-
-"""
 import numpy as np
 # import matplotlib.pyplot as plt
-import sys
 import os
-import io
 import json
 from datetime import datetime
-from string import join
+import argparse
 
 os.environ['GLOG_minloglevel'] = '2' # Surpress a lot of building messages
 import caffe
@@ -168,7 +15,8 @@ import caffe
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-def softmax(w, t = 1.0):
+
+def softmax(w, t=1.0):
     e = np.exp(np.array(w) / t)
     distribution = e / np.sum(e)
     return distribution
@@ -177,14 +25,15 @@ def softmax(w, t = 1.0):
 def get_channel_mean(mean_pixel_file):
     proto_data = open(mean_pixel_file, "rb").read()
     a = caffe.io.caffe_pb2.BlobProto.FromString(proto_data)
-    mean  = caffe.io.blobproto_to_array(a)[0]
-    channel_mean = mean.mean(axis=(1,2))
+    mean = caffe.io.blobproto_to_array(a)[0]
+    channel_mean = mean.mean(axis=(1, 2))
     return channel_mean
 
 
 def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt',
-         mean_pixel_name='mean.binaryproto',
-         gray_range=255, channel_swap=(2,1,0), batch_size=0, gpu_id=-1, verbose=False):
+             mean_pixel_name='mean.binaryproto',
+             gray_range=255, channel_swap=(2, 1, 0), batch_size=0,
+             gpu_id=-1, verbose=False):
     # paths
     model_configuration = os.path.join(model_path, model_deploy)
     model = os.path.join(model_path, model_name)
@@ -231,7 +80,6 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
         print "Loading image(s) to classify..."
     input_images = []
     for image_file in image_files:
-        #print image_file
         input_images.append(caffe.io.load_image(image_file))
 
     # batch process the images:
@@ -256,7 +104,7 @@ def print_classification(probs, image_files, model_path, labels_name='labels.txt
     labels = np.loadtxt(labels_file, str)
 
     ind = min(len(labels), 5)
-            
+
     for ix, image_file in enumerate(image_files):
         print 'Predicted class & probabilities (top) for image ' + image_file + ":"
         ix_topN = probs[ix].argsort()[::-1][:ind]
@@ -264,9 +112,10 @@ def print_classification(probs, image_files, model_path, labels_name='labels.txt
         print(topN_classes)
         print("")
 
+
 def print_json_classification(probs, image_files, model_path, model_name,
-        labels_name, mean_pixel_name, model_deploy,
-        gray_range, channel_swap, batch_size, outfile):
+                              labels_name, mean_pixel_name, model_deploy,
+                              gray_range, channel_swap, batch_size, outfile):
     """
         Print a json representation of the classification result
     """
@@ -274,9 +123,9 @@ def print_json_classification(probs, image_files, model_path, model_name,
     labels = np.loadtxt(labels_file, str)
 
     data = {
-        "type" : "classification",
-        "script" : "cnn_classify.py",
-        "datetime" : datetime.now().isoformat(),
+        "type": "classification",
+        "script": "cnn_classify.py",
+        "datetime": datetime.now().isoformat(),
         "parameters": {
             "model_path": model_path,
             "model_name": model_name,
@@ -287,7 +136,7 @@ def print_json_classification(probs, image_files, model_path, model_name,
             "channel_swap": channel_swap,
             "batch_size": batch_size
         },
-        "predictions" : {}
+        "predictions": {}
     }
 
     ind = min(len(labels), 5)
@@ -297,7 +146,7 @@ def print_json_classification(probs, image_files, model_path, model_name,
         topN_classes = zip(labels[ix_topN], probs[ix][ix_topN])
         tags = "%s" % dict(topN_classes)
         data["predictions"][image_file] = {
-            "tags" : tags
+            "tags": tags
         }
 
     json_string = json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False)
@@ -325,11 +174,8 @@ def run(image_files, model_path, model_name, model_deploy,
         print_classification(probs, image_files, model_path, labels_name=labels_name)
 
 
-if __name__ == '__main__':
-    import argparse
+def get_default_argument_parser():
     parser = argparse.ArgumentParser()
-
-    parser.add_argument("image_files", help="The filename(s) (including path, full or relative) of the image(s) you want to classify.", nargs="+")
 
     # model file parameters
     parser.add_argument("-M", "--model_path", help="Model files directory. Should contain the files: snapshot.caffemodel, deploy.prototxt and labels.txt. Any files with other filenames can be given with other parameters (see below).", required=True)
@@ -341,25 +187,30 @@ if __name__ == '__main__':
     model_group.add_argument("--mean_pixel_name", help="Mean pixel file name of the trained model (default: mean.binaryproto).", default='mean.binaryproto')
 
     output_group = parser.add_argument_group(title="Output format.", description="Define the output format.")
-    output_group.add_argument("--json", help="Output json format",action="store_true", default=0)
-    output_group.add_argument("-o", "--outfile", help="Output file path", type=argparse.FileType('w'), default="-")
+    output_group.add_argument("--json", help="Output json format",
+                              action="store_true", default=0)
+    output_group.add_argument("-o", "--outfile", help="Output file path",
+                              type=argparse.FileType('w'), default="-")
 
     parser.add_argument("--gray_range", help="Gray range of the images (default: 255).", type=int, default=255)
-    parser.add_argument("--channel_swap", help="Use numbers 0, 1 and 2 to give the order of the color-channels that the model used, for instance 0 1 2 for RGB. Some models swap the channels from RGB to BGR (this is the default: 2 1 0).", nargs=3, default=[2,1,0])
+    parser.add_argument("--channel_swap", help="Use numbers 0, 1 and 2 to give the order of the color-channels that the model used, for instance 0 1 2 for RGB. Some models swap the channels from RGB to BGR (this is the default: 2 1 0).", nargs=3, default=[2, 1, 0])
     parser.add_argument("--batch_size", help="Number of images processed simultaneously. Default: taken from model configuration.", type=int, default=0)
     parser.add_argument("--gpu_id", help="To use GPU mode, specify the gpu_id that you want to use. Default: CPU mode (-1).", type=int, default=-1)
-    parser.add_argument("C","-class_keys", help="Class keys of interest in the input JSON file.")
-    parser.add_argument("P","-min_prob", help="Minimum probability for a classification to be output in the output JSON file.", type =float, default = 0.1)
+    parser.add_argument("C", "-class_keys", help="Class keys of interest in the input JSON file.")
+    parser.add_argument("P", "-min_prob", help="Minimum probability for a classification to be output in the output JSON file.", type=float, default=0.1)
 
     parser.add_argument("-v", "--verbose", help="Verbose mode.", action="store_true", default=0)
 
-    # CWL workflow mode
-    subparsers = parser.add_subparsers(dest='subcommand', help='sub-command help')
-    parser_workflow = subparsers.add_parser('workflow', help='workflow-mode help')
+    return parser
 
-    parser_workflow.add_argument("json_file", help="The filename (including path, full or relative) of the json file with the input. This will usually be specified by the CWL workflow.", type=argparse.FileType('r'))
-    parser_workflow.add_argument("class", help="The class of objects from the input JSON file that will be processed by the specific classifier in the CWL component.", type=str)
-    parser_workflow.add_argument("threshold", help="A cut-off threshold for the probabilities of the classifications.", type=float)
+
+if __name__ == '__main__':
+    parser = get_default_argument_parser()
+
+    # The default mode for the cnn_classify script is to give it filenames of
+    # images. This can be changed in derivative scripts by importing
+    # cnn_classify and defining a different argument, e.g. a JSON file.
+    parser.add_argument("image_files", help="The filename(s) (including path, full or relative) of the image(s) you want to classify.", nargs="+")
 
     args = parser.parse_args()
     print args
