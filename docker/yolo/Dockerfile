@@ -21,5 +21,5 @@ RUN wget http://pjreddie.com/media/files/yolo.weights
 RUN apt -y install python python-pip
 RUN pip install docopt
 ADD . /scripts
-ENTRYPOINT ["./darknet", "detect", "cfg/yolo.cfg", "yolo.weights"]
+ENTRYPOINT ["python", "/scripts/run_yolo.py"]
 
