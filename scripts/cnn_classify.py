@@ -177,8 +177,6 @@ def run(image_files, model_path, model_name, model_deploy,
 def get_default_argument_parser():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("image_files", help="The filename(s) (including path, full or relative) of the image(s) you want to classify.", nargs="+")
-
     # model file parameters
     parser.add_argument("-M", "--model_path", help="Model files directory. Should contain the files: snapshot.caffemodel, deploy.prototxt and labels.txt. Any files with other filenames can be given with other parameters (see below).", required=True)
     parser.add_argument("-D", "--data_path", help="Directory path of where the data is mounted. If this script is running whithin a docker it should be the docker local path", default="/data")
@@ -209,13 +207,10 @@ def get_default_argument_parser():
 if __name__ == '__main__':
     parser = get_default_argument_parser()
 
-    # CWL workflow mode
-    # subparsers = parser.add_subparsers(dest='subcommand', help='sub-command help')
-    # parser_workflow = subparsers.add_parser('workflow', help='workflow-mode help')
-
-    # parser_workflow.add_argument("json_file", help="The filename (including path, full or relative) of the json file with the input. This will usually be specified by the CWL workflow.", type=argparse.FileType('r'))
-    # parser_workflow.add_argument("class", help="The class of objects from the input JSON file that will be processed by the specific classifier in the CWL component.", type=str)
-    # parser_workflow.add_argument("threshold", help="A cut-off threshold for the probabilities of the classifications.", type=float)
+    # The default mode for the cnn_classify script is to give it filenames of
+    # images. This can be changed in derivative scripts by importing
+    # cnn_classify and defining a different argument, e.g. a JSON file.
+    parser.add_argument("image_files", help="The filename(s) (including path, full or relative) of the image(s) you want to classify.", nargs="+")
 
     args = parser.parse_args()
     print args
