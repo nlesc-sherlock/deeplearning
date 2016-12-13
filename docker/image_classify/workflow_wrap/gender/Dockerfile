@@ -29,7 +29,7 @@ FROM nlescsherlockdl/image_classify_gender
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
 # update A if you want to repull
-RUN A=7
+RUN A=8
 RUN cd /opt/deeplearning/ && \
   git pull
 

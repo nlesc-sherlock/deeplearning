@@ -3,7 +3,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-13 16:35:39
+# @Last Modified time: 2016-12-13 16:40:41
 
 import cnn_classify
 import argparse
@@ -89,7 +89,11 @@ if __name__ == '__main__':
         with file(outfn, "r") as fp:
             gender_classification = json.load(fp)
 
+        print(gender_classification)
+
         output_json = generate_output_json(input_json, gender_classification)
+
+        print(output_json)
 
         json.dump(output_json, args.workflow_out)
     else:
