@@ -17,7 +17,7 @@ The input JSON example:
         ...
     ],
     {
-        "classes":{                                                      # from object detection (Yolo/SSD)
+        "classes":{                                                      # from object detector (Yolo/SSD)
             "car" : [
             {
                     "path" : "/path/to/image",
