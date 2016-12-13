@@ -28,4 +28,9 @@ FROM nlescsherlockdl/image_classify_gender
 
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
+# update A if you want to repull
+RUN A=0
+RUN cd /opt/deeplearning/ && \
+  git pull
+
 ENTRYPOINT ["/opt/deeplearning/scripts/image_classify_workflow_wrap_gender.py", "-M", "/opt/deeplearning/Models/GoogleNet_AgeGender_Gender", "--model_snapshot", "snapshot_iter_1665.caffemodel", "--json"]
