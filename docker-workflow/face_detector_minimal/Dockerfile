@@ -32,8 +32,7 @@ RUN apt update && \
 
 # Get the needed files from the local deeplearning git repo
 RUN A=0
-COPY face_detection_workflow_wrap.py /opt
-COPY wrap_lib.py /opt
+COPY face_detection_workflow_wrap.py wrap_lib.py /opt/
 
 RUN wget https://github.com/wavexx/facedetect/archive/master.zip
 
