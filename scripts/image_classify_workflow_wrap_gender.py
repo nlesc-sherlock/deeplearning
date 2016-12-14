@@ -3,21 +3,11 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-13 17:56:40
+# @Last Modified time: 2016-12-14 08:10:28
 
 import cnn_classify
-import argparse
+import image_classify_workflow_wrap_lib as flibflob
 import json
-
-
-def get_person_face_image_filenames_from_json(json_object):
-    filenames = []
-    if 'person' in json_object['classes'].keys():
-        persons = json_object['classes']['person']
-        for person in persons:
-            if 'face' in person.keys():
-                filenames.append(person['face']['cropped_image'])
-    return filenames
 
 
 def inflate_tags(tags):
@@ -59,18 +49,7 @@ if __name__ == '__main__':
     # determined empirically
     probability_threshold = 0.6
 
-    parser = cnn_classify.get_default_argument_parser()
-
-    parser.add_argument("json_input_file",
-                        help="The filename (including path, full or relative) "
-                             "of the json file that specifies the input to the "
-                             "classifier.",
-                        type=argparse.FileType('r'))
-    parser.add_argument("--workflow_out",
-                        help="Filename (including path, full or relative) "
-                             "of the output json file in the Sherlock workflow "
-                             "specification.", required=True,
-                        type=argparse.FileType('w'))
+    parser = flibflob.get_workflow_argument_parser()
 
     args = parser.parse_args()
     print args
@@ -81,7 +60,7 @@ if __name__ == '__main__':
 
     input_json = json.load(args.json_input_file)
 
-    image_filenames = get_person_face_image_filenames_from_json(input_json)
+    image_filenames = flibflob.get_person_face_image_filenames_from_json(input_json)
 
     if image_filenames:
         with file(outfn, "w") as outfile:
