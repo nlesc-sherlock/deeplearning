@@ -4,6 +4,9 @@
 #
 # Description
 # ---
+# Analyzes a couple of images and classifies it using resnet50 in keras.
+# Usage:
+# docker run -v /local/image/dir/:/data/ nlescsherlockdl/imagenet1000 /data/image.jpg /data/image2.jpg ...
 
 
 FROM nlescsherlockdl/cuda7.5-cudnn5-devel

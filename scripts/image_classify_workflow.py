@@ -31,17 +31,20 @@ def run_ssd_detection(client, input_json, output_json, volumes):
     tmpdir = volumes['temp']['path']+":"+volumes['temp']['bind']
     command = "nvidia-docker run" + " -v " + indir + " -v " + outdir + " -v " + tmpdir + " nlescsherlockdl/object_detect_ssdnet_wrapper " + \
               " --workflow_out " + output_json + " " + input_json
-    print("Command: ", command)
+    #print("Command: ", command)
     subprocess.call(command, shell=True)
 
 
+def run_cropper(client, input_json, output_json, volumes):
+    pass
+
 if __name__ == "__main__":
-    print("**************************************************\n"
-          "*                                                *\n"
-          "*  Welcome to the image classification workflow  *\n"
-          "*  this verion isimplemented by a python script. *\n"
-          "*                                                *\n"
-          "**************************************************\n\n")
+    print("***************************************************\n"
+          "*                                                 *\n"
+          "*  Welcome to the image classification workflow.  *\n"
+          "*        This version is a python script.         *\n"
+          "*                                                 *\n"
+          "***************************************************\n\n")
     print("Now parsing arguments.....", end="")
     parser = argparse.ArgumentParser()
 
@@ -84,9 +87,6 @@ if __name__ == "__main__":
             'bind': '/temp'
         }
     }
-    volumes[inputdir] = {'bind': '/data', 'mode': 'rw'}
-    volumes[outputdir] = {'bind': '/out', 'mode': 'rw'}
-    volumes[tmpdir] = {'bind': '/temp', 'mode': 'rw'}
     print("done.\n\n")
 
 
@@ -103,3 +103,8 @@ if __name__ == "__main__":
     run_ssd_detection(client, input_json, output_json, volumes)
     print("done.")
 
+    print("Now running cropping...", end="")
+    input_json = os.path.join(volumes['temp']['bind'], "detect.json")
+    output_json = os.path.join(volumes['temp'[['bind'], "cropped.json")
+    run_cropper(client, input_json, output_json, volumes)
+    print("done.")
