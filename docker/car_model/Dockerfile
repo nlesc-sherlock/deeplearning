@@ -21,7 +21,7 @@ FROM nlescsherlockdl/image_classify_base
 
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
-RUN cd /opt/deeplearning/Models/car_model && \
+RUN cd /opt/deeplearning && \
   git pull
 
 RUN cd /opt/deeplearning/Models/car_model && \
