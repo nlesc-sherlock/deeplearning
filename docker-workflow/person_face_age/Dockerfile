@@ -29,8 +29,8 @@ FROM nlescsherlockdl/person_face_age
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
 # update A if you want to repull
-RUN A=13
+RUN A=0
 RUN cd /opt/deeplearning/ && \
   git pull
 
-ENTRYPOINT ["/opt/deeplearning/scripts/image_classify_workflow_wrap_age.py", "-M", "/opt/deeplearning/Models/GoogleNet_AgeGender_Age", "--model_snapshot", "snapshot_iter_1665.caffemodel", "--json"]
+ENTRYPOINT ["/opt/deeplearning/scripts/image_classify_workflow_wrap_age.py", "-M", "/opt/deeplearning/Models/GoogleNet_AgeGender_Age", "--model_snapshot", "snapshot_iter_197700.caffemodel", "--json"]
