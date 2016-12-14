@@ -27,7 +27,8 @@ if __name__ == '__main__':
     outfn = "/tmp/carmodel_classification.json"
 
     input_json = json.load(args.json_input_file)
-
+    ouput_json = input_json
+    
     image_filenames = crablip.get_class_image_filenames_from_json(input_json,
                                                                   class_key)
 
@@ -52,6 +53,5 @@ if __name__ == '__main__':
                                                    probability_threshold,
                                                    classifier_key, class_key)
 
-        json.dump(output_json, args.workflow_out, indent=4)
-    else:
-        raise Exception("No cars in input json file.")
+    json.dump(output_json, args.workflow_out, indent=4)
+    
