@@ -3,19 +3,18 @@
 import argparse, json, os, subprocess
 
 def crop(classification, output_folder):
-    print classification
     filepath = classification['path']
     pathsplit = filepath.split('/')
     filesplit = pathsplit[-1].split('.')
-    command = "convert "
-    command += filepath
-    command += " -crop "
-    command += "{2}x{3}+{0}+{1} ".format(*classification['bbox'])
-    newfile = output_folder + '/'
-    newfile += '.'.join(filesplit[:-1])
-    newfile += "_" + classification['class'] + '.' + filesplit[-1]
-    command += newfile
-    print command
+    newfile = "{}/{}_{}.{}".format(
+            output_folder,
+            '.'.join(filesplit[:-1]),
+            classification['class'],
+            filesplit[-1])
+    bboxstr = "{2}x{3}+{0}+{1}".format(*[int(i) for i in classification['bbox']])
+    command = "convert {} -crop {} {}".format(filepath, bboxstr, newfile)
+    if verbose:
+        print command
     os.system(command)
     return newfile
 
