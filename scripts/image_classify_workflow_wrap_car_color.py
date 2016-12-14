@@ -3,7 +3,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-14 13:33:54
+# @Last Modified time: 2016-12-14 13:33:32
 
 import cnn_classify
 import crablip
@@ -12,9 +12,10 @@ import json
 
 if __name__ == '__main__':
     # determined empirically
-    probability_threshold = 0.15
-    # age parameters
-    classifier_key = 'face/age'
+    probability_threshold = 0.001
+    # parameters
+    class_key = 'car'
+    classifier_key = 'car/model'
 
     parser = crablip.get_workflow_argument_parser()
 
@@ -23,11 +24,12 @@ if __name__ == '__main__':
 
     # hard code the json output file, since we need to add this back into the
     # giant workflow json object
-    outfn = "/tmp/age_classification.json"
+    outfn = "/tmp/carmodel_classification.json"
 
     input_json = json.load(args.json_input_file)
 
-    image_filenames = crablip.get_person_face_image_filenames_from_json(input_json)
+    image_filenames = crablip.get_class_image_filenames_from_json(input_json,
+                                                                  class_key)
 
     if image_filenames:
         with file(outfn, "w") as outfile:
@@ -45,11 +47,11 @@ if __name__ == '__main__':
         with file(outfn, "r") as fp:
             classification = json.load(fp)
 
-        output_json = crablip.generate_output_json_face(input_json,
-                                                        classification,
-                                                        probability_threshold,
-                                                        classifier_key)
+        output_json = crablip.generate_output_json(input_json,
+                                                   classification,
+                                                   probability_threshold,
+                                                   classifier_key, class_key)
 
         json.dump(output_json, args.workflow_out, indent=4)
     else:
-        raise Exception("No person faces in input json file.")
+        raise Exception("No cars in input json file.")

@@ -2,10 +2,37 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-14 08:05:09
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-14 11:05:20
+# @Last Modified time: 2016-12-14 13:30:31
 
-import cnn_classify
 import argparse
+
+
+def get_default_argument_parser():
+    parser = argparse.ArgumentParser()
+
+    # model file parameters
+    parser.add_argument("-M", "--model_path", help="Model files directory. Should contain the files: snapshot.caffemodel, deploy.prototxt and labels.txt. Any files with other filenames can be given with other parameters (see below).", required=True)
+    parser.add_argument("-D", "--data_path", help="Directory path of where the data is mounted. If this script is running whithin a docker it should be the docker local path", default="/data")
+    model_group = parser.add_argument_group(title="Model file names.", description="Override the default filenames of the model.")
+    model_group.add_argument("--model_snapshot", help="The filename of the caffemodel snapshot in the model directory.", default='snapshot.caffemodel')
+    model_group.add_argument("--model_deploy", help="The filename of the deploy file in the model directory.", default='deploy.prototxt')
+    model_group.add_argument("--model_labels", help="The filename of the labels file in the model directory.", default='labels.txt')
+    model_group.add_argument("--mean_pixel_name", help="Mean pixel file name of the trained model (default: mean.binaryproto).", default='mean.binaryproto')
+
+    output_group = parser.add_argument_group(title="Output format.", description="Define the output format.")
+    output_group.add_argument("--json", help="Output json format",
+                              action="store_true", default=0)
+    output_group.add_argument("-o", "--outfile", help="Output file path",
+                              type=argparse.FileType('w'), default="-")
+
+    parser.add_argument("--gray_range", help="Gray range of the images (default: 255).", type=int, default=255)
+    parser.add_argument("--channel_swap", help="Use numbers 0, 1 and 2 to give the order of the color-channels that the model used, for instance 0 1 2 for RGB. Some models swap the channels from RGB to BGR (this is the default: 2 1 0).", nargs=3, default=[2, 1, 0])
+    parser.add_argument("--batch_size", help="Number of images processed simultaneously. Default: taken from model configuration.", type=int, default=0)
+    parser.add_argument("--gpu_id", help="To use GPU mode, specify the gpu_id that you want to use. Default: CPU mode (-1).", type=int, default=-1)
+
+    parser.add_argument("-v", "--verbose", help="Verbose mode.", action="store_true", default=0)
+
+    return parser
 
 
 def get_class_image_filenames_from_json(json_object, class_key,
@@ -27,11 +54,13 @@ def get_person_face_image_filenames_from_json(json_object):
     return get_class_image_filenames_from_json(json_object, 'person',
                                                subclass_key='face')
 
+
 def get_person_image_filenames_from_json(json_object):
     return get_class_image_filenames_from_json(json_object, 'person')
 
+
 def get_workflow_argument_parser():
-    parser = cnn_classify.get_default_argument_parser()
+    parser = get_default_argument_parser()
 
     parser.add_argument("json_input_file",
                         help="The filename (including path, full or relative) "

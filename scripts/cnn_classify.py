@@ -5,7 +5,7 @@ import numpy as np
 import os
 import json
 from datetime import datetime
-import argparse
+import crablip
 
 os.environ['GLOG_minloglevel'] = '2' # Surpress a lot of building messages
 import caffe
@@ -185,36 +185,8 @@ def run(image_files, model_path, model_name, model_deploy,
         print_classification(probs, image_files, model_path, labels_name=labels_name)
 
 
-def get_default_argument_parser():
-    parser = argparse.ArgumentParser()
-
-    # model file parameters
-    parser.add_argument("-M", "--model_path", help="Model files directory. Should contain the files: snapshot.caffemodel, deploy.prototxt and labels.txt. Any files with other filenames can be given with other parameters (see below).", required=True)
-    parser.add_argument("-D", "--data_path", help="Directory path of where the data is mounted. If this script is running whithin a docker it should be the docker local path", default="/data")
-    model_group = parser.add_argument_group(title="Model file names.", description="Override the default filenames of the model.")
-    model_group.add_argument("--model_snapshot", help="The filename of the caffemodel snapshot in the model directory.", default='snapshot.caffemodel')
-    model_group.add_argument("--model_deploy", help="The filename of the deploy file in the model directory.", default='deploy.prototxt')
-    model_group.add_argument("--model_labels", help="The filename of the labels file in the model directory.", default='labels.txt')
-    model_group.add_argument("--mean_pixel_name", help="Mean pixel file name of the trained model (default: mean.binaryproto).", default='mean.binaryproto')
-
-    output_group = parser.add_argument_group(title="Output format.", description="Define the output format.")
-    output_group.add_argument("--json", help="Output json format",
-                              action="store_true", default=0)
-    output_group.add_argument("-o", "--outfile", help="Output file path",
-                              type=argparse.FileType('w'), default="-")
-
-    parser.add_argument("--gray_range", help="Gray range of the images (default: 255).", type=int, default=255)
-    parser.add_argument("--channel_swap", help="Use numbers 0, 1 and 2 to give the order of the color-channels that the model used, for instance 0 1 2 for RGB. Some models swap the channels from RGB to BGR (this is the default: 2 1 0).", nargs=3, default=[2, 1, 0])
-    parser.add_argument("--batch_size", help="Number of images processed simultaneously. Default: taken from model configuration.", type=int, default=0)
-    parser.add_argument("--gpu_id", help="To use GPU mode, specify the gpu_id that you want to use. Default: CPU mode (-1).", type=int, default=-1)
-
-    parser.add_argument("-v", "--verbose", help="Verbose mode.", action="store_true", default=0)
-
-    return parser
-
-
 if __name__ == '__main__':
-    parser = get_default_argument_parser()
+    parser = crablip.get_default_argument_parser()
 
     # The default mode for the cnn_classify script is to give it filenames of
     # images. This can be changed in derivative scripts by importing
