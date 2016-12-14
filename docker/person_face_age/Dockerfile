@@ -1,16 +1,16 @@
 # Build:
 # cd to deeplearning/docker/person_face_age, then:
 
-# docker build -t nlescsherlockdl/image_classify_age .
-# docker push nlescsherlockdl/image_classify_age
+# docker build -t nlescsherlockdl/person_face_age .
+# docker push nlescsherlockdl/person_face_age
 
 # To run on all files in a data directory with batch size 59:
 
-# docker pull nlescsherlockdl/image_classify_age
+# docker pull nlescsherlockdl/person_face_age
 # DATADIR=/somewhere/on/your/local/filesystem/with/images
 # nvidia-docker run \
 #     -v $DATADIR:/data \
-#     nlescsherlockdl/image_classify_age \
+#     nlescsherlockdl/person_face_age \
 #     -v \
 #     --batch_size=59 \
 #     --json \
