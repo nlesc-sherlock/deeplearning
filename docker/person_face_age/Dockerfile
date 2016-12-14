@@ -21,7 +21,9 @@ FROM nlescsherlockdl/image_classify_base
 
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
-RUN cd /opt/deeplearning/Models/GoogleNet_AgeGender_Age && \
+# update A if you want to repull
+RUN A=0
+RUN cd /opt/deeplearning && \
   git pull
 
 RUN cd /opt/deeplearning/Models/GoogleNet_AgeGender_Age && \
