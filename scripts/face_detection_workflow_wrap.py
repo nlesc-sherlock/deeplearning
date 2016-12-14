@@ -30,4 +30,4 @@ if __name__ == '__main__':
             person[u'face'][u'path'] = image_fn
             person[u'face'][u'bbox'] = [int(x) for x in list(features[0])]
             
-        json.dump(output_json, args.workflow_out, indent=4)    
+    json.dump(output_json, args.workflow_out, indent=4)    
