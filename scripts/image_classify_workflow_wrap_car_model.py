@@ -3,7 +3,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-14 11:06:00
+# @Last Modified time: 2016-12-14 11:56:56
 
 import cnn_classify
 import image_classify_workflow_wrap_lib as flibflob
