@@ -3,7 +3,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-14 08:29:10
+# @Last Modified time: 2016-12-14 08:38:31
 
 import cnn_classify
 import image_classify_workflow_wrap_lib as flibflob
@@ -15,7 +15,6 @@ if __name__ == '__main__':
     probability_threshold = 0.15
     # age parameters
     classifier_key = 'face/age'
-    tag_name_translation = {'m': 'male', 'f': 'female'}
 
     parser = flibflob.get_workflow_argument_parser()
 
@@ -49,8 +48,7 @@ if __name__ == '__main__':
         output_json = flibflob.generate_output_json_face(input_json,
                                                          classification,
                                                          probability_threshold,
-                                                         classifier_key,
-                                                         tag_name_translation)
+                                                         classifier_key)
 
         json.dump(output_json, args.workflow_out)
     else:

@@ -2,7 +2,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-14 08:05:09
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-14 08:29:00
+# @Last Modified time: 2016-12-14 08:38:14
 
 import cnn_classify
 import argparse
@@ -57,7 +57,7 @@ def translate_tag_names(tags, translate):
 
 
 def generate_output_json_face(input_json, classification, probability_threshold,
-                              classifier_key, tag_name_translation):
+                              classifier_key, tag_name_translation=None):
     persons = input_json['classes']['person']
     predictions = classification['predictions']
     tags = {}
@@ -71,8 +71,10 @@ def generate_output_json_face(input_json, classification, probability_threshold,
         if 'face' in person.keys():
             fn = person['face']['cropped_image']
             person['face'].setdefault('classification', []).append(classification.copy())
-            mangled_tags = translate_tag_names(inflate_tags(tags[fn]),
-                                               tag_name_translation)
+            mangled_tags = inflate_tags(tags[fn])
+            if tag_name_translation is not None:
+                mangled_tags = translate_tag_names(mangled_tags,
+                                                   tag_name_translation)
             person['face']['classification'][-1]['tags'] = mangled_tags
 
     # note that we modified the input_json object!
