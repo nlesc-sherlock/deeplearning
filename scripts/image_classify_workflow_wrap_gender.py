@@ -27,7 +27,7 @@ if __name__ == '__main__':
     outfn = "/tmp/gender_classification.json"
 
     input_json = json.load(args.json_input_file)
-    output_json = input_json;
+    output_json = input_json
 
     image_filenames = crablip.get_person_face_image_filenames_from_json(input_json)
 
