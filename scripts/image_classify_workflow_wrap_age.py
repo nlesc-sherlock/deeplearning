@@ -26,6 +26,7 @@ if __name__ == '__main__':
     outfn = "/tmp/age_classification.json"
 
     input_json = json.load(args.json_input_file)
+    output_json = input_json
 
     image_filenames = crablip.get_person_face_image_filenames_from_json(input_json)
 
@@ -51,5 +52,4 @@ if __name__ == '__main__':
                                                         classifier_key)
 
         json.dump(output_json, args.workflow_out, indent=4)
-    else:
-        raise Exception("No person faces in input json file.")
+    
