@@ -18,11 +18,11 @@ if __name__ == '__main__':
     fd.load_cascades(fd.DATA_DIR)
     
     input_json = json.load(args.json_input_file)
+    output_json = input_json
 
-    # N.B.: input_json will be altered!
-
-    if 'person' in input_json['classes'].keys():
-        persons = input_json['classes']['person']
+    
+    if 'person' in output_json['classes'].keys():
+        persons = output_json['classes']['person']
         for person in persons:
             image_fn = person['cropped_image']
             _, features = fd.face_detect_file(image_fn)
@@ -30,6 +30,4 @@ if __name__ == '__main__':
             person[u'face'][u'path'] = image_fn
             person[u'face'][u'bbox'] = [int(x) for x in list(features[0])]
             
-        json.dump(input_json, args.workflow_out, indent=4)
-    else:
-        raise Exception("No persons in input json file.")
+        json.dump(output_json, args.workflow_out, indent=4)    
