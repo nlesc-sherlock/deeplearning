@@ -3,6 +3,12 @@
 import argparse, json, os, subprocess
 
 def crop(classification, output_folder):
+    """
+    This function crops the image indicated by classification.path according to
+    classification.bbox and stores it in output_folder by a filename that is
+    composed of the original filename and the indicated class. The filename stored as
+    classification.cropped_file.
+    """
     filepath = classification['path']
     pathsplit = filepath.split('/')
     filesplit = pathsplit[-1].split('.')
@@ -16,8 +22,7 @@ def crop(classification, output_folder):
     if verbose:
         print command
     os.system(command)
-    return newfile
-
+    classification['cropped_file'] = newfile
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -37,6 +42,10 @@ if __name__ == '__main__':
                              "in which to store the cropped images Sherlock workflow "
                              "specification.", required=True,
                         type=str)
+    parser.add_argument("-p", "--probability",
+                        help="Threshold value for probabilities based on which "
+                             "images are cropped ",
+                        type=float, default=0.5)
     parser.add_argument("-v", "--verbose", help="Verbose mode.", action="store_true", default=0)
 
     args = parser.parse_args()
@@ -49,8 +58,8 @@ if __name__ == '__main__':
     # os.mkdir(args.cropped_folder)
     
     for classification in data['classifications']:
-        if classification['probability'] > 0.5:
-            classification['cropped_file'] = crop(classification, args.cropped_folder)
+        if classification['probability'] > args.probability:
+            crop(classification, args.cropped_folder)
         
     if verbose:
         print(json.dumps(data, indent=4))
