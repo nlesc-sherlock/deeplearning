@@ -29,7 +29,7 @@ FROM nlescsherlockdl/person_face_gender
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
 # update A if you want to repull
-RUN A=13
+RUN A=0
 RUN cd /opt/deeplearning/ && \
   git pull
 
