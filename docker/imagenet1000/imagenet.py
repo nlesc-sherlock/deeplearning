@@ -35,5 +35,5 @@ if __name__ == '__main__':
     x = preprocess_input(x)
 
     predictions = decode_predictions(model.predict(x), top=top)
-    for i, path in enumerate(paths):
-        print(paths[i], predictions[i])
+    for prediction in predictions:
+        print(prediction)

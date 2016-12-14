@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     if image_filenames:
         with file(outfn, "w") as outfile:    
-            threshold = 0.2
+            threshold = 0.1
             detect.detect_objects(image_filenames, threshold, outfile) 
 
 
