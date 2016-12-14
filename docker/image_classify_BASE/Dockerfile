@@ -1,5 +1,5 @@
 # Build:
-# cd to deeplearning/image_classify/base, then:
+# cd to deeplearning/image_classify_BASE, then:
 # docker build -t nlescsherlockdl/image_classify_base .
 # This image is for use as a base image only!
 
