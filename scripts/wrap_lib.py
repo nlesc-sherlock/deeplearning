@@ -6,9 +6,24 @@
 
 import argparse
 
-
-def get_default_argument_parser():
+def get_workflow_argument_parser():
     parser = argparse.ArgumentParser()
+    
+    parser.add_argument("json_input_file",
+                        help="The filename (including path, full or relative) "
+                             "of the json file that specifies the input to the "
+                             "classifier.",
+                        type=argparse.FileType('r'))
+    parser.add_argument("--workflow_out",
+                        help="Filename (including path, full or relative) "
+                             "of the output json file in the Sherlock workflow "
+                             "specification.", required=True,
+                        type=argparse.FileType('w'))
+                        
+    return parser
+        
+def get_default_classifier_argument_parser(parser):
+    #parser = argparse.ArgumentParser()
 
     # model file parameters
     parser.add_argument("-M", "--model_path", help="Model files directory. Should contain the files: snapshot.caffemodel, deploy.prototxt and labels.txt. Any files with other filenames can be given with other parameters (see below).", required=True)
@@ -34,6 +49,13 @@ def get_default_argument_parser():
 
     return parser
 
+def get_classifier_workflow_argument_parser():
+    
+    parser = get_workflow_argument_parser()    
+    parser = get_default_classifier_argument_parser(parser)
+    
+
+    return parser
 
 def get_class_image_filenames_from_json(json_object, class_key,
                                         subclass_key=None):
@@ -59,23 +81,7 @@ def get_person_image_filenames_from_json(json_object):
     return get_class_image_filenames_from_json(json_object, 'person')
 
 
-def get_workflow_argument_parser():
-    parser = get_default_argument_parser()
-
-    parser.add_argument("json_input_file",
-                        help="The filename (including path, full or relative) "
-                             "of the json file that specifies the input to the "
-                             "classifier.",
-                        type=argparse.FileType('r'))
-    parser.add_argument("--workflow_out",
-                        help="Filename (including path, full or relative) "
-                             "of the output json file in the Sherlock workflow "
-                             "specification.", required=True,
-                        type=argparse.FileType('w'))
-
-    return parser
-
-
+    
 def inflate_tags(tags):
     """
     The json output in cnn_classify uses a compact json notation of
