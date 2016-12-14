@@ -3,51 +3,19 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-14 08:10:28
+# @Last Modified time: 2016-12-14 08:31:32
 
 import cnn_classify
 import image_classify_workflow_wrap_lib as flibflob
 import json
 
 
-def inflate_tags(tags):
-    """
-    The json output in cnn_classify uses a compact json notation of
-    <class>: <probability>. We want out tags to be in
-    "name": <class>, "probability": <probability> format.
-    In addition, we want "female" instead of "f" and "male" instead of "m".
-    """
-    translate = {'m': 'male', 'f': 'female'}
-    new_tags = []
-    for name, probability in tags.iteritems():
-        new_tags.append({'name': translate[name], 'probability': probability})
-    return new_tags
-
-
-def generate_output_json(input_json, gender_classification,
-                         probability_threshold):
-    persons = input_json['classes']['person']
-    predictions = gender_classification['predictions']
-    tags = {}
-    for fn, prediction in predictions.iteritems():
-        tags[fn] = {}
-        for name, probability in prediction['tags'].iteritems():
-            if probability > probability_threshold:
-                tags[fn][name] = probability
-    classification = {'classifier': 'face/gender'}
-    for person in persons:
-        if 'face' in person.keys():
-            fn = person['face']['cropped_image']
-            person['face'].setdefault('classification', []).append(classification.copy())
-            person['face']['classification'][-1]['tags'] = inflate_tags(tags[fn])
-
-    # note that we modified the input_json object!
-    return input_json
-
-
 if __name__ == '__main__':
     # determined empirically
     probability_threshold = 0.6
+    # gender parameters
+    classifier_key = 'face/gender'
+    tag_name_translation = {'m': 'male', 'f': 'female'}
 
     parser = flibflob.get_workflow_argument_parser()
 
@@ -78,8 +46,11 @@ if __name__ == '__main__':
         with file(outfn, "r") as fp:
             gender_classification = json.load(fp)
 
-        output_json = generate_output_json(input_json, gender_classification,
-                                           probability_threshold)
+        output_json = flibflob.generate_output_json_face(input_json,
+                                                         gender_classification,
+                                                         probability_threshold,
+                                                         classifier_key,
+                                                         tag_name_translation)
 
         json.dump(output_json, args.workflow_out)
     else:
