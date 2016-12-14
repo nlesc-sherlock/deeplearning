@@ -9,6 +9,51 @@ def get_image_filenames_from_json(json_object):
         return json_object['files']
 
 
+def generate_output_json(input_json, object_detection):
+    ''' Example object_detection:
+        "classifications": [
+        {   
+            "bbox": [
+                170.0,
+                16.0,
+                178.0,
+                342.0
+            ],
+            "class": "domestic_cat",
+            "path": "/opt/caffe/examples/images/cat.jpg",
+            "probability": 0.9747376441955566
+        },
+        {   
+            "bbox": [
+                96.0,
+                134.0,
+                383.0,
+                184.0
+            ],
+            "class": "unicycle",
+            "path": "/opt/caffe/examples/images/fish-bike.jpg",
+            "probability": 0.2054128497838974
+        }
+    ]
+    '''
+    if 'classes' in input_json.keys():
+        classes = input_json['classes']
+    else:
+        classes = []
+
+    for item in object_detection['classifications']:
+        if not item['class'] in classes.keys():
+            classes[item['class']] = []
+        
+        classes[item['class']].append({
+            'path': item['path'],
+            'probability': item['probability'],
+            'bbox': item['bbox']
+        })
+    
+    return input_json
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
@@ -37,7 +82,7 @@ if __name__ == '__main__':
     if image_filenames:
         with file(outfn, "w") as outfile:    
             threshold = 0.2
-            detect_objects(image_filenames, threshold) 
+            detect_objects(image_filenames, threshold, outfile) 
 
 
         with file(outfn, "r") as fp:
