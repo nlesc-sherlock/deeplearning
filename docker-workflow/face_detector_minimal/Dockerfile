@@ -1,7 +1,7 @@
 # Build:
-# cd to deeplearning/docker-workflow/face_detector, then:
+# cd to deeplearning git repo directory, then:
 
-# docker build -t nlescsherlockdl/face_detector_workflow .
+# docker build -t nlescsherlockdl/face_detector_workflow docker-workflow/face_detector_minimal
 # docker push nlescsherlockdl/face_detector_workflow
 
 # To run on all files in a data directory with batch size 59:
@@ -32,8 +32,8 @@ RUN apt update && \
 
 # Get the needed files from the local deeplearning git repo
 RUN A=0
-COPY ../../scripts/face_detection_workflow_wrap.py /opt
-COPY ../../scripts/wrap_lib.py /opt
+COPY scripts/face_detection_workflow_wrap.py /opt
+COPY scripts/wrap_lib.py /opt
 
 RUN wget https://github.com/wavexx/facedetect/archive/master.zip
 
