@@ -2,21 +2,33 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-14 08:05:09
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-14 09:57:21
+# @Last Modified time: 2016-12-14 11:05:20
 
 import cnn_classify
 import argparse
 
 
-def get_person_face_image_filenames_from_json(json_object):
+def get_class_image_filenames_from_json(json_object, class_key,
+                                        subclass_key=None):
     filenames = []
-    if 'person' in json_object['classes'].keys():
-        persons = json_object['classes']['person']
-        for person in persons:
-            if 'face' in person.keys():
-                filenames.append(person['face']['cropped_image'])
+    if class_key in json_object['classes'].keys():
+        class_objects = json_object['classes'][class_key]
+        for class_object in class_objects:
+            if subclass_key is not None:
+                if subclass_key in class_object.keys():
+                    fn = class_object[subclass_key]['cropped_image']
+            else:
+                fn = class_object['cropped_image']
+            filenames.append(fn)
     return filenames
 
+
+def get_person_face_image_filenames_from_json(json_object):
+    return get_class_image_filenames_from_json(json_object, 'person',
+                                               subclass_key='face')
+
+def get_person_image_filenames_from_json(json_object):
+    return get_class_image_filenames_from_json(json_object, 'person')
 
 def get_workflow_argument_parser():
     parser = cnn_classify.get_default_argument_parser()
@@ -56,9 +68,10 @@ def translate_tag_names(tags, translate):
     return new_tags
 
 
-def generate_output_json_face(input_json, classification, probability_threshold,
-                              classifier_key, tag_name_translation=None):
-    persons = input_json['classes']['person']
+def generate_output_json(input_json, classification, probability_threshold,
+                         classifier_key, class_key, tag_name_translation=None,
+                         subclass_key=None):
+    class_objects = input_json['classes'][class_key]
     predictions = classification['predictions']
     tags = {}
     for fn, prediction in predictions.iteritems():
@@ -67,15 +80,30 @@ def generate_output_json_face(input_json, classification, probability_threshold,
             if probability > probability_threshold:
                 tags[fn][name] = probability
     classification = {'classifier': classifier_key}
-    for person in persons:
-        if 'face' in person.keys():
-            fn = person['face']['cropped_image']
-            person['face'].setdefault('classification', []).append(classification.copy())
-            mangled_tags = inflate_tags(tags[fn])
-            if tag_name_translation is not None:
-                mangled_tags = translate_tag_names(mangled_tags,
-                                                   tag_name_translation)
-            person['face']['classification'][-1]['tags'] = mangled_tags
+    for class_object in class_objects:
+        if subclass_key is not None:
+            if subclass_key in class_object.keys():
+                classified_object = class_object[subclass_key]
+        else:
+            classified_object = class_object
+
+        fn = classified_object['cropped_image']
+        classified_object.setdefault('classification', []).append(classification.copy())
+        mangled_tags = inflate_tags(tags[fn])
+        if tag_name_translation is not None:
+            mangled_tags = translate_tag_names(mangled_tags,
+                                               tag_name_translation)
+        classified_object['classification'][-1]['tags'] = mangled_tags
 
     # note that we modified the input_json object!
     return input_json
+
+
+def generate_output_json_face(input_json, classification, probability_threshold,
+                              classifier_key, tag_name_translation=None):
+    output_json = generate_output_json(input_json, classification,
+                                       probability_threshold, classifier_key,
+                                       'person',
+                                       tag_name_translation=tag_name_translation,
+                                       subclass_key='face')
+    return output_json

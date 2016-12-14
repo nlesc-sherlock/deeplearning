@@ -37,8 +37,7 @@ The input JSON example:
                 "face" :                                                # from face detector
                 {
                     "path" : "path/to/yet/another/cropped/image",
-                    "bbox" : [x, y, w, h],                              # in relation to the cropped person!
-                    "probability": <float>,
+                    "bbox" : [x, y, w, h],                              # in relation to the cropped person!                    
                     "cropped_image" : "path/to/yet/another/cropped/face/image"     # from cropper
                 }
             }
@@ -124,7 +123,6 @@ cropped_image:
                 { 
                     "path" : "path/to/yet/another/cropped/image",
                     "bbox" : [x, y, w, h],                              # in relation to the cropped person!
-                    "probability": <float>,
                     "cropped_image" : "path/to/yet/another/cropped/face/image",   # from cropper
                     "classification": [
                          {
