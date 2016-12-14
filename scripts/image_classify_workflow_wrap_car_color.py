@@ -3,7 +3,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-14 13:39:38
+# @Last Modified time: 2016-12-14 15:24:48
 
 import cnn_classify
 import crablip
@@ -12,7 +12,7 @@ import json
 
 if __name__ == '__main__':
     # determined empirically
-    probability_threshold = 0.001
+    probability_threshold = 0.9
     # parameters
     class_key = 'car'
     classifier_key = 'car/color'
