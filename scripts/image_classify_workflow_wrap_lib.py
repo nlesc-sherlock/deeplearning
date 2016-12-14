@@ -27,6 +27,8 @@ def get_person_face_image_filenames_from_json(json_object):
     return get_class_image_filenames_from_json(json_object, 'person',
                                                subclass_key='face')
 
+def get_person_image_filenames_from_json(json_object):
+    return get_class_image_filenames_from_json(json_object, 'person')
 
 def get_workflow_argument_parser():
     parser = cnn_classify.get_default_argument_parser()
