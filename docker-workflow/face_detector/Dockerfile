@@ -35,7 +35,7 @@ RUN A=0
 RUN cd /opt && \
   git clone https://github.com/nlesc-sherlock/deeplearning.git
 
-RUN curl -O https://github.com/wavexx/facedetect/archive/master.zip
+RUN curl -LO https://github.com/wavexx/facedetect/archive/master.zip
 
 RUN unzip master.zip && \
   cp facedetect-master/facedetect /opt/deeplearning/scripts/facedetect.py
