@@ -34,7 +34,7 @@ RUN apt update && \
 RUN A=0
 COPY face_detection_workflow_wrap.py wrap_lib.py /opt/
 
-RUN wget https://github.com/wavexx/facedetect/archive/master.zip
+RUN curl -O https://github.com/wavexx/facedetect/archive/master.zip
 
 RUN unzip master.zip && \
   cp facedetect-master/facedetect /opt/facedetect.py
