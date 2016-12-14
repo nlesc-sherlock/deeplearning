@@ -1,0 +1,90 @@
+{
+    "classes": {
+        "person": [
+            {
+                "path": "path/to/yet/another/image", 
+                "face": {
+                    "path": "/home/elena/Sherlock/deeplearning/FaceDetector/TestData/person_crop/COCO10_3.jpg", 
+                    "bbox": [
+                        17, 
+                        9, 
+                        30, 
+                        30
+                    ]
+                }, 
+                "bbox": [
+                    1, 
+                    1, 
+                    2, 
+                    2
+                ], 
+                "probability": 1, 
+                "cropped_image": "/home/elena/Sherlock/deeplearning/FaceDetector/TestData/person_crop/COCO10_3.jpg"
+            }, 
+            {
+                "path": "path/to/yet/another/image", 
+                "face": {
+                    "path": "/home/elena/Sherlock/deeplearning/FaceDetector/TestData/person_crop/COCO11_1.jpg", 
+                    "bbox": [
+                        112, 
+                        20, 
+                        76, 
+                        76
+                    ]
+                }, 
+                "bbox": [
+                    5, 
+                    5, 
+                    2, 
+                    2
+                ], 
+                "probability": 1, 
+                "cropped_image": "/home/elena/Sherlock/deeplearning/FaceDetector/TestData/person_crop/COCO11_1.jpg"
+            }, 
+            {
+                "path": "path/to/yet/another/image", 
+                "face": {
+                    "path": "/home/elena/Sherlock/deeplearning/FaceDetector/TestData/person_crop/COCO12_2.jpg", 
+                    "bbox": [
+                        24, 
+                        6, 
+                        40, 
+                        40
+                    ]
+                }, 
+                "bbox": [
+                    1, 
+                    1, 
+                    2, 
+                    2
+                ], 
+                "probability": 1, 
+                "cropped_image": "/home/elena/Sherlock/deeplearning/FaceDetector/TestData/person_crop/COCO12_2.jpg"
+            }
+        ], 
+        "car": [
+            {
+                "path": "path/to/yet/another/image", 
+                "bbox": [
+                    1, 
+                    1, 
+                    2, 
+                    2
+                ], 
+                "probability": 2, 
+                "cropped_image": "/data/yellowleon.jpg"
+            }, 
+            {
+                "path": "path/to/yet/another/image", 
+                "bbox": [
+                    1, 
+                    1, 
+                    2, 
+                    2
+                ], 
+                "probability": 2, 
+                "cropped_image": "/data/blackbeetle.jpg"
+            }
+        ]
+    }
+}

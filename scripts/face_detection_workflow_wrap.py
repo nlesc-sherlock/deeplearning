@@ -9,7 +9,6 @@ import facedetect as fd
 import wrap_lib as wl
 import json
 
-
 if __name__ == '__main__':
     parser = wl.get_workflow_argument_parser()
 
@@ -27,10 +26,10 @@ if __name__ == '__main__':
         for person in persons:
             image_fn = person['cropped_image']
             _, features = fd.face_detect_file(image_fn)
-            person['face'] = {}
-            person['face']['path'] = image_fn
-            person['face']['bbox'] = list(features[0])
-
+            person[u'face'] = {}
+            person[u'face'][u'path'] = image_fn
+            person[u'face'][u'bbox'] = [int(x) for x in list(features[0])]
+            
         json.dump(input_json, args.workflow_out, indent=4)
     else:
         raise Exception("No persons in input json file.")
