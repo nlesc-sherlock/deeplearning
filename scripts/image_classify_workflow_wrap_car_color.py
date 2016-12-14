@@ -3,10 +3,10 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-14 11:56:56
+# @Last Modified time: 2016-12-14 13:33:32
 
 import cnn_classify
-import image_classify_workflow_wrap_lib as flibflob
+import crablip
 import json
 
 
@@ -17,7 +17,7 @@ if __name__ == '__main__':
     class_key = 'car'
     classifier_key = 'car/model'
 
-    parser = flibflob.get_workflow_argument_parser()
+    parser = crablip.get_workflow_argument_parser()
 
     args = parser.parse_args()
     print args
@@ -28,8 +28,8 @@ if __name__ == '__main__':
 
     input_json = json.load(args.json_input_file)
 
-    image_filenames = flibflob.get_class_image_filenames_from_json(input_json,
-                                                                   class_key)
+    image_filenames = crablip.get_class_image_filenames_from_json(input_json,
+                                                                  class_key)
 
     if image_filenames:
         with file(outfn, "w") as outfile:
@@ -47,10 +47,10 @@ if __name__ == '__main__':
         with file(outfn, "r") as fp:
             classification = json.load(fp)
 
-        output_json = flibflob.generate_output_json(input_json,
-                                                    classification,
-                                                    probability_threshold,
-                                                    classifier_key, class_key)
+        output_json = crablip.generate_output_json(input_json,
+                                                   classification,
+                                                   probability_threshold,
+                                                   classifier_key, class_key)
 
         json.dump(output_json, args.workflow_out, indent=4)
     else:
