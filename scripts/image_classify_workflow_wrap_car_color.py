@@ -3,7 +3,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-14 13:33:32
+# @Last Modified time: 2016-12-14 13:39:38
 
 import cnn_classify
 import crablip
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     probability_threshold = 0.001
     # parameters
     class_key = 'car'
-    classifier_key = 'car/model'
+    classifier_key = 'car/color'
 
     parser = crablip.get_workflow_argument_parser()
 
@@ -24,7 +24,7 @@ if __name__ == '__main__':
 
     # hard code the json output file, since we need to add this back into the
     # giant workflow json object
-    outfn = "/tmp/carmodel_classification.json"
+    outfn = "/tmp/classification.json"
 
     input_json = json.load(args.json_input_file)
 
