@@ -51,5 +51,5 @@ if __name__ == '__main__':
                                                         probability_threshold,
                                                         classifier_key)
 
-        json.dump(output_json, args.workflow_out, indent=4)
+    json.dump(output_json, args.workflow_out, indent=4)
     

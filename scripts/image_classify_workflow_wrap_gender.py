@@ -53,5 +53,5 @@ if __name__ == '__main__':
                                                         classifier_key,
                                                         tag_name_translation)
 
-        json.dump(output_json, args.workflow_out, indent=4)
+    json.dump(output_json, args.workflow_out, indent=4)
  
