@@ -20,7 +20,7 @@ RUN apt-get install -y \
   git
 
 # Get the deeplearning git repo
-RUN A=3
+RUN A=4
 RUN cd /opt && \
   git clone https://github.com/nlesc-sherlock/deeplearning.git
 
