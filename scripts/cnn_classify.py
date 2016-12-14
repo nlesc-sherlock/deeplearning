@@ -99,9 +99,15 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
     return probs
 
 
+def get_labels_from_file(labels_filename):
+    with open(labels_filename, 'r') as fp:
+        labels = fp.readlines()
+    return labels
+
+
 def print_classification(probs, image_files, model_path, labels_name='labels.txt'):
     labels_file = os.path.join(model_path, labels_name)
-    labels = np.loadtxt(labels_file, str, delimiter='do not use a delimiter')
+    labels = get_labels_from_file(labels_file)
 
     ind = min(len(labels), 5)
 
@@ -120,7 +126,7 @@ def print_json_classification(probs, image_files, model_path, model_name,
         Print a json representation of the classification result
     """
     labels_file = os.path.join(model_path, labels_name)
-    labels = np.loadtxt(labels_file, str)
+    labels = get_labels_from_file(labels_file)
 
     data = {
         "type": "classification",
