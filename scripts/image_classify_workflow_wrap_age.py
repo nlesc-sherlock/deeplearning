@@ -3,7 +3,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-13 11:48:22
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-14 08:38:31
+# @Last Modified time: 2016-12-14 10:10:35
 
 import cnn_classify
 import image_classify_workflow_wrap_lib as flibflob
@@ -50,6 +50,6 @@ if __name__ == '__main__':
                                                          probability_threshold,
                                                          classifier_key)
 
-        json.dump(output_json, args.workflow_out)
+        json.dump(output_json, args.workflow_out, indent=4)
     else:
         raise Exception("No person faces in input json file.")
