@@ -1,2 +1,50 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
+import detect
+import argparse
+import json
+
+def get_image_filenames_from_json(json_object):
+    if 'files' in json_object.keys():
+        return json_object['files']
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("json_input_file",
+                        help="The filename (including path, full or relative) "
+                             "of the json file that specifies the input to the "
+                             "classifier.",
+                        type=argparse.FileType('r'))
+    parser.add_argument("--workflow_out",
+                        help="Filename (including path, full or relative) "
+                             "of the output json file in the Sherlock workflow "
+                             "specification.", required=True,
+                        type=argparse.FileType('w'))
+
+    args = parser.parse_args()
+    print args
+
+    # hard code the json output file, since we need to add this back into the
+    # giant workflow json object
+    outfn = "/tmp/detection.json"
+
+    input_json = json.load(args.json_input_file)
+
+    image_filenames = get_image_filenames_from_json(input_json)
+
+    if image_filenames:
+        with file(outfn, "w") as outfile:    
+            threshold = 0.2
+            detect_objects(image_filenames, threshold) 
+
+
+        with file(outfn, "r") as fp:
+            object_detection = json.load(fp)
+
+        output_json = generate_output_json(input_json, object_detection)
+
+        print(output_json)
+
+    json.dump(output_json, args.workflow_out)
