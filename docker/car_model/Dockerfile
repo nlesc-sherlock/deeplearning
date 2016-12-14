@@ -22,7 +22,7 @@ FROM nlescsherlockdl/image_classify_base
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
 # update A if you want to repull
-RUN A=1
+RUN A=2
 RUN cd /opt/deeplearning && \
   git pull
 
