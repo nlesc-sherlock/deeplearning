@@ -21,7 +21,9 @@ FROM nlescsherlockdl/image_classify_base
 
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
-RUN cd /opt/deeplearning/Models/car_model && \
+# update A if you want to repull
+RUN A=2
+RUN cd /opt/deeplearning && \
   git pull
 
 RUN cd /opt/deeplearning/Models/car_model && \

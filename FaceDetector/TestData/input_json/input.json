@@ -1,0 +1,68 @@
+{
+    "classes": {
+        "person" : [
+            {
+                "path" : "path/to/yet/another/image",
+                "probability" : 1,
+                "bbox" : [1, 1, 2, 2],
+                "cropped_image": "/home/elena/Sherlock/deeplearning/FaceDetector/TestData/person_crop/COCO10_3.jpg",                    
+            },
+            {
+                "path" : "path/to/yet/another/image",
+                "probability" : 1,
+                "bbox" : [5, 5, 2, 2],
+                "cropped_image": "/home/elena/Sherlock/deeplearning/FaceDetector/TestData/person_crop/COCO11_1.jpg",                    
+            },
+            {
+                "path" : "path/to/yet/another/image",
+                "probability" : 1,
+                "bbox" : [1, 1, 2, 2],
+                "cropped_image": "/home/elena/Sherlock/deeplearning/FaceDetector/TestData/person_crop/COCO12_2.jpg",                   
+            }
+        ],
+        "car" : [
+            {
+                "path" : "path/to/yet/another/image",
+                "probability" : 2,
+                "bbox" : [1, 1, 2, 2],
+                "cropped_image": "/data/yellowleon.jpg"
+            },
+            {
+                "path" : "path/to/yet/another/image",
+                "probability" : 2,
+                "bbox" : [1, 1, 2, 2],
+                "cropped_image": "/data/blackbeetle.jpg"
+            },
+            {
+                "path" : "path/to/yet/another/image",
+                "probability" : 2,
+                "bbox" : [1, 1, 2, 2],
+                "cropped_image": "/data/bluebmw3.jpg"
+            },
+            {
+                "path" : "path/to/yet/another/image",
+                "probability" : 2,
+                "bbox" : [1, 1, 2, 2],
+                "cropped_image": "/data/cyancrx.jpg"
+            },
+            {
+                "path" : "path/to/yet/another/image",
+                "probability" : 2,
+                "bbox" : [1, 1, 2, 2],
+                "cropped_image": "/data/greensmart.jpg"
+            },
+            {
+                "path" : "path/to/yet/another/image",
+                "probability" : 2,
+                "bbox" : [1, 1, 2, 2],
+                "cropped_image": "/data/greycaronredtrailer.jpg"
+            },
+            {
+                "path" : "path/to/yet/another/image",
+                "probability" : 2,
+                "bbox" : [1, 1, 2, 2],
+                "cropped_image": "/data/redferraricalifornia.jpg"
+            },
+        ]
+    }
+}
