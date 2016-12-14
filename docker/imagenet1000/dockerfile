@@ -4,32 +4,23 @@
 #
 # Description
 # ---
-# This file is a script for docker to build a docker container. The resulting container 
-# can be given an image as an argument and the container will output labels of things
-# the CNN recognizes in the image. For each label, the network provides a probability
-# which indicates how sure the network is of recognizing an object with that label.
-#
-# Building the container
-# ---
-# Install docker and clone this repository. From the root of this repository run the 
-# following to build the container and call it 'imagenet'.#
-# sudo docker build -t imagenet .
-# 
-# Classifying an image
-# ---
-# To classify a picture it has to be in your current working directory. The contents of
-# the current working directory will be mounted in the docker container at /data. To 
-# classify 'someimage.jpg' in your cwd run the following.
-# sudo docker run -v $PWD:/data imagenet data/someimage.jpg
-# Alternatively, use the run_imagenet.sh script (from any directory):
-# ./run_imagenet.sh someimage.jpg
 
-FROM tleyden5iwx/caffe-cpu-master
-RUN pip install jupyter
-# Download the trained model
-RUN /opt/caffe/scripts/download_model_binary.py /opt/caffe/models/bvlc_reference_caffenet
-# Download the labels/classes
-RUN /opt/caffe/data/ilsvrc12/get_ilsvrc_aux.sh
-ADD . /deeplearning
-RUN sudo pip install -r /deeplearning/scripts/requirements.txt
-ENTRYPOINT ["python", "/deeplearning/scripts/generatetags.py"]
+
+FROM nlescsherlockdl/cuda7.5-cudnn5-devel
+RUN apt update && \
+    apt install -y wget
+RUN wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+RUN bash miniconda.sh -b -p $HOME/miniconda
+ENV PATH="/root/miniconda/bin:$PATH"
+RUN conda config --set always_yes yes && \
+    conda install -q pip openblas numpy scipy && \
+    conda install -q keras
+RUN conda install -q docopt
+
+# Configure keras to use theano
+ADD keras.json /root/.keras/
+ADD imagenet.py /scripts/
+
+# Run once to ensure weights have been downloaded
+RUN python /scripts/imagenet.py /root/miniconda/share/doc/tiff-4.0.6/html/images/bali.jpg
+ENTRYPOINT ["python", "/scripts/imagenet.py"]
