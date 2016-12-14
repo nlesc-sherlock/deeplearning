@@ -2,7 +2,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-14 08:05:09
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-14 08:38:14
+# @Last Modified time: 2016-12-14 09:57:21
 
 import cnn_classify
 import argparse
@@ -50,7 +50,7 @@ def translate_tag_names(tags, translate):
     E.g. for gender, we want "female" instead of "f" and "male" instead of "m".
     """
     new_tags = []
-    for tag in tags.iteritems():
+    for tag in tags:
         new_tags.append({'name': translate[tag['name']],
                          'probability': tag['probability']})
     return new_tags
