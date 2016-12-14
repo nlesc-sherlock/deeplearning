@@ -1,5 +1,5 @@
 # Build:
-# cd to deeplearning/docker-workflow/face_detector, then:
+# cd to deeplearning/docker-workflow/face_detector_minimal, then:
 
 # docker build -t nlescsherlockdl/face_detector_workflow .
 # docker push nlescsherlockdl/face_detector_workflow
@@ -28,16 +28,15 @@ FROM nlescsherlockdl/cuda7.5-cudnn5-devel
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
 RUN apt update && \
-  apt-get -y install python python-opencv libopencv-dev unzip git
+  apt-get -y install python python-opencv libopencv-dev unzip
 
-# Get the deeplearning git repo
+# Get the needed files from the local deeplearning git repo
 RUN A=0
-RUN cd /opt && \
-  git clone https://github.com/nlesc-sherlock/deeplearning.git
+COPY face_detection_workflow_wrap.py wrap_lib.py /opt/
 
 RUN curl -LO https://github.com/wavexx/facedetect/archive/master.zip
 
 RUN unzip master.zip && \
-  cp facedetect-master/facedetect /opt/deeplearning/scripts/facedetect.py
+  cp facedetect-master/facedetect /opt/facedetect.py
 
-ENTRYPOINT ["/opt/deeplearning/scripts/face_detection_workflow_wrap.py"]
+ENTRYPOINT ["/opt/face_detection_workflow_wrap.py"]
