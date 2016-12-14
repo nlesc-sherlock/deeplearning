@@ -6,7 +6,7 @@
 # 226 72 37 37
 # 371 88 38 38
 # for debugging purposes one can generate an ouput image which is th einputwith overlayed BBes:
-# docker run -v <path-to-image>:/data nlescsherlockdl/facedetect /data/out.jpg /data/<image>
+# docker run -v <path-to-image>:/data nlescsherlockdl/facedetect -o /data/out.jpg /data/<image>
 # 226 72 37 37
 # 371 88 38 38
 # + file out.jpg with overlayed BBes 
