@@ -36,11 +36,11 @@ def generate_output_json(input_json, object_detection):
         }
     ]
     '''
-    if 'classes' in input_json.keys():
-        classes = input_json['classes']
-    else:
-        classes = []
+    if 'classes' not in input_json.keys():
+        input_json['classes'] = {} 
 
+
+    classes = input_json['classes']
     for item in object_detection['classifications']:
         if not item['class'] in classes.keys():
             classes[item['class']] = []
@@ -67,6 +67,7 @@ if __name__ == '__main__':
                              "of the output json file in the Sherlock workflow "
                              "specification.", required=True,
                         type=argparse.FileType('w'))
+    parser.add_argument("-v", "--verbose", help="Verbose mode.", action="store_true", default=0)
 
     args = parser.parse_args()
     print args
@@ -75,6 +76,8 @@ if __name__ == '__main__':
     # giant workflow json object
     outfn = "/tmp/detection.json"
 
+    verbose = args.verbose
+
     input_json = json.load(args.json_input_file)
 
     image_filenames = get_image_filenames_from_json(input_json)
@@ -82,14 +85,15 @@ if __name__ == '__main__':
     if image_filenames:
         with file(outfn, "w") as outfile:    
             threshold = 0.2
-            detect_objects(image_filenames, threshold, outfile) 
+            detect.detect_objects(image_filenames, threshold, outfile) 
 
 
         with file(outfn, "r") as fp:
             object_detection = json.load(fp)
 
         output_json = generate_output_json(input_json, object_detection)
+        
+        if verbose:
+            print(json.dumps(output_json, indent=4))
 
-        print(output_json)
-
-    json.dump(output_json, args.workflow_out)
+    json.dump(output_json, args.workflow_out, indent=4, sort_keys=True)
