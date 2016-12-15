@@ -26,8 +26,9 @@ if __name__ == '__main__':
         for person in persons:
             image_fn = person['cropped_image']
             _, features = fd.face_detect_file(image_fn)
-            person[u'face'] = {}
-            person[u'face'][u'path'] = image_fn
-            person[u'face'][u'bbox'] = [int(x) for x in list(features[0])]
+            if len(features) > 0:
+                person[u'face'] = {}
+                person[u'face'][u'path'] = image_fn
+                person[u'face'][u'bbox'] = [int(x) for x in list(features[0])]
             
     json.dump(output_json, args.workflow_out, indent=4)    
