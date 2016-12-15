@@ -2,7 +2,7 @@
 
 import argparse, json, os, subprocess
 
-def general_crop(item, cclass, output_folder):
+def crop(item, cclass, output_folder):
     """
     This function crops the image indicated by item.path according to
     item.bbox and stores it in output_folder by a filename that is
@@ -23,29 +23,6 @@ def general_crop(item, cclass, output_folder):
         print command
     os.system(command)
     item['cropped_image'] = newfile
-
-
-def specific_crop(classification, output_folder):
-    """
-    This function crops the image indicated by classification.path according to
-    classification.bbox and stores it in output_folder by a filename that is
-    composed of the original filename and the indicated class. The filename stored as
-    classification.cropped_file.
-    """
-    filepath = classification['path']
-    pathsplit = filepath.split('/')
-    filesplit = pathsplit[-1].split('.')
-    newfile = "{}/{}_{}.{}".format(
-            output_folder,
-            '.'.join(filesplit[:-1]),
-            classification['class'],
-            filesplit[-1])
-    bboxstr = "{2}x{3}+{0}+{1}".format(*[int(i) for i in classification['bbox']])
-    command = "convert {} -crop {} {}".format(filepath, bboxstr, newfile)
-    if verbose:
-        print command
-    os.system(command)
-    classification['cropped_image'] = newfile
 
 
 if __name__ == '__main__':
@@ -94,11 +71,15 @@ if __name__ == '__main__':
                     os.mkdir(class_crop_folder)
                 for item in data['classes'][cclass]:
                     if item['probability'] > args.probability:
-                        general_crop(item, cclass, class_crop_folder)
+                        crop(item, cclass, class_crop_folder)
     else:
-        for classification in data['classifications']:
-            if classification['probability'] > args.probability:
-                specific_crop(classification, args.cropped_folder)
+        if 'person' in data['classes'].keys():
+            face_crop_folder = os.path.join(args.cropped_folder, 'face')
+            if not os.path.isdir(face_crop_folder):
+                os.mkdir(face_crop_folder)
+            for person in data['classes']['person']:
+                if 'face' in person:
+                    crop(person['face'], 'face', face_crop_folder)
         
     if verbose:
         print(json.dumps(data, indent=4))
