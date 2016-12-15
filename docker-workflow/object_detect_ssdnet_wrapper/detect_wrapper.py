@@ -42,14 +42,15 @@ def generate_output_json(input_json, object_detection):
 
     classes = input_json['classes']
     for item in object_detection['classifications']:
-        if not item['class'] in classes.keys():
-            classes[item['class']] = []
+        if 'class' in item.keys():
+            if not item['class'] in classes.keys():
+                classes[item['class']] = []
         
-        classes[item['class']].append({
-            'path': item['path'],
-            'probability': item['probability'],
-            'bbox': item['bbox']
-        })
+            classes[item['class']].append({
+                'path': item['path'],
+                'probability': item['probability'],
+                'bbox': item['bbox']
+            })
     
     return input_json
 
