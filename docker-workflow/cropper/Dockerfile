@@ -1,4 +1,4 @@
 from acleancoder/imagemagick-full
 
-ADD . /scripts
+ADD crop.py /scripts/crop.py
 ENTRYPOINT ["python", "/scripts/crop.py"]
