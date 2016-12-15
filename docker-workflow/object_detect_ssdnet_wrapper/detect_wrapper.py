@@ -70,7 +70,9 @@ if __name__ == '__main__':
     parser.add_argument("-v", "--verbose", help="Verbose mode.", action="store_true", default=0)
 
     args = parser.parse_args()
-    print args
+    
+    if args.verbose:
+        print args
 
     # hard code the json output file, since we need to add this back into the
     # giant workflow json object
