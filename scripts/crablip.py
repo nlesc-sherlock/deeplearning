@@ -41,12 +41,14 @@ def get_class_image_filenames_from_json(json_object, class_key,
     if class_key in json_object['classes'].keys():
         class_objects = json_object['classes'][class_key]
         for class_object in class_objects:
+            fn = None
             if subclass_key is not None:
                 if subclass_key in class_object.keys():
                     fn = class_object[subclass_key]['cropped_image']
             else:
                 fn = class_object['cropped_image']
-            filenames.append(fn)
+            if fn is not None:
+                filenames.append(fn)
     return filenames
 
 
