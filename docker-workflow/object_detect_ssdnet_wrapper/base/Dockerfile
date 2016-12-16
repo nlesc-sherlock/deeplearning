@@ -1,4 +1,4 @@
-FROM nlescsherlockdl/ssdnet-base
+FROM nlescsherlockdl/object_detect_ssdnet_base
 
 COPY detect_wrapper.py /opt/detect_wrapper.py
 RUN chmod +x /opt/detect_wrapper.py
