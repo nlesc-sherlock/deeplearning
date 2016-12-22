@@ -164,6 +164,7 @@ if __name__ == "__main__":
     print("done.")
     print("Input filepaths written to: ", input_json, "\n\n")
 
+
     print("Now running object detection...", end="")
     sys.stdout.flush()
     input_json = os.path.join(volumes['temp']['bind'], "files.json")
@@ -172,7 +173,10 @@ if __name__ == "__main__":
     if check_input(input_file):
         run_ssd_detection(client, input_json, output_json, volumes, verbose)
     else:
-        raise Exception("Input file " + input_file + " was empty")
+        input_json = os.path.join(tmpdir, "files.json")
+        output_json = os.path.join(tmpdir, "detect.json")
+        shutil.copyfile(input_json, output_json)
+        #raise Exception("Input file " + input_file + " was empty")
     print("done.")
 
     print("Now running cropping...", end="")
@@ -183,7 +187,10 @@ if __name__ == "__main__":
     if check_input(input_file):
         run_cropper_after_ssd(client, input_json, output_json, volumes)
     else:
-        raise Exception("Input file " + input_file + " was empty")
+        input_json = os.path.join(tmpdir, "detect.json")
+        output_json = os.path.join(tmpdir, "cropped.json")
+        shutil.copyfile(input_json, output_json)
+        #raise Exception("Input file " + input_file + " was empty")
     print("done.")
 
     print("Now running car color classification...", end="")
@@ -196,7 +203,10 @@ if __name__ == "__main__":
     if check_input(input_file):
         run_cnn_classify(client, input_json, output_json, volumes, docker_image)
     else:
-        raise Exception("Input file " + input_file + " was empty")
+        input_json = os.path.join(tmpdir, "cropped.json")
+        output_json = os.path.join(tmpdir, "colored.json")
+        shutil.copyfile(input_json, output_json)
+        #raise Exception("Input file " + input_file + " was empty")
     print("done.")
     
     
@@ -210,7 +220,10 @@ if __name__ == "__main__":
     if check_input(input_file):
         run_cnn_classify(client, input_json, output_json, volumes, docker_image)
     else:
-        raise Exception("Input file " + input_file + " was empty")
+        input_json = os.path.join(tmpdir, "colored.json")
+        output_json = os.path.join(tmpdir, "model.json")
+        shutil.copyfile(input_json, output_json)
+        #raise Exception("Input file " + input_file + " was empty")
     print("done.")
 
     print("Now running face detection...", end="")
@@ -222,7 +235,10 @@ if __name__ == "__main__":
     if check_input(input_file):
         run_face_detection(client, input_json, output_json, volumes, docker_image)
     else:
-        raise Exception("Input file " + input_file + " was empty")
+        input_json = os.path.join(tmpdir, "model.json")
+        output_json = os.path.join(tmpdir, "faces.json")
+        shutil.copyfile(input_json, output_json)
+        #raise Exception("Input file " + input_file + " was empty")
     print("done.")
 
     print("Now running cropping...", end="")
@@ -233,7 +249,10 @@ if __name__ == "__main__":
     if check_input(input_file):
         run_cropper_after_face_detection(client, input_json, output_json, volumes)
     else:
-        raise Exception("Input file " + input_file + " was empty")
+        input_json = os.path.join(tmpdir, "faces.json")
+        output_json = os.path.join(tmpdir, "faces_cropped.json")
+        shutil.copyfile(input_json, output_json)
+        #raise Exception("Input file " + input_file + " was empty")
     print("done.")
 
 
@@ -247,7 +266,10 @@ if __name__ == "__main__":
     if check_input(input_file):
         run_cnn_classify(client, input_json, output_json, volumes, docker_image)
     else:
-        raise Exception("Input file " + input_file + " was empty")
+        input_json = os.path.join(tmpdir, "faces_cropped.json")
+        output_json = os.path.join(tmpdir, "gender.json")
+        shutil.copyfile(input_json, output_json)
+        #raise Exception("Input file " + input_file + " was empty")
     print("done.")
 
     print("Now running gender classification...", end="")
@@ -260,7 +282,10 @@ if __name__ == "__main__":
     if check_input(input_file):
         run_cnn_classify(client, input_json, output_json, volumes, docker_image)
     else:
-        raise Exception("Input file " + input_file + " was empty")
+        input_json = os.path.join(tmpdir, "gender.json")
+        output_json = os.path.join(tmpdir, "age.json")
+        shutil.copyfile(input_json, output_json)
+        #raise Exception("Input file " + input_file + " was empty")
     print("done.")
 
     print("Copying results to output...", end="")
