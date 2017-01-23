@@ -164,6 +164,7 @@ if __name__ == "__main__":
     print("done.")
     print("Input filepaths written to: ", input_json, "\n\n")
 
+
     print("Now running object detection...", end="")
     sys.stdout.flush()
     input_json = os.path.join(volumes['temp']['bind'], "files.json")
