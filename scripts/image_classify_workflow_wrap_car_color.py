@@ -8,7 +8,7 @@
 import cnn_classify
 import crablip
 import json
-
+import os
 
 if __name__ == '__main__':
     # determined empirically
