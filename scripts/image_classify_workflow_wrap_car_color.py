@@ -33,6 +33,7 @@ if __name__ == '__main__':
     image_filenames = crablip.get_class_image_filenames_from_json(input_json,
                                                                   class_key)
 
+    image_filenames = [os.path.join(args.data_path, filename] for filename in image_filenames]
     if image_filenames:
         with file(outfn, "w") as outfile:
             cnn_classify.run(image_filenames, args.model_path,
