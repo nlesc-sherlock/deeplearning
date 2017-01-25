@@ -24,7 +24,7 @@ if __name__ == '__main__':
 
     # hard code the json output file, since we need to add this back into the
     # giant workflow json object
-    outfn = "/tmp/classification.json"
+    outfn = "classification.json"
 
     input_json = json.load(args.json_input_file)
     output_json = input_json 

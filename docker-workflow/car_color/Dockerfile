@@ -24,12 +24,12 @@
 #     --workflow_out="/output/$JSON_OUTPUT_FILE" \
 #     "/json/$JSON_INPUT_FILE"
 
-FROM nlescsherlockdl/car_color
+FROM nlescsherlockdl/car:color
 
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
 # update A if you want to repull
-RUN A=0
+RUN A=1
 RUN cd /opt/deeplearning/ && \
   git pull
 
