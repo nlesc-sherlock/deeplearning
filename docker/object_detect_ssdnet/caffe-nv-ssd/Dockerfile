@@ -1,4 +1,4 @@
-FROM nlescsherlockdl/cuda7.5-cudnn5-devel
+FROM nlescsherlockdl/cuda:8.0-cudnn5-devel
 
 RUN apt update && apt install -y git cmake \
     libatlas-base-dev \

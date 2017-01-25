@@ -3,11 +3,8 @@
 import numpy as np
 
 # Make sure that caffe is on the python path:
-caffe_root = '/opt/caffe/'
 import os
-os.chdir(caffe_root)
-import sys
-sys.path.insert(0, 'python')
+caffe_root = '/opt/caffe/'
 
 os.environ["GLOG_minloglevel"] = "2" # Surpress a bunch of warnings
 import caffe
@@ -60,7 +57,7 @@ def create_transformer(net):
     return transformer
 
 
-def detect_objects(image_paths, threshold, outfile, verbose=False):
+def detect_objects(image_paths, basedir, threshold, outfile, verbose=False):
     net = load_model()
     transformer = create_transformer(net)
 
@@ -74,7 +71,7 @@ def detect_objects(image_paths, threshold, outfile, verbose=False):
     output = {}
     output['classifications'] = []
     for image_file in image_paths:
-        image = caffe.io.load_image(image_file)
+        image = caffe.io.load_image(os.path.join(basedir, image_file))
         transformed_image = transformer.preprocess('data', image)
 
         net.blobs['data'].data[...] = transformed_image

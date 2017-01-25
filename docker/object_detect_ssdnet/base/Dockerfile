@@ -1,4 +1,4 @@
-FROM nlescsherlockdl/caffe-nv-ssd
+FROM nlescsherlockdl/ssd:caffe-nv
 
 RUN apt install -y wget
 

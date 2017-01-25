@@ -29,7 +29,7 @@ if __name__ == "__main__":
     for _root, dirs, files in os.walk(args.input_directory, topdown=False):
         for name in files:
             if name.endswith('.jpg') or name.endswith('.png'):
-                filepath = os.path.relpath(os.path.join(_root, name))
+                filepath = os.path.relpath(os.path.join(_root, name), args.input_directory)
                 files_json["files"].append(filepath)
 
     json.dump(files_json, args.workflow_out, indent=4, sort_keys=True)

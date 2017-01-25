@@ -1,4 +1,4 @@
-FROM nlescsherlockdl/object_detect_ssdnet_voc
+FROM nlescsherlockdl/ssd:voc
 
 COPY detect_wrapper.py /opt/detect_wrapper.py
 RUN chmod +x /opt/detect_wrapper.py

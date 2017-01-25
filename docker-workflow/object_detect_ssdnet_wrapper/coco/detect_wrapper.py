@@ -1,8 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 
 import detect
 import argparse
 import json
+import os
+import tempfile
 
 def get_image_filenames_from_json(json_object):
     if 'files' in json_object.keys():
@@ -68,6 +70,7 @@ if __name__ == '__main__':
                              "of the output json file in the Sherlock workflow "
                              "specification.", required=True,
                         type=argparse.FileType('w'))
+    parser.add_argument("--input_directory", required=True)
     parser.add_argument("-v", "--verbose", help="Verbose mode.", action="store_true", default=0)
 
     args = parser.parse_args()
@@ -77,8 +80,6 @@ if __name__ == '__main__':
 
     # hard code the json output file, since we need to add this back into the
     # giant workflow json object
-    outfn = "/tmp/detection.json"
-
     verbose = args.verbose
 
     input_json = json.load(args.json_input_file)
@@ -86,12 +87,14 @@ if __name__ == '__main__':
     image_filenames = get_image_filenames_from_json(input_json)
 
     if image_filenames:
-        with file(outfn, "w") as outfile:    
+        tmpfile = ""
+        with tempfile.NamedTemporaryFile(delete=False) as outfile:
+            tmpfile = os.path.realpath(outfile.name)
             threshold = 0.1
-            detect.detect_objects(image_filenames, threshold, outfile) 
+            detect.detect_objects(image_filenames, args.input_directory, threshold, outfile) 
 
 
-        with file(outfn, "r") as fp:
+        with file(tmpfile, "r") as fp:
             object_detection = json.load(fp)
 
         output_json = generate_output_json(input_json, object_detection)
@@ -99,4 +102,4 @@ if __name__ == '__main__':
         if verbose:
             print(json.dumps(output_json, indent=4))
 
-    json.dump(output_json, args.workflow_out, indent=4, sort_keys=True)
+        json.dump(output_json, args.workflow_out, indent=4, sort_keys=True)

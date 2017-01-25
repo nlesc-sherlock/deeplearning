@@ -49,7 +49,8 @@ def run_ssd_detection(client, input_json, output_json, volumes, verbose):
 
     command = "nvidia-docker run " + create_volume_string(volumes)  + " nlescsherlockdl/object_detect_ssdnet_wrapper_coco " + \
               " --workflow_out " + output_json + extra_params + input_json
-    #print("Command: ", command)
+    if verbose:
+      print("Command: ", command)
     subprocess.call(command, shell=True)
 
 
