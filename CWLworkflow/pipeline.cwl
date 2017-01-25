@@ -7,7 +7,10 @@ inputs:
 outputs:
   output_json:
     type: File
-    outputSource: detect/workflow_out
+    outputSource: crop/json_out
+  cropped_out:
+    type: Directory
+    outputSource: crop/cropped_out
 
 steps:
   list_dir:
@@ -18,17 +21,31 @@ steps:
       workflow_out:
         default: files.json
     out:
-      - files_out
+      - json_out
         
   detect:
     run: tools/ssd-coco.cwl
     in:
       input_json:
-        source: list_dir/files_out
+        source: list_dir/json_out
       workflow_out:
         default: detect.json
       input_directory:
         source: directory_in
     out: 
-      - workflow_out
+      - json_out
 
+  crop:
+    run: tools/crop.cwl
+    in:
+      json_input_file:
+        source: detect/json_out
+      workflow_out:
+        default: cropped.json
+      input_directory:
+        source: directory_in
+      probability:
+        default: 0.2
+    out:
+      - json_out
+      - cropped_out

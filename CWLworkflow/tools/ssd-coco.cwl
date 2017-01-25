@@ -7,23 +7,23 @@ cwl:requirements:
 
 baseCommand: /opt/detect_wrapper.py
 inputs:
-  - id: workflow_out
+  workflow_out:
     type: string
     inputBinding:
       prefix: --workflow_out
       position: 1
-  - id: input_json
+  input_json:
     type: File
     inputBinding:
       position: 3
-  - id: input_directory
+  input_directory:
     type: Directory
     inputBinding:
       prefix: --input_directory
       position: 2
 
 outputs:
-  - id: workflow_out
+  json_out:
     type: File
     outputBinding:
       glob: $(inputs.workflow_out)

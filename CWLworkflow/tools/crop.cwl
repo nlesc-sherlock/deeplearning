@@ -39,7 +39,7 @@ inputs:
       position: 7
 
 outputs:                                                                                                                                 
-  files_out:
+  json_out:
     type: File
     outputBinding:
       glob: $(inputs.workflow_out)
