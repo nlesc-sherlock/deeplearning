@@ -27,6 +27,11 @@ inputs:
     inputBinding:
       prefix: --probability
       position: 5
+  cropped_folder:
+    type: string
+    inputBinding:
+      prefix: --cropped_folder
+      position: 4
   specialised:
     type: boolean?
     inputBinding:

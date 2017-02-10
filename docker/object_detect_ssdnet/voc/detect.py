@@ -26,6 +26,7 @@ def load_labelmap_from_file(labelmap_file):
     text_format.Merge(str(file.read()), labelmap)
     return labelmap
 
+
 def get_labelname(labelmap, labels):
     num_labels = len(labelmap.item)
     labelnames = []
@@ -41,6 +42,7 @@ def get_labelname(labelmap, labels):
         assert found == True
     return labelnames
 
+
 def load_model():
     model_def = '/models/VGGNet/VOC0712Plus/SSD_512x512_ft/deploy.prototxt'
     model_weights = '/models/VGGNet/VOC0712Plus/SSD_512x512_ft/VGG_VOC0712Plus_SSD_512x512_ft_iter_160000.caffemodel'
@@ -49,6 +51,7 @@ def load_model():
                     model_weights,  # contains the trained weights
                     caffe.TEST)     # use test mode (e.g., don't perform dropout)
     return net
+
 
 def create_transformer(net):
     # input preprocessing: 'data' is the name of the input blob == net.inputs[0]

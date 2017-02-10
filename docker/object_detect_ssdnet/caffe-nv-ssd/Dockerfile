@@ -1,4 +1,4 @@
-FROM nlescsherlockdl/cuda:8.0-cudnn5-devel
+FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
 
 RUN apt update && apt install -y git cmake \
     libatlas-base-dev \
@@ -18,9 +18,10 @@ RUN apt update && apt install -y git cmake \
     python-numpy \
     python-pip \
     python-scipy \
-    python-skimage
-
-RUN apt install -y --no-install-recommends libboost-all-dev
+    python-skimage \
+    libboost-all-dev \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV CAFFE_ROOT=/opt/caffe
 

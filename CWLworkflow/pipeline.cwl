@@ -11,6 +11,9 @@ outputs:
   cropped_out:
     type: Directory
     outputSource: crop/cropped_out
+  detect_json:
+    type: File
+    outputSource: detect/json_out
 
 steps:
   list_dir:
@@ -45,7 +48,9 @@ steps:
       input_directory:
         source: directory_in
       probability:
-        default: 0.2
+        default: 0.1
+      cropped_folder:
+        default: cropped
     out:
       - json_out
       - cropped_out

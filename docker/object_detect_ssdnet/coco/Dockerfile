@@ -1,8 +1,5 @@
 FROM nlescsherlockdl/ssd:caffe-nv
 
-RUN apt install -y wget
-
-RUN a=2
 WORKDIR /
 RUN wget http://www.cs.unc.edu/~wliu/projects/SSD/models_VGGNet_coco_SSD_300x300.tar.gz && \
     tar zxf models_VGGNet_coco_SSD_300x300.tar.gz && \

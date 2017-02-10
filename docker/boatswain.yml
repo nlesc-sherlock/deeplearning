@@ -1,0 +1,25 @@
+version: 1.0
+organisation: nlescsherlockdl
+images:
+  ssd:caffe-nv:
+    context: object_detect_ssdnet/caffe-nv-ssd
+  ssd:coco:
+    context: object_detect_ssdnet/coco
+    from: ssd:caffe-nv
+  ssd:voc:
+    context: object_detect_ssdnet/voc
+    from: ssd:caffe-nv
+  ssd:ilsvrc15:
+    context: object_detect_ssdnet/ilsvrc15
+    from: ssd:caffe-nv
+  ssd:detect-coco:
+    context: object_detect_ssdnet/coco-wrapper
+    from: ssd:coco
+  ssd:detect-voc:
+    context: object_detect_ssdnet/voc-wrapper
+    from: ssd:voc
+  ssd:detect-ilsvrc15:
+    context: object_detect_ssdnet/ilsvrc15-wrapper
+    from: ssd:ilsvrc15
+  cropper:latest:
+    context: cropper
