@@ -169,7 +169,7 @@ cropped_image:
                         "probability": 0.9
                         },
                         {
-                        "name": "Gaerman sheperd",
+                        "name": "German sheperd",
                         "probability": 0.1                        
                         }
                     ],
