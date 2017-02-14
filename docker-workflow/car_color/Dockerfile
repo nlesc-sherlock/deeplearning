@@ -31,6 +31,6 @@ MAINTAINER NLeSC <info@esciencecenter.nl>
 # update A if you want to repull
 RUN A=0
 RUN cd /opt/deeplearning/ && \
-  git pull
+  git checkout python-workflow
 
 ENTRYPOINT ["/opt/deeplearning/scripts/image_classify_workflow_wrap_car_color.py", "-M", "/opt/deeplearning/Models/car_color", "--model_snapshot", "snapshot_iter_63400.caffemodel", "--json"]

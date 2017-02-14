@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 
-import argparse, json, os, subprocess
+import argparse, json, os, subprocess, unicodedata, re
+
+def slugify(value):
+    """
+    Normalizes string, converts to lowercase, removes non-alpha characters,
+    and converts spaces to hyphens.
+    """
+    value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
+    value = unicode(re.sub('[^\w\s-]', '', value).strip().lower())
+    value = unicode(re.sub('[-\s]+', '-', value))
+
+    return value
 
 def crop(item, cclass, output_folder):
     """
@@ -15,7 +26,7 @@ def crop(item, cclass, output_folder):
     newfile = "{}/{}_{}.{}".format(
             output_folder,
             '.'.join(filesplit[:-1]),
-            cclass,
+            slugify(cclass),
             filesplit[-1])
     bboxstr = "{2}x{3}+{0}+{1}".format(*[int(i) for i in item['bbox']])
     command = "convert {} -crop {} {}".format(filepath, bboxstr, newfile)
@@ -65,7 +76,7 @@ if __name__ == '__main__':
 
     if not specialised:
         for cclass in data['classes']:
-            class_crop_folder = os.path.join(args.cropped_folder, cclass)
+            class_crop_folder = os.path.join(args.cropped_folder, slugify(cclass))
             if len(data['classes'][cclass]) > 0:
                 if not os.path.isdir(class_crop_folder):
                     os.mkdir(class_crop_folder)

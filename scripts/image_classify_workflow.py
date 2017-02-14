@@ -56,20 +56,21 @@ def run_ssd_detection(client, input_json, output_json, volumes, verbose):
 def run_cropper_after_face_detection(client, input_json, output_json, volumes):
     probability = "0.1"
 
-    command = "docker run " + create_volume_string(volumes)  + " nlescsherlockdl/cropper" + \
+    command = "docker run " + create_volume_string(volumes)  + " nlescsherlockdl/cropper:old" + \
               " --workflow_out " + output_json + " --cropped_folder " + volumes['cropped']['bind'] + " -p " + probability + " --specialised " + input_json
     print("Command: ", command)
     subprocess.call(command, shell=True)
 
 
-def run_cropper_after_ssd(client, input_json, output_json, volumes):
+def run_cropper_after_ssd(client, input_json, output_json, volumes, verbose=False):
     probability = "0.1"
 
 #    client.containers.run('nlescsherlockdl/cropper', volumes=volumes, command=["--wokflow_out", output_json, "--cropped_folder", cropdir, \
 #                                                                               "-p", probability, "input_json"])
-    command = "docker run " + create_volume_string(volumes)  + " nlescsherlockdl/cropper" + \
+    command = "docker run " + create_volume_string(volumes)  + " nlescsherlockdl/cropper:old " \
               " --workflow_out " + output_json + " --cropped_folder " + volumes['cropped']['bind'] + " -p " + probability + " " + input_json
-#    print("Command: ", command)
+    if verbose:
+        print("Command: ", command)
     subprocess.call(command, shell=True)
 
 
@@ -132,9 +133,9 @@ if __name__ == "__main__":
     ]
     client = docker.from_env()
     
-    for image in docker_images:
-        print(".", end="")
-        client.images.pull(image)
+#    for image in docker_images:
+#        print(".", end="")
+#        client.images.pull(image)
 
     volumes = {
         'input': {
@@ -182,7 +183,7 @@ if __name__ == "__main__":
     input_file = os.path.join(volumes['temp']['path'], "detect.json")
     output_json = os.path.join(volumes['temp']['bind'], "cropped.json")
     if check_input(input_file):
-        run_cropper_after_ssd(client, input_json, output_json, volumes)
+        run_cropper_after_ssd(client, input_json, output_json, volumes, verbose=verbose)
     else:
         raise Exception("Input file " + input_file + " was empty")
     print("done.")

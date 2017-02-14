@@ -138,6 +138,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument("image_files", help="The filename(s) (including path, full or relative) of the image(s) you want to classify.", nargs="+")
+    parser.add_argument("--workflow_out", help="The filename(s) (including path, full or relative) of the image(s) you want to classify.", nargs="+")
 
     parser.add_argument("-D", "--data_path", help="Directory path of where the data is mounted. If this script is running whithin a docker it should be the docker local path", default="/data")
 

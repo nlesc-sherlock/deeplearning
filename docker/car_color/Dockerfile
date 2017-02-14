@@ -24,7 +24,7 @@ MAINTAINER NLeSC <info@esciencecenter.nl>
 # update A if you want to repull
 RUN A=2
 RUN cd /opt/deeplearning && \
-  git pull
+  git checkout 7173829f1e19bb791912bd0158226269faefbf45
 
 RUN cd /opt/deeplearning/Models/car_color && \
   tar xzf 20161117-151423-d9a3_epoch_100.0.tar.gz

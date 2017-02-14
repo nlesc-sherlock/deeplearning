@@ -3,7 +3,7 @@
 # docker build -t nlescsherlockdl/image_classify_base .
 # This image is for use as a base image only!
 
-FROM nlescsherlockdl/caffe-nv
+FROM nlescsherlockdl/base:caffe-nv
 
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
