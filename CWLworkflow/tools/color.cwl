@@ -5,6 +5,7 @@ cwl:requirements:
   - class: DockerRequirement
     dockerPull: nlescsherlockdl/car:color-workflow
 
+baseCommand: /scripts/image_classify_workflow_wrap_car_color.py --json
 inputs:
   workflow_out:
     type: string
@@ -20,6 +21,7 @@ inputs:
     inputBinding:
       prefix: -D
       position: 2
+  
 
 outputs:
   json_out:
