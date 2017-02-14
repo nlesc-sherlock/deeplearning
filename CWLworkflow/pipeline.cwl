@@ -8,6 +8,9 @@ outputs:
   output_json:
     type: File
     outputSource: crop/json_out
+  color_json:
+    type: File
+    outputSource: color/json_out
   cropped_out:
     type: Directory
     outputSource: crop/cropped_out
@@ -54,3 +57,16 @@ steps:
     out:
       - json_out
       - cropped_out
+
+  color:
+    run: tools/color.cwl
+    in:
+      json_input:
+        source: crop/json_out
+      workflow_out:
+        default: color.json
+      input_directory:
+        source: crop/cropped_out
+    out:
+      - json_out
+

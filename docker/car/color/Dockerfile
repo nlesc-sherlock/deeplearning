@@ -17,14 +17,14 @@
 #     --gpu_id=0 \
 #     -D /data `ls $DATADIR`
 
-FROM nlescsherlockdl/image_classify_base
+FROM nlescsherlockdl/base:image_classify
 
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
 COPY model /models
-COPY image_classify_workflow_wrap_car_color.py /opt/deeplearning/scripts
+COPY image_classify_workflow_wrap_car_color.py /scripts
 
 RUN cd /models && \
   tar xzf 20161117-151423-d9a3_epoch_100.0.tar.gz
 
-ENTRYPOINT ["/opt/deeplearning/scripts/cnn_classify.py", "-M", "/models", "--model_snapshot", "snapshot_iter_63400.caffemodel"]
+ENTRYPOINT ["/scripts/cnn_classify.py", "-M", "/models", "--model_snapshot", "snapshot_iter_63400.caffemodel"]

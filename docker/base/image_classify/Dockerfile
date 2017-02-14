@@ -1,9 +1,8 @@
 # Build:
-# cd to deeplearning/image_classify_BASE, then:
-# docker build -t nlescsherlockdl/image_classify:base .
+# docker build -t nlescsherlockdl/base:caffe-nv .
 # This image is for use as a base image only!
 
-FROM nlescsherlockdl/image_classify:caffe-nv
+FROM nlescsherlockdl/base:caffe-nv
 
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
@@ -19,8 +18,8 @@ RUN apt-get install -y \
   python-pil \
   git
 
-COPY crablip.py /opt/deeplearning/scripts/                                                                                               
-COPY utils/ /opt/deeplearning/scripts/
+COPY crablip.py /scripts/                                                                                               
+COPY utils/ /scripts/
 
 
 ENV PATH /opt/caffe/.build_release/tools:$PATH
