@@ -11,7 +11,7 @@ inputs:
     inputBinding:
       prefix: --workflow_out
       position: 1
-  input_json:
+  json_input:
     type: File
     inputBinding:
       position: 3
