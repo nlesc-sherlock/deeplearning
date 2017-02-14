@@ -24,6 +24,11 @@ images:
     context: object_detect_ssdnet/ilsvrc15-wrapper
     from: ssd:ilsvrc15
 
+
+  ## Yolo Detection
+  yolo:detect:
+    context: object_detect_yolo
+
   ## Cropper
   cropper:latest:
     context: cropper

@@ -30,7 +30,7 @@ steps:
       - json_out
         
   detect:
-    run: tools/ssd-coco.cwl
+    run: tools/yolo.cwl
     in:
       input_json:
         source: list_dir/json_out
