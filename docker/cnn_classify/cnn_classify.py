@@ -197,6 +197,7 @@ if __name__ == '__main__':
     print args
 
     data_path = args.data_path
+    image_filenames = args.image_files
     #image_filenames = [os.path.join(data_path, image_file) for image_file in args.image_files]
 
     run(data_path, image_filenames, args.model_path, args.model_snapshot,
