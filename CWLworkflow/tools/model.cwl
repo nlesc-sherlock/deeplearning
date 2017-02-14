@@ -5,7 +5,7 @@ cwl:requirements:
   - class: DockerRequirement
     dockerPull: nlescsherlockdl/car:model-wrapper
 
-baseCommand: /scripts/image_classify_workflow_wrap_car_model.py --json
+baseCommand: [/scripts/image_classify_workflow_wrap_car_model.py, --json]
 inputs:
   workflow_out:
     type: string
