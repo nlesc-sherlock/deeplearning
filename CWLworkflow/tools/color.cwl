@@ -3,7 +3,7 @@ class: CommandLineTool
 
 cwl:requirements:
   - class: DockerRequirement
-    dockerPull: nlescsherlockdl/car:color-workflow
+    dockerPull: nlescsherlockdl/car:color-wrapper
 
 baseCommand: /scripts/image_classify_workflow_wrap_car_color.py --json
 inputs:
