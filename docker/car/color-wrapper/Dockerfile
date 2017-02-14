@@ -1,5 +1,5 @@
 # Build:
-# cd to deeplearning/docker-workflow/car_color, then:
+# cd to deeplearning/docker/car/color-wrapper, then:
 
 # docker build -t nlescsherlockdl/car:color-wrapper .
 # docker push nlescsherlockdl/car:color-wrapper
