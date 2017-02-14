@@ -1,0 +1,346 @@
+{
+    "files": [
+        "/data/COCO_train2014_000000270070.jpg", 
+        "/data/COCO_train2014_000000101772.jpg", 
+        "/data/COCO_train2014_000000359320.jpg", 
+        "/data/COCO_train2014_000000486482.jpg", 
+        "/data/COCO_train2014_000000116155.jpg", 
+        "/data/COCO_train2014_000000082143.jpg", 
+        "/data/COCO_train2014_000000242307.jpg", 
+        "/data/COCO_train2014_000000510484.jpg", 
+        "/data/COCO_train2014_000000339597.jpg", 
+        "/data/COCO_train2014_000000366396.jpg", 
+        "/data/COCO_train2014_000000363942.jpg", 
+        "/data/COCO_train2014_000000244928.jpg", 
+        "/data/COCO_train2014_000000239417.jpg", 
+        "/data/COCO_train2014_000000045059.jpg", 
+        "/data/COCO_train2014_000000556018.jpg", 
+        "/data/COCO_train2014_000000328391.jpg", 
+        "/data/COCO_train2014_000000441327.jpg", 
+        "/data/02c12c08a5312e.jpg", 
+        "/data/02c6125059c8c0.jpg", 
+        "/data/02c78b02ecdd05.jpg", 
+        "/data/02c8d0f68c2285.jpg"
+    ], 
+    "classes": {
+        "kite": [
+            {
+                "path": "/data/COCO_train2014_000000116155.jpg", 
+                "bbox": [
+                    247.0, 
+                    161.0, 
+                    91.0, 
+                    67.0
+                ], 
+                "probability": 0.13158339262008667, 
+                "cropped_image": "/cropped/kite/COCO_train2014_000000116155_kite.jpg"
+            }
+        ], 
+        "clock": [
+            {
+                "path": "/data/COCO_train2014_000000486482.jpg", 
+                "bbox": [
+                    257.0, 
+                    153.0, 
+                    15.0, 
+                    28.0
+                ], 
+                "probability": 0.10988468676805496, 
+                "cropped_image": "/cropped/clock/COCO_train2014_000000486482_clock.jpg"
+            }, 
+            {
+                "path": "/data/02c8d0f68c2285.jpg", 
+                "bbox": [
+                    202.0, 
+                    354.0, 
+                    62.0, 
+                    41.0
+                ], 
+                "probability": 0.10101647675037384, 
+                "cropped_image": "/cropped/clock/02c8d0f68c2285_clock.jpg"
+            }
+        ], 
+        "tv": [
+            {
+                "path": "/data/COCO_train2014_000000239417.jpg", 
+                "bbox": [
+                    156.0, 
+                    23.0, 
+                    120.0, 
+                    76.0
+                ], 
+                "probability": 0.15516896545886993, 
+                "cropped_image": "/cropped/tv/COCO_train2014_000000239417_tv.jpg"
+            }, 
+            {
+                "path": "/data/02c12c08a5312e.jpg", 
+                "bbox": [
+                    120.0, 
+                    289.0, 
+                    171.0, 
+                    72.0
+                ], 
+                "probability": 0.10925838351249695, 
+                "cropped_image": "/cropped/tv/02c12c08a5312e_tv.jpg"
+            }
+        ], 
+        "car": [
+            {
+                "path": "/data/02c6125059c8c0.jpg", 
+                "classification": [
+                    {
+                        "classifier": "car/color", 
+                        "tags": [
+                            {
+                                "name": "red\n", 
+                                "probability": 1.0
+                            }
+                        ]
+                    }, 
+                    {
+                        "classifier": "car/model", 
+                        "tags": [
+                            {
+                                "name": "Nissan Leaf\n", 
+                                "probability": 0.001303593860939145
+                            }, 
+                            {
+                                "name": "Volkswagen Passat\n", 
+                                "probability": 0.0016885808436200023
+                            }, 
+                            {
+                                "name": "Opel Astra\n", 
+                                "probability": 0.0013104119570925832
+                            }, 
+                            {
+                                "name": "Seat Cordoba\n", 
+                                "probability": 0.0015984670026227832
+                            }, 
+                            {
+                                "name": "Mitsubishi Lancer\n", 
+                                "probability": 0.001282332930713892
+                            }
+                        ]
+                    }
+                ], 
+                "bbox": [
+                    60.0, 
+                    305.0, 
+                    43.0, 
+                    57.0
+                ], 
+                "probability": 0.10461277514696121, 
+                "cropped_image": "/cropped/car/02c6125059c8c0_car.jpg"
+            }, 
+            {
+                "path": "/data/02c78b02ecdd05.jpg", 
+                "classification": [
+                    {
+                        "classifier": "car/color", 
+                        "tags": []
+                    }, 
+                    {
+                        "classifier": "car/model", 
+                        "tags": [
+                            {
+                                "name": "Citroen AX\n", 
+                                "probability": 0.0014549136394634843
+                            }, 
+                            {
+                                "name": "Hyundai Accent\n", 
+                                "probability": 0.001308201695792377
+                            }, 
+                            {
+                                "name": "Dodge RAM Van\n", 
+                                "probability": 0.0013588268775492907
+                            }, 
+                            {
+                                "name": "Mercury Grand Marquis\n", 
+                                "probability": 0.001361411064863205
+                            }, 
+                            {
+                                "name": "Mitsubishi Lancer\n", 
+                                "probability": 0.0016592309111729264
+                            }
+                        ]
+                    }
+                ], 
+                "bbox": [
+                    639.0, 
+                    398.0, 
+                    99.0, 
+                    71.0
+                ], 
+                "probability": 0.11519772559404373, 
+                "cropped_image": "/cropped/car/02c78b02ecdd05_car.jpg"
+            }
+        ], 
+        "tennis racket": [
+            {
+                "path": "/data/COCO_train2014_000000556018.jpg", 
+                "bbox": [
+                    162.0, 
+                    126.0, 
+                    65.0, 
+                    63.0
+                ], 
+                "probability": 0.22262050211429596, 
+                "cropped_image": "/cropped/tennis-racket/COCO_train2014_000000556018_tennis-racket.jpg"
+            }
+        ], 
+        "cat": [
+            {
+                "path": "/data/COCO_train2014_000000359320.jpg", 
+                "bbox": [
+                    190.0, 
+                    235.0, 
+                    132.0, 
+                    137.0
+                ], 
+                "probability": 0.9975245594978333, 
+                "cropped_image": "/cropped/cat/COCO_train2014_000000359320_cat.jpg"
+            }
+        ], 
+        "toothbrush": [
+            {
+                "path": "/data/COCO_train2014_000000339597.jpg", 
+                "bbox": [
+                    531.0, 
+                    313.0, 
+                    68.0, 
+                    117.0
+                ], 
+                "probability": 0.10274887830018997, 
+                "cropped_image": "/cropped/toothbrush/COCO_train2014_000000339597_toothbrush.jpg"
+            }
+        ], 
+        "handbag": [
+            {
+                "path": "/data/COCO_train2014_000000045059.jpg", 
+                "bbox": [
+                    6.0, 
+                    213.0, 
+                    78.0, 
+                    99.0
+                ], 
+                "probability": 0.12700530886650085, 
+                "cropped_image": "/cropped/handbag/COCO_train2014_000000045059_handbag.jpg"
+            }
+        ], 
+        "snowboard": [
+            {
+                "path": "/data/COCO_train2014_000000082143.jpg", 
+                "bbox": [
+                    146.0, 
+                    67.0, 
+                    67.0, 
+                    65.0
+                ], 
+                "probability": 0.10285010933876038, 
+                "cropped_image": "/cropped/snowboard/COCO_train2014_000000082143_snowboard.jpg"
+            }, 
+            {
+                "path": "/data/COCO_train2014_000000366396.jpg", 
+                "bbox": [
+                    191.0, 
+                    400.0, 
+                    161.0, 
+                    36.0
+                ], 
+                "probability": 0.11759734898805618, 
+                "cropped_image": "/cropped/snowboard/COCO_train2014_000000366396_snowboard.jpg"
+            }
+        ], 
+        "boat": [
+            {
+                "path": "/data/COCO_train2014_000000441327.jpg", 
+                "bbox": [
+                    480.0, 
+                    173.0, 
+                    94.0, 
+                    61.0
+                ], 
+                "probability": 0.10068416595458984, 
+                "cropped_image": "/cropped/boat/COCO_train2014_000000441327_boat.jpg"
+            }
+        ], 
+        "orange": [
+            {
+                "path": "/data/COCO_train2014_000000244928.jpg", 
+                "bbox": [
+                    209.0, 
+                    338.0, 
+                    181.0, 
+                    139.0
+                ], 
+                "probability": 0.2561887502670288, 
+                "cropped_image": "/cropped/orange/COCO_train2014_000000244928_orange.jpg"
+            }
+        ], 
+        "cell phone": [
+            {
+                "path": "/data/COCO_train2014_000000363942.jpg", 
+                "bbox": [
+                    298.0, 
+                    261.0, 
+                    224.0, 
+                    102.0
+                ], 
+                "probability": 0.9873225092887878, 
+                "cropped_image": "/cropped/cell-phone/COCO_train2014_000000363942_cell-phone.jpg"
+            }
+        ], 
+        "couch": [
+            {
+                "path": "/data/COCO_train2014_000000242307.jpg", 
+                "bbox": [
+                    290.0, 
+                    145.0, 
+                    345.0, 
+                    274.0
+                ], 
+                "probability": 0.169488325715065, 
+                "cropped_image": "/cropped/couch/COCO_train2014_000000242307_couch.jpg"
+            }
+        ], 
+        "chair": [
+            {
+                "path": "/data/COCO_train2014_000000510484.jpg", 
+                "bbox": [
+                    376.0, 
+                    11.0, 
+                    262.0, 
+                    391.0
+                ], 
+                "probability": 0.11892679333686829, 
+                "cropped_image": "/cropped/chair/COCO_train2014_000000510484_chair.jpg"
+            }
+        ], 
+        "refrigerator": [
+            {
+                "path": "/data/COCO_train2014_000000328391.jpg", 
+                "bbox": [
+                    2.0, 
+                    1.0, 
+                    126.0, 
+                    468.0
+                ], 
+                "probability": 0.10437755286693573, 
+                "cropped_image": "/cropped/refrigerator/COCO_train2014_000000328391_refrigerator.jpg"
+            }
+        ], 
+        "zebra": [
+            {
+                "path": "/data/COCO_train2014_000000101772.jpg", 
+                "bbox": [
+                    220.0, 
+                    115.0, 
+                    161.0, 
+                    228.0
+                ], 
+                "probability": 0.10859379917383194, 
+                "cropped_image": "/cropped/zebra/COCO_train2014_000000101772_zebra.jpg"
+            }
+        ]
+    }
+}
