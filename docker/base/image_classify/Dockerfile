@@ -1,5 +1,5 @@
 # Build:
-# docker build -t nlescsherlockdl/base:caffe-nv .
+# docker build -t nlescsherlockdl/base:image_classify .
 # This image is for use as a base image only!
 
 FROM nlescsherlockdl/base:caffe-nv
@@ -20,7 +20,6 @@ RUN apt-get install -y \
 
 COPY crablip.py /scripts/                                                                                               
 COPY utils/ /scripts/
-
 
 ENV PATH /opt/caffe/.build_release/tools:$PATH
 ENV PYTHONPATH /opt/caffe/python:$PYTHONPATH
