@@ -136,12 +136,7 @@ The visualization JSON has the following format:
 ```
 {
     "files" : [                                                          # from the pipeline JSON
-        "/path/to/image",
-        "/path/to/another/image",
-        "path/to/yet/another/image",
-        ...
-              ],
-    "file" : {
+         {
         "name": "/path/to/image",
         "classes": [
             "car" : {
@@ -233,16 +228,17 @@ The visualization JSON has the following format:
             }    
                                   
          ]
-    }        
-    "file" : {
+    },        
+    {
         "name": "/path/to/another/image",
         ...
-    }
-    "file" : {
+    },
+    {
         "name": "/path/to/yet/another/image",
         ...
-    }    
-}
+    }  
+        ]
+
 
 
    
