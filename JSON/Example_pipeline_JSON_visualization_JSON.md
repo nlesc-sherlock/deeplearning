@@ -135,9 +135,7 @@ The visualization JSON has the following format:
 
 ```
 {
-    "files" : [                                                          # from the pipeline JSON
-         {
-        "name": "/path/to/image",
+        "/path/to/image": {
         "classes": [
             "car" : {
                 "probability" : <float>,
@@ -229,12 +227,12 @@ The visualization JSON has the following format:
                                   
          ]
     },        
-    {
-        "name": "/path/to/another/image",
+    "/path/to/another/image": {
+        "classes": ,
         ...
     },
-    {
-        "name": "/path/to/yet/another/image",
+    "/path/to/yet/another/image": {
+        "classes": ,
         ...
     }  
         ]
