@@ -70,3 +70,15 @@ steps:
     out:
       - json_out
 
+  model:
+    run: tools/model.cwl
+    in:
+      json_input:
+        source: color/json_out
+      workflow_out:
+        default: model.json
+      input_directory:
+        source: crop/cropped_out
+    out:
+      - json_out
+
