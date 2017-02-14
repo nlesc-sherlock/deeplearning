@@ -44,12 +44,12 @@ images:
     from: base:image_classify
   # car model
   car:color:
-    context: car:color
+    context: car/color
     from: cnn_classify
 
   ## JSON-wrapped runnable images
   ## run with cwltool; wrap bare scripts in our custom json format
   # car model
   car:color-wrapper:
-    context: car:color-wrapper
+    context: car/color-wrapper
     from: car:color
