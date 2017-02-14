@@ -82,3 +82,14 @@ steps:
     out:
       - json_out
 
+  face:
+    run: tools/face.cwl
+    in:
+      json_input:
+        source: model/json_out
+      workflow_out:
+        default: face.json
+      input_directory:
+        source: crop/cropped_out
+    out:
+      - json_out
