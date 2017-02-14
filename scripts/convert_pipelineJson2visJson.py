@@ -27,10 +27,15 @@ def main():
     # load the input (pipeline output) json file
     input_json = json.load(args.input_json_fname)
     
+    # get all filenames
+    fnames = input_json['files']  
+    
     # output json
-    output_json = input_json
-    #json.dumps(input_json, indent=4)
-    # print("Input JSON: {}".format(output_json_pp))
+    output_json =dict()
+    for f in fnames:
+        output_json[f] = []
+        output_json_pp = json.dumps(output_json, indent=4)
+    print("Output JSON: {}".format(output_json_pp))
     
     json.dump(output_json, args.output_json_fname, indent=4)
     
