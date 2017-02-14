@@ -1,0 +1,24 @@
+{
+    "linterOptions": {
+        "typeCheck": true
+    },
+    "extends": [
+        "@nlesc/tslint-config-react-app"
+    ],
+    "rules": {
+        "function-name": false,
+        "indent": [true, 4],
+        "jsx-no-lambda": false,
+        "no-angle-bracket-type-assertion": true,
+        "no-console": [false],
+        "no-for-in-array": false,
+        "no-http-string": [true, "http://localhost/?.", "http://dbpedia.org/?."],
+        "no-suspicious-comment": true,
+        "prefer-type-cast": false,
+        "max-func-body-length": false,
+        "react-a11y-event-has-role": false,
+        "react-this-binding-issue": true,
+        "restrict-plus-operands": false,
+        "react-tsx-curly-spacing": false
+    }
+}
