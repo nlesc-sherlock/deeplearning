@@ -21,10 +21,11 @@ FROM nlescsherlockdl/base:image_classify
 
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
-COPY model /models
+COPY model /model
 COPY image_classify_workflow_wrap_car_color.py /scripts
 
-RUN cd /models && \
+RUN cd /model && \
   tar xzf 20161117-151423-d9a3_epoch_100.0.tar.gz
+RUN mv /model/snapshot_iter_63400.caffemodel /model/snapshot.caffemodel
 
-ENTRYPOINT ["/scripts/cnn_classify.py", "-M", "/models", "--model_snapshot", "snapshot_iter_63400.caffemodel"]
+ENTRYPOINT ["/scripts/cnn_classify.py"]

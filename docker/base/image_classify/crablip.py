@@ -2,7 +2,7 @@
 # @Author: Patrick Bos
 # @Date:   2016-12-14 08:05:09
 # @Last Modified by:   Patrick Bos
-# @Last Modified time: 2016-12-14 13:30:31
+# @Last Modified time: 2017-02-14 11:04:22
 
 import argparse
 
@@ -11,7 +11,7 @@ def get_default_argument_parser():
     parser = argparse.ArgumentParser()
 
     # model file parameters
-    parser.add_argument("-M", "--model_path", help="Model files directory. Should contain the files: snapshot.caffemodel, deploy.prototxt and labels.txt. Any files with other filenames can be given with other parameters (see below).", required=True)
+    parser.add_argument("-M", "--model_path", help="Model files directory. Should contain the files: snapshot.caffemodel, deploy.prototxt and labels.txt. Any files with other filenames can be given with other parameters (see below).", default='/model')
     parser.add_argument("-D", "--data_path", help="Directory path of where the data is mounted. If this script is running whithin a docker it should be the docker local path", default="/data")
     model_group = parser.add_argument_group(title="Model file names.", description="Override the default filenames of the model.")
     model_group.add_argument("--model_snapshot", help="The filename of the caffemodel snapshot in the model directory.", default='snapshot.caffemodel')
