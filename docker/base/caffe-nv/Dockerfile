@@ -1,3 +1,5 @@
+# Build:
+# docker build -t nlescsherlockdl/base:caffe-nv
 FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
 
 RUN apt update \ 

@@ -1,6 +1,8 @@
 version: 1.0
 organisation: nlescsherlockdl
 images:
+
+  # Single Shot Detection
   ssd:caffe-nv:
     context: object_detect_ssdnet/caffe-nv-ssd
   ssd:coco:
@@ -21,5 +23,19 @@ images:
   ssd:detect-ilsvrc15:
     context: object_detect_ssdnet/ilsvrc15-wrapper
     from: ssd:ilsvrc15
+
+  # Cropper
   cropper:latest:
     context: cropper
+
+  # Image Classify Base Images
+  base:caffe-nv:
+    context: base/caffe-nv
+  base:image_classify:
+    context: base/image_classify
+    from: base:caffe-nv
+
+  # Car Models
+  car:color-workflow:
+    context: car/color
+
