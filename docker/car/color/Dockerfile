@@ -22,7 +22,6 @@ FROM nlescsherlockdl/cnn_classify
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
 COPY model /model
-# COPY image_classify_workflow_wrap_car_color.py /scripts
 
 RUN cd /model && \
   tar xzf 20161117-151423-d9a3_epoch_100.0.tar.gz

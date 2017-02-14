@@ -40,6 +40,12 @@ cd /data/berend/git/cwltool/
 pip install --ignore-installed -U .
 ```
 
+Add the bin directory to your path if you hadn't before. E.g. if you use pip without conda:
+```sh
+export PATH="$HOME/.local/bin:$PATH"
+```
+If you use conda, the directory was probably already added to your path automatically.
+
 Run the pipeline with some input directory `$DIRWITHIMAGES` which contains image files:
 ```sh
 cd deeplearning/CWLworkflow

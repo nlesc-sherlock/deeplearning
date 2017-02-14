@@ -1,5 +1,5 @@
 # Build:
-# cd to deeplearning/docker-workflow/car_color, then:
+# cd to deeplearning/docker/car/color-wrapper, then:
 
 # docker build -t nlescsherlockdl/car:color-wrapper .
 # docker push nlescsherlockdl/car:color-wrapper
@@ -28,6 +28,6 @@ FROM nlescsherlockdl/car:color
 
 MAINTAINER NLeSC <info@esciencecenter.nl>
 
-COPY image_classify_workflow_wrap_car_color.py /scripts/image_classify_workflow_wrap_car_color.py
+COPY image_classify_workflow_wrap_car_color.py /scripts
 
 ENTRYPOINT [""]

@@ -23,3 +23,6 @@ COPY utils/ /scripts/
 
 ENV PATH /opt/caffe/.build_release/tools:$PATH
 ENV PYTHONPATH /opt/caffe/python:$PYTHONPATH
+
+# import matplotlib so it builds the font cache, saving time in derived images
+RUN python -c "import matplotlib.pyplot as plt"

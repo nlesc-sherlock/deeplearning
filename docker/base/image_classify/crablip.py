@@ -120,6 +120,7 @@ def generate_output_json(input_json, classification, probability_threshold,
 
         fn = classified_object['cropped_image']
         classified_object.setdefault('classification', []).append(classification.copy())
+        print tags
         mangled_tags = inflate_tags(tags[fn])
         if tag_name_translation is not None:
             mangled_tags = translate_tag_names(mangled_tags,

@@ -30,7 +30,7 @@ def get_channel_mean(mean_pixel_file):
     return channel_mean
 
 
-def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt',
+def classify(basedir, image_files, model_path, model_name, model_deploy='deploy.prototxt',
              mean_pixel_name='mean.binaryproto',
              gray_range=255, channel_swap=(2, 1, 0), batch_size=0,
              gpu_id=-1, verbose=False):
@@ -80,7 +80,7 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
         print "Loading image(s) to classify..."
     input_images = []
     for image_file in image_files:
-        input_images.append(caffe.io.load_image(image_file))
+        input_images.append(caffe.io.load_image(os.path.join(basedir, image_file)))
 
     # batch process the images:
     if verbose:
@@ -90,7 +90,7 @@ def classify(image_files, model_path, model_name, model_deploy='deploy.prototxt'
     # convert to probabilities (if needed):
     probs = []
 
-    for ix, image_file in enumerate(image_files):
+    for ix, _ in enumerate(image_files):
         if prediction[ix].sum() == 1 and np.all(prediction[ix] > 0):
             probs.append(prediction[ix])
         else:
@@ -164,11 +164,11 @@ def print_json_classification(probs, image_files, model_path, model_name,
     outfile.write(json_string)
 
 
-def run(image_files, model_path, model_name, model_deploy,
+def run(basedir, image_files, model_path, model_name, model_deploy,
         labels_name, mean_pixel_name, outfile,
         gray_range=255, channel_swap=(2, 1, 0), batch_size=0, gpu_id=-1,
         verbose=False, json=False):
-    probs = classify(image_files, model_path, model_name,
+    probs = classify(basedir, image_files, model_path, model_name,
                      model_deploy=model_deploy, mean_pixel_name=mean_pixel_name,
                      gray_range=gray_range, channel_swap=channel_swap,
                      batch_size=batch_size, gpu_id=gpu_id, verbose=verbose)
@@ -197,9 +197,10 @@ if __name__ == '__main__':
     print args
 
     data_path = args.data_path
-    image_filenames = [os.path.join(data_path, image_file) for image_file in args.image_files]
+    image_filenames = args.image_files
+    #image_filenames = [os.path.join(data_path, image_file) for image_file in args.image_files]
 
-    run(image_filenames, args.model_path, args.model_snapshot,
+    run(data_path, image_filenames, args.model_path, args.model_snapshot,
         model_deploy=args.model_deploy, labels_name=args.model_labels,
         mean_pixel_name=args.mean_pixel_name, gray_range=args.gray_range,
         channel_swap=args.channel_swap, batch_size=args.batch_size,

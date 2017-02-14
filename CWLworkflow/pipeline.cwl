@@ -7,7 +7,7 @@ inputs:
 outputs:
   output_json:
     type: File
-    outputSource: crop/json_out
+    outputSource: model/json_out
   color_json:
     type: File
     outputSource: color/json_out
