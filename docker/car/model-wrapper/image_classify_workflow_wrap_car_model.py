@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     if image_filenames:
         with file(outfn, "w") as outfile:
-            cnn_classify.run(image_filenames, args.model_path,
+            cnn_classify.run(args.data_path, image_filenames, args.model_path,
                              args.model_snapshot,
                              model_deploy=args.model_deploy,
                              labels_name=args.model_labels,
