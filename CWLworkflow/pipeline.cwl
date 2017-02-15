@@ -8,6 +8,9 @@ outputs:
   output_json:
     type: File
     outputSource: age/json_out
+  gender_out:
+    type: File
+    outputSource: gender/json_out
   cropped_out:
     type: Directory
     outputSource: face-crop/cropped_out

@@ -149,10 +149,18 @@ def print_json_classification(probs, image_files, model_path, model_name,
     ind = min(len(labels), 5)
 
     for ix, image_file in enumerate(image_files):
-        ix_topN = probs[ix].argsort()[::-1][:ind]
+        if len(probs[ix]) > len(labels):
+            # Something weird with the labels, let's only look at the first len(labels)
+            probs_ix = probs[ix][:len(labels)]
+        else:
+            probs_ix = probs[ix]
+        ix_topN = probs_ix.argsort()[::-1][:ind]
         # need pure python floats for json.dumps serialization:
-        topN_probs = [float(p) for p in probs[ix][ix_topN]]
-        topN_labels = [labels[ix] for ix in ix_topN]
+        topN_probs = [float(p) for p in probs_ix[ix_topN]]
+
+        print "Labels: ", labels
+        print "topN: ", ix_topN
+        topN_labels = [labels[jx] for jx in ix_topN]
         topN_classes = zip(topN_labels, topN_probs)
         # tags = "%s" % dict(topN_classes)
         tags = dict(topN_classes)
