@@ -17,7 +17,7 @@
 #     --gpu_id=0 \
 #     -D /data `ls $DATADIR`
 
-FROM nlescsherlockdl/base:image_classify
+FROM nlescsherlockdl/cnn_classify
 
 MAINTAINER NLeSC <info@esciencecenter.nl>
 

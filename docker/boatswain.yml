@@ -62,7 +62,11 @@ images:
   # face age
   face:age:
     context: face/age
-    from: base:image_classify
+    from: cnn_classify
+  # face gender
+  face:gender:
+    context: face/gender
+    from: cnn_classify
 
   ## JSON-wrapped runnable images
   ## run with cwltool; wrap bare scripts in our custom json format
@@ -81,4 +85,8 @@ images:
   # face age
   face:age-wrapper:
     context: face/age-wrapper
-    from: face:detector
+    from: face:age
+  # face gender
+  face:gender-wrapper:
+    context: face/gender-wrapper
+    from: face:gender
