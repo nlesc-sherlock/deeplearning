@@ -133,7 +133,7 @@ The pipeline output JSON is of the following format:
 The visualization JSON addition to this JSON has the following format:
 
 ```
-{ "images":{
+{ "images":[{
         "/path/to/image": {
         "objects": [
             "car" : {
@@ -142,27 +142,27 @@ The visualization JSON addition to this JSON has the following format:
                 "classification": [
                 {
                     "classifier": "car/model/name",                  # added by car model classifier
-                    "tags": [
+                    "classes": [
                         {   
-                        "name": "Ford Fiesta",
-                        "probability": 0.7
+                            "name": "Ford Fiesta",
+                            "probability": 0.7
                         },
                         {
-                        "name": "Opel Astra",
-                        "probability": 0.3                        
+                            "name": "Opel Astra",
+                            "probability": 0.3
                         }
                     ],
                 },
                 {
                     "classifier": "car/color/name",                 # added by car color classifier
-                    "tags": [
+                    "classes": [
                         {   
-                        "name": "white",
-                        "probability": 0.6
+                            "name": "white",
+                            "probability": 0.6
                         },
                         {
-                        "name": "gray",
-                        "probability": 0.4
+                            "name": "gray",
+                            "probability": 0.4
                         }
                     ],
                 }
@@ -171,33 +171,34 @@ The visualization JSON addition to this JSON has the following format:
             "person" : {
                 "probability" : <float>,
                 "bbox" : [x, y, w, h],
-                "face" :                                                # from face detector
-                {                     
+                "detail" :                                                # from face detector
+                {           
+                    "name": "face",
                     "bbox" : [x, y, w, h],                              # in relation to the original file!
                     "classification": [
                          {
-                        "classifier": "face/gender",                    # added by face gender classifier
-                        "tags": [
-                            {   
-                            "name": "female",                           # the current docker exports "f"!
-                            "probability": 0.65
-                            },
-                            {
-                            "name": "male",                             # the current docker exports "m"!
-                            "probability": 0.35                        
-                            }
-                        ],
-                        },
-                        {
-                        "classifier": "face/age",                      # added by face age classifier
-                            "tags": [
+                            "classifier": "face/gender",                    # added by face gender classifier
+                            "classes": [
                                 {   
-                                "name": "25 32",
-                                "probability": 0.65
+                                    "name": "female",                           # the current docker exports "f"!
+                                    "probability": 0.65
                                 },
                                 {
-                                "name": "38 44",
-                                "probability": 0.35
+                                    "name": "male",                             # the current docker exports "m"!
+                                    "probability": 0.35                        
+                                }
+                            ],
+                        },
+                        {
+                            "classifier": "face/age",                      # added by face age classifier
+                            "classes": [
+                                {   
+                                    "name": "25 32",
+                                    "probability": 0.65
+                                },
+                                {
+                                    "name": "38 44",
+                                    "probability": 0.35
                                 }
                             ],
                         }
@@ -208,19 +209,19 @@ The visualization JSON addition to this JSON has the following format:
                 "probability" : <float>,
                 "bbox" : [x, y, w, h],
                 "classification": [
-                {
-                    "classifier": "object class",                             # added by general 1000 classifier
-                    "tags": [
-                        {   
-                        "name": "dog",
-                        "probability": 0.9
-                        },
-                        {
-                        "name": "German sheperd",
-                        "probability": 0.1                        
-                        }
-                    ],
-                }
+                    {
+                        "classifier": "object class",                             # added by general 1000 classifier
+                        "classes": [
+                            {   
+                                "name": "dog",
+                                "probability": 0.9
+                            },
+                            {
+                                "name": "German sheperd",
+                                "probability": 0.1                        
+                            }
+                        ],
+                    }
                 ]
             }    
                                   
@@ -233,8 +234,8 @@ The visualization JSON addition to this JSON has the following format:
     "/path/to/yet/another/image": {
         "objects": ,
         ...
-    }  
-        }
+    }]  
+}
 
 
 
