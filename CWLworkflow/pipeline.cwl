@@ -3,6 +3,14 @@ class: Workflow
 inputs:
   directory_in:
     type: Directory
+  filename:
+    type: string
+  user:
+    type: string
+  password:
+    type: string
+  url:
+    type: string
 
 outputs:
   output_json:
@@ -90,7 +98,6 @@ steps:
     out:
       - json_out
 
-
   age:
     run: tools/face-age.cwl
     in:
@@ -99,3 +106,15 @@ steps:
     out:
       - json_out
 
+  upload:
+    run: tools/upload-webdav.cwl
+    in:
+      json_input: age/json_out
+      input_files: face-crop/cropped_out
+      filename: filename
+      user: user
+      password: password
+      url: url
+    out:
+      - url
+  
