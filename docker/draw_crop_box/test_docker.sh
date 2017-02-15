@@ -7,9 +7,9 @@ IMAGE_FN=person_horse.jpg
 BOXES_FN=boxes_example_docker.json
 OUTPUT_FN=person_horse_boxes_test.jpg
 docker run \
-    -v $(readlink $DATADIR):/data \
-    -v $(readlink $JSONDIR):/json \
-    -v $(readlink $OUTDIR):/output \
+    -v $(readlink -f $DATADIR):/data \
+    -v $(readlink -f $JSONDIR):/json \
+    -v $(readlink -f $OUTDIR):/output \
     nlescsherlockdl/draw_crop_box \
     /data/$IMAGE_FN /json/$BOXES_FN
     --output_file /output/$OUTPUT_FN
