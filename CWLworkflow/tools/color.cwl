@@ -6,25 +6,21 @@ cwl:requirements:
     dockerPull: nlescsherlockdl/car:color-wrapper
 
 baseCommand: [/scripts/image_classify_workflow_wrap_car_color.py, --json]
+arguments: [--workflow_out, color.json]
 inputs:
-  workflow_out:
-    type: string
-    inputBinding:
-      prefix: --workflow_out
-      position: 1
   json_input:
     type: File
     inputBinding:
-      position: 3
+      position: 2
   input_directory:
     type: Directory
     inputBinding:
       prefix: -D
-      position: 2
+      position: 1
   
 
 outputs:
   json_out:
     type: File
     outputBinding:
-      glob: $(inputs.workflow_out)
+      glob: color.json 

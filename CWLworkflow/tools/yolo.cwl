@@ -1,17 +1,13 @@
 cwlVersion: cwl:v1.0
 class: CommandLineTool
 
-cwl:requirements:
+requirements:
   - class: DockerRequirement
     dockerImageId: nlescsherlockdl/yolo:detect
 
 baseCommand: [python, /scripts/run_yolo.py]
+arguments: [--workflow_out, yolo.json]
 inputs:
-  workflow_out:
-    type: string
-    inputBinding:
-      prefix: --workflow_out
-      position: 1
   input_json:
     type: File
     inputBinding:
@@ -26,4 +22,4 @@ outputs:
   json_out:
     type: File
     outputBinding:
-      glob: $(inputs.workflow_out)
+      glob: yolo.json
