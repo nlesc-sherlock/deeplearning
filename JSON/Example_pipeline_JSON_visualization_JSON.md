@@ -24,7 +24,7 @@ The pipeline output JSON is of the following format:
                 "classification": [
                 {
                     "classifier": "car/model/name",                  # added by car model classifier
-                    "tags": [
+                    "classes": [
                         {   
                         "name": "Ford Fiesta",
                         "probability": 0.7
@@ -37,7 +37,7 @@ The pipeline output JSON is of the following format:
                 },
                 {
                     "classifier": "car/color/name",                 # added by car color classifier
-                    "tags": [
+                    "classes": [
                         {   
                         "name": "white",
                         "probability": 0.6
