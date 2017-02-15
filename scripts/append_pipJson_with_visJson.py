@@ -77,7 +77,14 @@ def append_objects(input_json, args):
                     else:
                         if o.has_key('face'):
                             person_face_obj = o['face'];
-                            face_obj = {'bbox': person_face_obj['bbox'], 'classification':person_face_obj['classification']} # fix the BBox!
+                            bbox_person = o['bbox']
+                            bbox_face = person_face_obj['bbox']
+                            abs_bbox_face = []
+                            abs_bbox_face.append(bbox_person[0] + bbox_face[0])
+                            abs_bbox_face.append(bbox_person[1] + bbox_face[1]) 
+                            abs_bbox_face.append(bbox_face[2]) 
+                            abs_bbox_face.append(bbox_face[3])
+                            face_obj = {'bbox': abs_bbox_face, 'classification':person_face_obj['classification']} 
                             obj_info = { 'probabiliity': o['probability'], 'bbox': o['bbox'], 'face':face_obj}
                         else:
                             obj_info = { 'probabiliity': o['probability'], 'bbox': o['bbox'] }
