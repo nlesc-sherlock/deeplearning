@@ -10,16 +10,17 @@
 # Alternatively, use the run_imagenet.sh script (from any directory):
 # docker run -v $PWD:/data/ nlescsherlockdl/yolo /data/someimage.jpg
 
-FROM nlescsherlockdl/cuda7.5-cudnn5-devel
+FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
 RUN apt update
-RUN apt -y install git
+RUN apt install -y git ca-certificates wget python python-pip && \
+    pip install -U pip
+
 WORKDIR /
-RUN a=2 git clone https://github.com/cwmeijer/darknet.git && cd darknet && make
+RUN git clone https://github.com/cwmeijer/darknet.git && cd darknet && make
+
 WORKDIR /darknet
-RUN apt -y install wget
 RUN wget http://pjreddie.com/media/files/yolo.weights
-RUN apt -y install python python-pip
-RUN pip install docopt
 ADD . /scripts
-ENTRYPOINT ["python", "/scripts/run_yolo.py"]
+
+ENTRYPOINT [""]
 

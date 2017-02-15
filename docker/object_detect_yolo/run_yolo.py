@@ -45,9 +45,10 @@ The output will be another json file.
 Usage:std
   run_yolo.py <input_path> <output_path>
 """
-from docopt import docopt
-import json
+import os
 import subprocess
+import argparse
+import json
 
 
 def line_to_occurrence(path, line):
@@ -73,15 +74,43 @@ def line_to_occurrence(path, line):
     return clas, occurrence
 
 
+def get_image_filenames_from_json(json_object):
+    if 'files' in json_object.keys():                                                                                                                                 
+        return json_object['files']
+
+
 if __name__ == '__main__':
-    args = docopt(__doc__)
-    with open(args['<input_path>'], 'r') as json_file:
-        json_input = json.load(json_file)
+    parser = argparse.ArgumentParser() 
+
+    parser.add_argument("json_input_file", 
+                        help="The filename (including path, full or relative) " 
+                             "of the json file that specifies the input to the " 
+                             "classifier.", 
+                             type=argparse.FileType('r')) 
+    parser.add_argument("--workflow_out", 
+                        help="Filename (including path, full or relative) " 
+                        "of the output json file in the Sherlock workflow " 
+                        "specification.", required=True, 
+                        type=argparse.FileType('w')) 
+    parser.add_argument("--input_directory", required=True) 
+    parser.add_argument("-v", "--verbose", help="Verbose mode.", action="store_true", default=0) 
+ 
+    args = parser.parse_args() 
+     
+    if args.verbose: 
+        print args 
+
+    verbose = args.verbose 
+    input_json = json.load(args.json_input_file) 
+
+    image_filenames = get_image_filenames_from_json(input_json)
+    if image_filenames:
         classes = {}
-        for input_path in json_input['files']:
-            command = ["./darknet", "detect", "cfg/yolo.cfg", "yolo.weights", input_path]
+        for input_path in input_json['files']:
+            input_file = os.path.join(args.input_directory, input_path)
+            command = ["./darknet", "detect", "cfg/yolo.cfg", "yolo.weights", input_file]
             temp_path = 'output.tmp'
-            result = subprocess.check_output(command)
+            result = subprocess.check_output(command, cwd='/darknet')
             for line in result.split('\n'):
                 if line.startswith("'class':"):
                     clas, occurrence = line_to_occurrence(input_path, line)
@@ -89,8 +118,7 @@ if __name__ == '__main__':
                         classes[clas].append(occurrence)
                     else:
                         classes[clas] = [occurrence]
-        json_output = json_input
+        json_output = input_json
         json_output['classes'] = classes
 
-    with open(args['<output_path>'], 'w') as output_file:
-        json.dump(json_output, output_file, indent=4, sort_keys=True, ensure_ascii=False)
+    json.dump(json_output, args.workflow_out, indent=4, sort_keys=True, ensure_ascii=False)
