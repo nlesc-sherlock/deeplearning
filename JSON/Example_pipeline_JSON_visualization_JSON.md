@@ -1,5 +1,4 @@
-The enriched pipline output JSON file is not so easy for visualization purposes. For that we need to condertit into another 
-JSON format where the images are the main keyps. 
+The enriched pipline output JSON file is not so easy for visualization purposes. For that we need to append it with a section "images" where the images are the main keyps. 
 
 General remarks:
 * For the Bounding Boxes, the (x,y)  coordinates refer to the top left corner of the bounding box.
@@ -131,12 +130,12 @@ The pipeline output JSON is of the following format:
 '''
 ```
 
-The visualization JSON has the following format:
+The visualization JSON addition to this JSON has the following format:
 
 ```
-{
+{ "images":[
         "/path/to/image": {
-        "classes": [
+        "objects": [
             "car" : {
                 "probability" : <float>,
                 "bbox" : [x, y, w, h],
@@ -228,11 +227,11 @@ The visualization JSON has the following format:
          ]
     },        
     "/path/to/another/image": {
-        "classes": ,
+        "objects": ,
         ...
     },
     "/path/to/yet/another/image": {
-        "classes": ,
+        "objects": ,
         ...
     }  
         ]
