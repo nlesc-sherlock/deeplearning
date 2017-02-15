@@ -133,7 +133,7 @@ The pipeline output JSON is of the following format:
 The visualization JSON addition to this JSON has the following format:
 
 ```
-{ "images":[
+{ "images":{
         "/path/to/image": {
         "objects": [
             "car" : {
@@ -234,7 +234,7 @@ The visualization JSON addition to this JSON has the following format:
         "objects": ,
         ...
     }  
-        ]
+        }
 
 
 
