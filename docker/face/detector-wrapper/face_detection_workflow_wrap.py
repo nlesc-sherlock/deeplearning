@@ -3,24 +3,21 @@
 # @Author: Elena Ranguelova
 # @Date:   2016-12-14 11:23
 
-#import sys
-#sys.path.insert(0,'/home/elena/Sherlock/deeplearning/FaceDetector/facedetect-master/')
 import facedetect as fd
-import wrap_lib as wl
+import crablip
 import json
 
 if __name__ == '__main__':
-    parser = wl.get_workflow_argument_parser()
+    parser = crablip.get_workflow_argument_parser()
 
     args = parser.parse_args()
-   # print args
+    # print args
 
     fd.load_cascades(fd.DATA_DIR)
-    
+
     input_json = json.load(args.json_input_file)
     output_json = input_json
 
-    
     if 'person' in output_json['classes'].keys():
         persons = output_json['classes']['person']
         for person in persons:
@@ -30,5 +27,5 @@ if __name__ == '__main__':
                 person[u'face'] = {}
                 person[u'face'][u'path'] = image_fn
                 person[u'face'][u'bbox'] = [int(x) for x in list(features[0])]
-            
-    json.dump(output_json, args.workflow_out, indent=4)    
+
+    json.dump(output_json, args.workflow_out, indent=4)
