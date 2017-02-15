@@ -7,13 +7,10 @@ inputs:
 outputs:
   output_json:
     type: File
-    outputSource: model/json_out
-  color_json:
-    type: File
-    outputSource: color/json_out
+    outputSource: age/json_out
   cropped_out:
     type: Directory
-    outputSource: crop/cropped_out
+    outputSource: face-crop/cropped_out
   detect_json:
     type: File
     outputSource: detect/json_out
@@ -93,3 +90,48 @@ steps:
         source: crop/cropped_out
     out:
       - json_out
+
+  face-crop:
+    run: tools/crop.cwl
+    in:
+      json_input_file:
+        source: face/json_out
+      workflow_out:
+        default: cropped-faces.json
+      input_directory:
+        source: crop/cropped_out
+      probability:
+        default: 0.1
+      cropped_folder:
+        default: cropped
+      specialised:
+        default: true
+    out:
+      - json_out
+      - cropped_out
+
+  gender:
+    run: tools/face-gender.cwl
+    in:
+      json_input:
+        source: face-crop/json_out
+      workflow_out:
+        default: gender.json
+      input_directory:
+        source: face-crop/cropped_out
+    out:
+      - json_out
+
+
+  age:
+    run: tools/face-age.cwl
+    in:
+      json_input:
+        source: gender/json_out
+      workflow_out:
+        default: age.json
+      input_directory:
+        source: face-crop/cropped_out
+    out:
+      - json_out
+

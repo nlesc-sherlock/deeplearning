@@ -112,20 +112,22 @@ def generate_output_json(input_json, classification, probability_threshold,
                 tags[fn][name] = probability
     classification = {'classifier': classifier_key}
     for class_object in class_objects:
+        classified_object = None
         if subclass_key is not None:
             if subclass_key in class_object.keys():
                 classified_object = class_object[subclass_key]
         else:
             classified_object = class_object
 
-        fn = classified_object['cropped_image']
-        classified_object.setdefault('classification', []).append(classification.copy())
-        print tags
-        mangled_tags = inflate_tags(tags[fn])
-        if tag_name_translation is not None:
-            mangled_tags = translate_tag_names(mangled_tags,
+        if classified_object is not None:
+            fn = classified_object['cropped_image']
+            classified_object.setdefault('classification', []).append(classification.copy())
+            print tags
+            mangled_tags = inflate_tags(tags[fn])
+            if tag_name_translation is not None:
+                mangled_tags = translate_tag_names(mangled_tags,
                                                tag_name_translation)
-        classified_object['classification'][-1]['tags'] = mangled_tags
+            classified_object['classification'][-1]['tags'] = mangled_tags
 
     # note that we modified the input_json object!
     return input_json

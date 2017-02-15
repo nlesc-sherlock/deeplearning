@@ -3,25 +3,24 @@ class: CommandLineTool
 
 cwl:requirements:
   - class: DockerRequirement
-    dockerImageId: nlescsherlockdl/face:detector-wrapper
+    dockerImageId: nlescsherlockdl/yolo:detect
 
-baseCommand: [/scripts/face_detection_workflow_wrap.py, --json]
+baseCommand: [python, /scripts/run_yolo.py]
 inputs:
   workflow_out:
     type: string
     inputBinding:
       prefix: --workflow_out
       position: 1
-  json_input:
+  input_json:
     type: File
     inputBinding:
       position: 3
   input_directory:
     type: Directory
     inputBinding:
-      prefix: -D
+      prefix: --input_directory
       position: 2
-  
 
 outputs:
   json_out:

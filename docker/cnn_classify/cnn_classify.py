@@ -194,7 +194,7 @@ if __name__ == '__main__':
     parser.add_argument("image_files", help="The filename(s) (including path, full or relative) of the image(s) you want to classify.", nargs="+")
 
     args = parser.parse_args()
-    print args
+    #print args
 
     data_path = args.data_path
     image_filenames = args.image_files

@@ -3,9 +3,9 @@ class: CommandLineTool
 
 cwl:requirements:
   - class: DockerRequirement
-    dockerImageId: nlescsherlockdl/face:detector-wrapper
+    dockerImageId: nlescsherlockdl/face:gender-wrapper
 
-baseCommand: [/scripts/face_detection_workflow_wrap.py, --json]
+baseCommand: [/scripts/image_classify_workflow_wrap_gender.py, --json]
 inputs:
   workflow_out:
     type: string
