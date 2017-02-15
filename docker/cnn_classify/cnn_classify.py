@@ -162,10 +162,10 @@ def print_json_classification(probs, image_files, model_path, model_name,
         print "topN: ", ix_topN
         topN_labels = [labels[jx] for jx in ix_topN]
         topN_classes = zip(topN_labels, topN_probs)
-        # tags = "%s" % dict(topN_classes)
-        tags = dict(topN_classes)
+        # classes = "%s" % dict(topN_classes)
+        classes = dict(topN_classes)
         data["predictions"][image_file] = {
-            "tags": tags
+            "classes": classes
         }
 
     json_string = json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False)
