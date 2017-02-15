@@ -24,7 +24,7 @@ The pipeline output JSON is of the following format:
                 "classification": [
                 {
                     "classifier": "car/model/name",                  # added by car model classifier
-                    "tags": [
+                    "classes": [
                         {   
                         "name": "Ford Fiesta",
                         "probability": 0.7
@@ -37,7 +37,7 @@ The pipeline output JSON is of the following format:
                 },
                 {
                     "classifier": "car/color/name",                 # added by car color classifier
-                    "tags": [
+                    "classes": [
                         {   
                         "name": "white",
                         "probability": 0.6
@@ -75,7 +75,7 @@ The pipeline output JSON is of the following format:
                     "classification": [
                          {
                         "classifier": "face/gender",                    # added by face gender classifier
-                        "tags": [
+                        "classes": [
                             {   
                             "name": "female",                           # the current docker exports "f"!
                             "probability": 0.65
@@ -88,7 +88,7 @@ The pipeline output JSON is of the following format:
                         },
                         {
                         "classifier": "face/age",                      # added by face age classifier
-                            "tags": [
+                            "classes": [
                                 {   
                                 "name": "25 32",
                                 "probability": 0.65
