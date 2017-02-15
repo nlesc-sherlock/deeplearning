@@ -30,57 +30,57 @@
         "girl_two_dogs.jpg": {
             "objects": {
                 "person": {
-                    "probabiliity": 0.6, 
                     "bbox": [
                         113, 
                         120, 
                         352, 
                         185
-                    ]
+                    ], 
+                    "probability": 0.6
                 }, 
                 "dog": {
-                    "probabiliity": 0.73, 
                     "bbox": [
                         69, 
                         167, 
                         355, 
                         153
-                    ]
+                    ], 
+                    "probability": 0.73
                 }
             }
         }, 
         "two_riders_horses.jpg": {
             "objects": {
                 "person": {
-                    "probabiliity": 0.75, 
                     "bbox": [
                         286, 
                         75, 
                         69, 
                         163
-                    ]
+                    ], 
+                    "probability": 0.75
                 }, 
                 "horse": {
-                    "probabiliity": 0.75, 
                     "bbox": [
                         229, 
                         124, 
                         191, 
                         181
-                    ]
+                    ], 
+                    "probability": 0.75
                 }
             }
         }, 
         "old_man_baby_mobile.jpg": {
             "objects": {
                 "person": {
-                    "probabiliity": 0.77, 
                     "bbox": [
                         218, 
                         71, 
                         219, 
                         257
                     ], 
+                    "probability": 0.77, 
                     "face": {
                         "bbox": [
                             244, 
@@ -115,26 +115,19 @@
                     }
                 }, 
                 "cell phone": {
-                    "probabiliity": 0.51, 
                     "bbox": [
                         345, 
                         163, 
                         46, 
                         65
-                    ]
+                    ], 
+                    "probability": 0.51
                 }
             }
         }, 
         "car_splash_small_person.jpg": {
             "objects": {
                 "car": {
-                    "probabiliity": 0.82, 
-                    "bbox": [
-                        94, 
-                        195, 
-                        182, 
-                        118
-                    ], 
                     "classification": [
                         {
                             "classifier": "car/color", 
@@ -170,65 +163,65 @@
                                 }
                             ]
                         }
-                    ]
+                    ], 
+                    "bbox": [
+                        94, 
+                        195, 
+                        182, 
+                        118
+                    ], 
+                    "probability": 0.82
                 }, 
                 "boat": {
-                    "probabiliity": 0.31, 
                     "bbox": [
                         73, 
                         29, 
                         141, 
                         81
-                    ]
+                    ], 
+                    "probability": 0.31
                 }, 
                 "person": {
-                    "probabiliity": 0.75, 
                     "bbox": [
                         370, 
                         184, 
                         55, 
                         68
-                    ]
+                    ], 
+                    "probability": 0.75
                 }
             }
         }, 
         "car_bus_old.jpg": {
             "objects": {
                 "bus": {
-                    "probabiliity": 0.6, 
                     "bbox": [
                         89, 
                         57, 
                         264, 
                         105
-                    ]
+                    ], 
+                    "probability": 0.6
                 }, 
                 "person": {
-                    "probabiliity": 0.36, 
                     "bbox": [
                         457, 
                         114, 
                         36, 
                         68
-                    ]
+                    ], 
+                    "probability": 0.36
                 }, 
                 "truck": {
-                    "probabiliity": 0.42, 
                     "bbox": [
                         2, 
                         110, 
                         393, 
                         213
-                    ]
+                    ], 
+                    "probability": 0.42
                 }, 
                 "car": {
-                    "probabiliity": 0.46, 
-                    "bbox": [
-                        8, 
-                        116, 
-                        357, 
-                        208
-                    ], 
                     "classification": [
                         {
                             "classifier": "car/color", 
@@ -264,20 +257,20 @@
                                 }
                             ]
                         }
-                    ]
+                    ], 
+                    "bbox": [
+                        8, 
+                        116, 
+                        357, 
+                        208
+                    ], 
+                    "probability": 0.46
                 }
             }
         }, 
         "Fiat_panda_auto_zijkant.jpg": {
             "objects": {
                 "car": {
-                    "probabiliity": 0.81, 
-                    "bbox": [
-                        7, 
-                        148, 
-                        626, 
-                        244
-                    ], 
                     "classification": [
                         {
                             "classifier": "car/color", 
@@ -313,20 +306,20 @@
                                 }
                             ]
                         }
-                    ]
+                    ], 
+                    "bbox": [
+                        7, 
+                        148, 
+                        626, 
+                        244
+                    ], 
+                    "probability": 0.81
                 }
             }
         }, 
         "truck.jpg": {
             "objects": {
                 "car": {
-                    "probabiliity": 0.36, 
-                    "bbox": [
-                        47, 
-                        155, 
-                        21, 
-                        13
-                    ], 
                     "classification": [
                         {
                             "classifier": "car/color", 
@@ -362,64 +355,64 @@
                                 }
                             ]
                         }
-                    ]
+                    ], 
+                    "bbox": [
+                        47, 
+                        155, 
+                        21, 
+                        13
+                    ], 
+                    "probability": 0.36
                 }, 
                 "truck": {
-                    "probabiliity": 0.88, 
                     "bbox": [
                         143, 
                         48, 
                         297, 
                         182
-                    ]
+                    ], 
+                    "probability": 0.88
                 }
             }
         }, 
         "person_horse.jpg": {
             "objects": {
                 "person": {
-                    "probabiliity": 0.77, 
                     "bbox": [
                         199, 
                         44, 
                         82, 
                         225
-                    ]
+                    ], 
+                    "probability": 0.77
                 }, 
                 "horse": {
-                    "probabiliity": 0.92, 
                     "bbox": [
                         45, 
                         107, 
                         404, 
                         285
-                    ]
+                    ], 
+                    "probability": 0.92
                 }
             }
         }, 
         "cows.jpg": {
             "objects": {
                 "cow": {
-                    "probabiliity": 0.81, 
                     "bbox": [
                         140, 
                         105, 
                         226, 
                         144
-                    ]
+                    ], 
+                    "probability": 0.81
                 }
             }
         }, 
         "fire_hydrant_car.jpg": {
             "objects": {
                 "car": {
-                    "probabiliity": 0.8, 
-                    "bbox": [
-                        75, 
-                        90, 
-                        247, 
-                        142
-                    ], 
                     "classification": [
                         {
                             "classifier": "car/color", 
@@ -450,171 +443,178 @@
                                 }
                             ]
                         }
-                    ]
+                    ], 
+                    "bbox": [
+                        75, 
+                        90, 
+                        247, 
+                        142
+                    ], 
+                    "probability": 0.8
                 }, 
                 "fire hydrant": {
-                    "probabiliity": 0.85, 
                     "bbox": [
                         194, 
                         129, 
                         120, 
                         240
-                    ]
+                    ], 
+                    "probability": 0.85
                 }
             }
         }, 
         "screen_laptop_keyboard.jpg": {
             "objects": {
                 "tvmonitor": {
-                    "probabiliity": 0.83, 
                     "bbox": [
                         150, 
                         77, 
                         198, 
                         144
-                    ]
+                    ], 
+                    "probability": 0.83
                 }, 
                 "laptop": {
-                    "probabiliity": 0.45, 
                     "bbox": [
                         17, 
                         276, 
                         145, 
                         40
-                    ]
+                    ], 
+                    "probability": 0.45
                 }, 
                 "mouse": {
-                    "probabiliity": 0.73, 
                     "bbox": [
                         377, 
                         283, 
                         23, 
                         22
-                    ]
+                    ], 
+                    "probability": 0.73
                 }, 
                 "cell phone": {
-                    "probabiliity": 0.37, 
                     "bbox": [
                         414, 
                         184, 
                         31, 
                         47
-                    ]
+                    ], 
+                    "probability": 0.37
                 }, 
                 "keyboard": {
-                    "probabiliity": 0.71, 
                     "bbox": [
                         194, 
                         286, 
                         181, 
                         29
-                    ]
+                    ], 
+                    "probability": 0.71
                 }
             }
         }, 
         "kitten_puppy.jpg": {
             "objects": {
                 "dog": {
-                    "probabiliity": 0.82, 
                     "bbox": [
                         229, 
                         109, 
                         171, 
                         175
-                    ]
+                    ], 
+                    "probability": 0.82
                 }, 
                 "bird": {
-                    "probabiliity": 0.78, 
                     "bbox": [
                         124, 
                         154, 
                         95, 
                         121
-                    ]
+                    ], 
+                    "probability": 0.78
                 }
             }
         }, 
         "kitten_dog.jpg": {
             "objects": {
                 "dog": {
-                    "probabiliity": 0.93, 
                     "bbox": [
                         84, 
                         -2, 
                         369, 
                         493
-                    ]
+                    ], 
+                    "probability": 0.93
                 }, 
                 "cat": {
-                    "probabiliity": 0.87, 
                     "bbox": [
                         62, 
                         308, 
                         256, 
                         173
-                    ]
+                    ], 
+                    "probability": 0.87
                 }
             }
         }, 
         "bottles_glas.jpg": {
             "objects": {
                 "wine glass": {
-                    "probabiliity": 0.85, 
                     "bbox": [
                         9, 
                         163, 
                         130, 
                         316
-                    ]
+                    ], 
+                    "probability": 0.85
                 }, 
                 "chair": {
-                    "probabiliity": 0.35, 
                     "bbox": [
                         289, 
                         185, 
                         56, 
                         107
-                    ]
+                    ], 
+                    "probability": 0.35
                 }, 
                 "bottle": {
-                    "probabiliity": 0.84, 
                     "bbox": [
                         202, 
                         22, 
                         94, 
                         395
-                    ]
+                    ], 
+                    "probability": 0.84
                 }
             }
         }, 
         "young_man_birthday.jpg": {
             "objects": {
                 "cup": {
-                    "probabiliity": 0.6, 
                     "bbox": [
                         337, 
                         357, 
                         36, 
                         112
-                    ]
+                    ], 
+                    "probability": 0.6
                 }, 
                 "bowl": {
-                    "probabiliity": 0.4, 
                     "bbox": [
                         219, 
                         364, 
                         97, 
                         63
-                    ]
+                    ], 
+                    "probability": 0.4
                 }, 
                 "person": {
-                    "probabiliity": 0.89, 
                     "bbox": [
                         18, 
                         28, 
                         278, 
                         381
                     ], 
+                    "probability": 0.89, 
                     "face": {
                         "bbox": [
                             128, 
@@ -652,97 +652,97 @@
                     }
                 }, 
                 "knife": {
-                    "probabiliity": 0.36, 
                     "bbox": [
                         65, 
                         263, 
                         66, 
                         54
-                    ]
+                    ], 
+                    "probability": 0.36
                 }, 
                 "cake": {
-                    "probabiliity": 0.85, 
                     "bbox": [
                         89, 
                         335, 
                         119, 
                         111
-                    ]
+                    ], 
+                    "probability": 0.85
                 }, 
                 "diningtable": {
-                    "probabiliity": 0.45, 
                     "bbox": [
                         23, 
                         335, 
                         333, 
                         144
-                    ]
+                    ], 
+                    "probability": 0.45
                 }
             }
         }, 
         "cyclist_dog.jpg": {
             "objects": {
                 "person": {
-                    "probabiliity": 0.78, 
                     "bbox": [
                         229, 
                         111, 
                         66, 
                         108
-                    ]
+                    ], 
+                    "probability": 0.78
                 }, 
                 "bicycle": {
-                    "probabiliity": 0.79, 
                     "bbox": [
                         188, 
                         155, 
                         144, 
                         85
-                    ]
+                    ], 
+                    "probability": 0.79
                 }, 
                 "dog": {
-                    "probabiliity": 0.78, 
                     "bbox": [
                         335, 
                         230, 
                         109, 
                         192
-                    ]
+                    ], 
+                    "probability": 0.78
                 }
             }
         }, 
         "bull.jpg": {
             "objects": {
                 "cow": {
-                    "probabiliity": 0.85, 
                     "bbox": [
                         51, 
                         154, 
                         243, 
                         171
-                    ]
+                    ], 
+                    "probability": 0.85
                 }
             }
         }, 
         "young_man_woman_wedding.jpg": {
             "objects": {
                 "cake": {
-                    "probabiliity": 0.39, 
                     "bbox": [
                         321, 
                         252, 
                         74, 
                         48
-                    ]
+                    ], 
+                    "probability": 0.39
                 }, 
                 "person": {
-                    "probabiliity": 0.81, 
                     "bbox": [
                         87, 
                         51, 
                         144, 
                         283
                     ], 
+                    "probability": 0.81, 
                     "face": {
                         "bbox": [
                             179, 
@@ -773,79 +773,79 @@
                     }
                 }, 
                 "diningtable": {
-                    "probabiliity": 0.45, 
                     "bbox": [
                         164, 
                         220, 
                         319, 
                         106
-                    ]
+                    ], 
+                    "probability": 0.45
                 }
             }
         }, 
         "oranges_apples_bananas.jpg": {
             "objects": {
                 "orange": {
-                    "probabiliity": 0.7, 
                     "bbox": [
                         272, 
                         149, 
                         108, 
                         141
-                    ]
+                    ], 
+                    "probability": 0.7
                 }, 
                 "bowl": {
-                    "probabiliity": 0.63, 
                     "bbox": [
                         20, 
                         29, 
                         342, 
                         431
-                    ]
+                    ], 
+                    "probability": 0.63
                 }, 
                 "apple": {
-                    "probabiliity": 0.85, 
                     "bbox": [
                         151, 
                         233, 
                         146, 
                         163
-                    ]
+                    ], 
+                    "probability": 0.85
                 }, 
                 "banana": {
-                    "probabiliity": 0.72, 
                     "bbox": [
                         125, 
                         12, 
                         235, 
                         174
-                    ]
+                    ], 
+                    "probability": 0.72
                 }
             }
         }, 
         "cow_street.jpg": {
             "objects": {
                 "cow": {
-                    "probabiliity": 0.79, 
                     "bbox": [
                         213, 
                         198, 
                         125, 
                         80
-                    ]
+                    ], 
+                    "probability": 0.79
                 }
             }
         }, 
         "cirl_car_sofa.jpg": {
             "objects": {
                 "person": {
-                    "probabiliity": 0.86, 
                     "bbox": [
                         20, 
                         106, 
                         333, 
                         363
                     ], 
+                    "probability": 0.86, 
                     "face": {
                         "bbox": [
                             152, 
@@ -876,35 +876,28 @@
                     }
                 }, 
                 "chair": {
-                    "probabiliity": 0.42, 
                     "bbox": [
                         53, 
                         140, 
                         29, 
                         49
-                    ]
+                    ], 
+                    "probability": 0.42
                 }, 
                 "sofa": {
-                    "probabiliity": 0.6, 
                     "bbox": [
                         0, 
                         150, 
                         369, 
                         347
-                    ]
+                    ], 
+                    "probability": 0.6
                 }
             }
         }, 
         "car_bikes_boats_canal.jpg": {
             "objects": {
                 "car": {
-                    "probabiliity": 0.78, 
-                    "bbox": [
-                        174, 
-                        187, 
-                        168, 
-                        57
-                    ], 
                     "classification": [
                         {
                             "classifier": "car/color", 
@@ -940,38 +933,38 @@
                                 }
                             ]
                         }
-                    ]
+                    ], 
+                    "bbox": [
+                        174, 
+                        187, 
+                        168, 
+                        57
+                    ], 
+                    "probability": 0.78
                 }, 
                 "bicycle": {
-                    "probabiliity": 0.24, 
                     "bbox": [
                         10, 
                         220, 
                         29, 
                         34
-                    ]
+                    ], 
+                    "probability": 0.24
                 }, 
                 "boat": {
-                    "probabiliity": 0.68, 
                     "bbox": [
                         236, 
                         283, 
                         264, 
                         77
-                    ]
+                    ], 
+                    "probability": 0.68
                 }
             }
         }, 
         "motorbikes_riders_cars.jpg": {
             "objects": {
                 "car": {
-                    "probabiliity": 0.71, 
-                    "bbox": [
-                        280, 
-                        111, 
-                        186, 
-                        111
-                    ], 
                     "classification": [
                         {
                             "classifier": "car/color", 
@@ -1002,47 +995,47 @@
                                 }
                             ]
                         }
-                    ]
+                    ], 
+                    "bbox": [
+                        280, 
+                        111, 
+                        186, 
+                        111
+                    ], 
+                    "probability": 0.71
                 }, 
                 "fire hydrant": {
-                    "probabiliity": 0.26, 
                     "bbox": [
                         368, 
                         227, 
                         57, 
                         83
-                    ]
+                    ], 
+                    "probability": 0.26
                 }, 
                 "motorbike": {
-                    "probabiliity": 0.63, 
                     "bbox": [
                         72, 
                         137, 
                         193, 
                         216
-                    ]
+                    ], 
+                    "probability": 0.63
                 }, 
                 "person": {
-                    "probabiliity": 0.64, 
                     "bbox": [
                         163, 
                         109, 
                         101, 
                         209
-                    ]
+                    ], 
+                    "probability": 0.64
                 }
             }
         }, 
         "car_skateboard_man.jpg": {
             "objects": {
                 "car": {
-                    "probabiliity": 0.77, 
-                    "bbox": [
-                        292, 
-                        115, 
-                        201, 
-                        134
-                    ], 
                     "classification": [
                         {
                             "classifier": "car/color", 
@@ -1073,38 +1066,38 @@
                                 }
                             ]
                         }
-                    ]
+                    ], 
+                    "bbox": [
+                        292, 
+                        115, 
+                        201, 
+                        134
+                    ], 
+                    "probability": 0.77
                 }, 
                 "skateboard": {
-                    "probabiliity": 0.62, 
                     "bbox": [
                         90, 
                         205, 
                         72, 
                         87
-                    ]
+                    ], 
+                    "probability": 0.62
                 }, 
                 "person": {
-                    "probabiliity": 0.76, 
                     "bbox": [
                         28, 
                         67, 
                         155, 
                         186
-                    ]
+                    ], 
+                    "probability": 0.76
                 }
             }
         }, 
         "street_car_toyota.jpg": {
             "objects": {
                 "car": {
-                    "probabiliity": 0.79, 
-                    "bbox": [
-                        119, 
-                        152, 
-                        339, 
-                        188
-                    ], 
                     "classification": [
                         {
                             "classifier": "car/color", 
@@ -1135,16 +1128,23 @@
                                 }
                             ]
                         }
-                    ]
+                    ], 
+                    "bbox": [
+                        119, 
+                        152, 
+                        339, 
+                        188
+                    ], 
+                    "probability": 0.79
                 }, 
                 "motorbike": {
-                    "probabiliity": 0.33, 
                     "bbox": [
                         46, 
                         324, 
                         98, 
                         53
-                    ]
+                    ], 
+                    "probability": 0.33
                 }
             }
         }
