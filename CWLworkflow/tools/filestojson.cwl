@@ -6,19 +6,15 @@ cwl:requirements:
     dockerPull: nlescsherlockdl/list_directory
 
 baseCommand: [python, /list_directory.py]
+arguments: [--workflow_out, files.json]
 inputs:
-  workflow_out:
-    type: string
-    inputBinding:
-      prefix: --workflow_out
-      position: 1
   input_files:
     type: Directory
     inputBinding:
-      position: 2
+      position: 1
 
 outputs:
   json_out:
     type: File
     outputBinding:
-      glob: $(inputs.workflow_out)
+      glob: files.json

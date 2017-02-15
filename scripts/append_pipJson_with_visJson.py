@@ -22,58 +22,52 @@ def argument_parser():
     return parser     
     
     
-def append_images_key(input_json):
+def make_images_section(input_json):
     # appends 'images' json object
     output_json = input_json    
-    output_json['images'] = {}
+    output_json['images'] = []
     
     return output_json
     
-def append_imagesfnames_keys(input_json):
-    # appends the filenames keys under 'images'
+def fill_objects_section(input_json, args):
+    # appends the filenames keys and 'obkects' under 'images'
     output_json = input_json
 
     # get all filenames
     fnames = input_json['files'] 
         
-    images_json = dict()
+    images_json = []
     for f in fnames:
-        images_json[f] = {}        
+        images_json.append({ f:{'objects': make_objectlist(f, input_json, args)} })       
     output_json['images']= images_json   
-    
-    return output_json
-    
-def append_objects_key(input_json):
-    # appends 'objects' key under each filename of 'images'
-    output_json = input_json 
-    images_json = output_json['images']
-    
-    for fnames_key in images_json.keys():
-        images_json[fnames_key]['objects'] = {}
         
-    output_json['images']= images_json    
-    
     return output_json
+
+#def find_ind_dict_list_of_dicts(lst, dict_key):
+#    # finding the index of a dictionary with a dict_key key from a list of dictionaries  
+#    for i, dic in enumerate(lst):
+#        print "dictionary in the list: ", dic
+#        if dic.has_key(dict_key):
+#                print "dictionary in the list with the desired key: ", dic, dict_key
+#                return i, dict
+#    return -1, {}        
     
-#def copy_classification(obj_)     
+
+def make_objectlist(filename, input_json, args):
+    objects_list = []
     
-def append_objects(input_json, args):    
-    # appends the actual detected objects under the 'objects' key for each filename
-    output_json = input_json 
-    images_json = output_json['images']
     classes_json = input_json['classes']
     
-    for fname in images_json.keys():
-        for obj in classes_json.keys():
+    for obj in classes_json.keys():
             # find out which objects were detected in which image
             obj_list = classes_json[obj]
             for o in obj_list:
-                if o['path'] == fname:
+                if o['path'] == filename:
                     if args.verbose:
-                        print("In file '{}' top object '{}' has been detected!".format(fname, obj))
+                        print("In file '{}' top object '{}' has been detected!".format(filename, obj))
                     
                     if o.has_key('classification'):
-                        obj_info = { 'probability': o['probability'], 'bbox': o['bbox'], 'classification':o['classification']}
+                        obj_data = { 'probability': o['probability'], 'bbox': o['bbox'], 'classification':o['classification']}
                     else:
                         if o.has_key('face'):
                             person_face_obj = o['face'];
@@ -84,16 +78,16 @@ def append_objects(input_json, args):
                             abs_bbox_face.append(bbox_person[1] + bbox_face[1]) 
                             abs_bbox_face.append(bbox_face[2]) 
                             abs_bbox_face.append(bbox_face[3])
-                            face_obj = {'bbox': abs_bbox_face, 'classification':person_face_obj['classification']} 
-                            obj_info = { 'probability': o['probability'], 'bbox': o['bbox'], 'face':face_obj}
+                            detail_obj = {'name': u'face', 'bbox': abs_bbox_face, 'classification':person_face_obj['classification']} 
+                            obj_data = { 'probability': o['probability'], 'bbox': o['bbox'], 'detail':detail_obj}
+                            #print obj_data
                         else:
-                            obj_info = { 'probability': o['probability'], 'bbox': o['bbox'] }
-                    images_json[fname]['objects'][obj] = obj_info
-                                        
-    output_json['images']= images_json    
+                            obj_data = { 'probability': o['probability'], 'bbox': o['bbox'] }
+
     
-    return output_json
+    objects_list.append(obj_data)
     
+    return objects_list    
     
     
 def main():
@@ -105,10 +99,8 @@ def main():
     input_json = json.load(args.input_json_fname)
     
     # appending json object suited better for visualization
-    output_json = append_images_key(input_json)
-    output_json = append_imagesfnames_keys(output_json)
-    output_json = append_objects_key(output_json)  
-    output_json = append_objects(output_json, args)
+    output_json = make_images_section(input_json)
+    output_json = fill_objects_section(output_json, args)
     
     # outputting
     output_json_pp = json.dumps(output_json, indent=4)

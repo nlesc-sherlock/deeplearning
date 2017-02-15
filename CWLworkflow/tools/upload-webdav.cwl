@@ -1,13 +1,13 @@
 cwlVersion: cwl:v1.0
 class: CommandLineTool
 
-cwl:requirements:
+requirements:
   - class: DockerRequirement
     dockerPull: nlescsherlockdl/upload
 
 baseCommand: [python, /scripts/upload.py]
 inputs:
-  input_json:
+  json_input:
     type: File
     inputBinding:
       prefix: --json_input
