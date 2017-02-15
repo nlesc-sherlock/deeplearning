@@ -2,6 +2,7 @@
 
 import argparse, json, os, subprocess, unicodedata, re
 
+
 def slugify(value):
     """
     Normalizes string, converts to lowercase, removes non-alpha characters,

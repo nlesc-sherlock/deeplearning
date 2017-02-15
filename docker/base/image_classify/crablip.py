@@ -107,7 +107,7 @@ def generate_output_json(input_json, classification, probability_threshold,
     tags = {}
     for fn, prediction in predictions.iteritems():
         tags[fn] = {}
-        for name, probability in prediction['tags'].iteritems():
+        for name, probability in prediction['classes'].iteritems():
             if probability > probability_threshold:
                 tags[fn][name] = probability
     classification = {'classifier': classifier_key}
@@ -127,7 +127,7 @@ def generate_output_json(input_json, classification, probability_threshold,
             if tag_name_translation is not None:
                 mangled_tags = translate_tag_names(mangled_tags,
                                                tag_name_translation)
-            classified_object['classification'][-1]['tags'] = mangled_tags
+            classified_object['classification'][-1]['classes'] = mangled_tags
 
     # note that we modified the input_json object!
     return input_json
