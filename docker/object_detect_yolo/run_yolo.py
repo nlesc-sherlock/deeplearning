@@ -53,6 +53,7 @@ import json
 
 def line_to_occurrence(path, line):
     occurrence = {'path':path}
+#    print "Image: ", path, "This is the line: ", line
     for pair in line.split(','):
         key, value = pair.split(':')
         key = key.strip(" '")
@@ -69,7 +70,7 @@ def line_to_occurrence(path, line):
             right = int(value)
         if key == 'bottom':
             bottom = int(value)
-    bbox = [left, top, right - left, top - bottom]
+    bbox = [left, top, right - left, bottom - top]
     occurrence['bbox'] = bbox
     return clas, occurrence
 

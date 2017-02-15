@@ -37,8 +37,8 @@ def crop(item, cclass, index, basedir, outputdir):
     newfile_path = os.path.join(outputdir, newfile)
     bboxstr = "{2}x{3}+{0}+{1}".format(*[int(i) for i in item['bbox']])
     command = "convert {} -crop {} {}".format(filepath, bboxstr, newfile_path)
-    if verbose:
-        print command
+    
+    print command
     os.system(command)
     item['cropped_image'] = newfile
 
@@ -87,7 +87,8 @@ if __name__ == '__main__':
         os.mkdir(args.cropped_folder)
 
     if not specialised:
-        for index, cclass in data['classes'].items():
+        for cclass in data['classes']:
+            index = 0
             if len(data['classes'][cclass]) > 0:
                 class_crop_folder = os.path.join(args.cropped_folder, slugify(cclass))
                 if not os.path.isdir(class_crop_folder):
@@ -95,14 +96,17 @@ if __name__ == '__main__':
                 for item in data['classes'][cclass]:
                     if item['probability'] > args.probability:
                         crop(item, cclass, index, args.input_directory, args.cropped_folder)
+                        index += 1
     else:
         if 'person' in data['classes'].keys():
-            face_crop_folder = os.path.join(args.cropped_folder, slugify(cclass))
+            face_crop_folder = os.path.join(args.cropped_folder, 'face')
             if not os.path.isdir(face_crop_folder):
                 os.mkdir(face_crop_folder)
-            for index, person in data['classes']['person'].items():
+            index = 0
+            for person in data['classes']['person']:
                 if 'face' in person:
-                    crop(person['face'], 'face', index, args.input_directory, args.cropped_folder)
+                    crop(person['face'], u'face', index, args.input_directory, args.cropped_folder)
+                    index += 1
 
     if verbose:
         print(json.dumps(data, indent=4))

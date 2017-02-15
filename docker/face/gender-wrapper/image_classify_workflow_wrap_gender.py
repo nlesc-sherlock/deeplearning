@@ -15,7 +15,7 @@ if __name__ == '__main__':
     probability_threshold = 0.6
     # gender parameters
     classifier_key = 'face/gender'
-    tag_name_translation = {'m': 'male', 'f': 'female'}
+    tag_name_translation = {'m': 'male', 'f': 'female', 'm\n': 'male', 'f\n': 'female'}
 
     parser = crablip.get_workflow_argument_parser()
 
@@ -28,12 +28,13 @@ if __name__ == '__main__':
 
     input_json = json.load(args.json_input_file)
     output_json = input_json
+    data_path = args.data_path
 
     image_filenames = crablip.get_person_face_image_filenames_from_json(input_json)
 
     if image_filenames:
         with file(outfn, "w") as outfile:
-            cnn_classify.run(image_filenames, args.model_path,
+            cnn_classify.run(data_path, image_filenames, args.model_path,
                              args.model_snapshot,
                              model_deploy=args.model_deploy,
                              labels_name=args.model_labels,
