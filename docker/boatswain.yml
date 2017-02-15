@@ -90,3 +90,9 @@ images:
   face:gender-wrapper:
     context: face/gender-wrapper
     from: face:gender
+
+  ## Post-pipeline processing
+  # upload
+  upload:
+    context: upload
+
