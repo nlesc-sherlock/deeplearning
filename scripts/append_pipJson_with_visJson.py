@@ -73,9 +73,21 @@ def append_objects(input_json, args):
                         print("In file '{}' top object '{}' has been detected!".format(fname, obj))
                     
                     if o.has_key('classification'):
-                        obj_info = { 'probabiliity': o['probability'], 'bbox': o['bbox'], 'classification':o['classification']}
+                        obj_info = { 'probability': o['probability'], 'bbox': o['bbox'], 'classification':o['classification']}
                     else:
-                        obj_info = { 'probabiliity': o['probability'], 'bbox': o['bbox'] }
+                        if o.has_key('face'):
+                            person_face_obj = o['face'];
+                            bbox_person = o['bbox']
+                            bbox_face = person_face_obj['bbox']
+                            abs_bbox_face = []
+                            abs_bbox_face.append(bbox_person[0] + bbox_face[0])
+                            abs_bbox_face.append(bbox_person[1] + bbox_face[1]) 
+                            abs_bbox_face.append(bbox_face[2]) 
+                            abs_bbox_face.append(bbox_face[3])
+                            face_obj = {'bbox': abs_bbox_face, 'classification':person_face_obj['classification']} 
+                            obj_info = { 'probability': o['probability'], 'bbox': o['bbox'], 'face':face_obj}
+                        else:
+                            obj_info = { 'probability': o['probability'], 'bbox': o['bbox'] }
                     images_json[fname]['objects'][obj] = obj_info
                                         
     output_json['images']= images_json    
