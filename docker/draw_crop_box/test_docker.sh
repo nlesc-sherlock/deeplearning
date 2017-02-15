@@ -11,5 +11,5 @@ docker run \
     -v $(readlink -f $JSONDIR):/json \
     -v $(readlink -f $OUTDIR):/output \
     nlescsherlockdl/draw_crop_box \
-    /data/$IMAGE_FN /json/$BOXES_FN
+    /data/$IMAGE_FN /json/$BOXES_FN \
     --output_file /output/$OUTPUT_FN
