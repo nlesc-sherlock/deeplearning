@@ -1,0 +1,743 @@
+{
+    "files": [
+        "/data/bottles_glas.jpg", 
+        "/data/bull.jpg", 
+        "/data/car_bikes_boats_canal.jpg", 
+        "/data/car_bus_old.jpg", 
+        "/data/car_skateboard_man.jpg", 
+        "/data/car_splash_small_person.jpg", 
+        "/data/cirl_car_sofa.jpg", 
+        "/data/cows.jpg", 
+        "/data/cow_street.jpg", 
+        "/data/cyclist_dog.jpg", 
+        "/data/Fiat_panda_auto_zijkant.jpg", 
+        "/data/fire_hydrant_car.jpg", 
+        "/data/girl_two_dogs.jpg", 
+        "/data/kitten_dog.jpg", 
+        "/data/kitten_puppy.jpg", 
+        "/data/motorbikes_riders_cars.jpg", 
+        "/data/old_man_baby_mobile.jpg", 
+        "/data/oranges_apples_bananas.jpg", 
+        "/data/person_horse.jpg", 
+        "/data/screen_laptop_keyboard.jpg", 
+        "/data/street_car_toyota.jpg", 
+        "/data/truck.jpg", 
+        "/data/two_riders_horses.jpg", 
+        "/data/young_man_birthday.jpg", 
+        "/data/young_man_woman_wedding.jpg"
+    ], 
+    "images": {
+        "/data/cyclist_dog.jpg": {
+            "objects": {
+                "skis": {
+                    "probabiliity": 0.1007067933678627, 
+                    "bbox": [
+                        346.0, 
+                        414.0, 
+                        47.0, 
+                        12.0
+                    ]
+                }
+            }
+        }, 
+        "/data/cows.jpg": {
+            "objects": {
+                "cow": {
+                    "probabiliity": 0.16682961583137512, 
+                    "bbox": [
+                        47.0, 
+                        98.0, 
+                        48.0, 
+                        87.0
+                    ]
+                }
+            }
+        }, 
+        "/data/cow_street.jpg": {
+            "objects": {
+                "potted plant": {
+                    "probabiliity": 0.10892998427152634, 
+                    "bbox": [
+                        292.0, 
+                        127.0, 
+                        94.0, 
+                        49.0
+                    ]
+                }
+            }
+        }, 
+        "/data/kitten_puppy.jpg": {
+            "objects": {
+                "bear": {
+                    "probabiliity": 0.31479498744010925, 
+                    "bbox": [
+                        128.0, 
+                        152.0, 
+                        98.0, 
+                        122.0
+                    ]
+                }
+            }
+        }, 
+        "/data/car_bikes_boats_canal.jpg": {
+            "objects": {
+                "chair": {
+                    "probabiliity": 0.1014617308974266, 
+                    "bbox": [
+                        196.0, 
+                        5.0, 
+                        29.0, 
+                        22.0
+                    ]
+                }
+            }
+        }, 
+        "/data/truck.jpg": {
+            "objects": {
+                "truck": {
+                    "probabiliity": 0.9947133660316467, 
+                    "bbox": [
+                        132.0, 
+                        49.0, 
+                        323.0, 
+                        186.0
+                    ]
+                }
+            }
+        }, 
+        "/data/bottles_glas.jpg": {
+            "objects": {
+                "dining table": {
+                    "probabiliity": 0.3687192499637604, 
+                    "bbox": [
+                        16.0, 
+                        51.0, 
+                        321.0, 
+                        447.0
+                    ]
+                }
+            }
+        }, 
+        "/data/girl_two_dogs.jpg": {
+            "objects": {
+                "book": {
+                    "probabiliity": 0.10011675208806992, 
+                    "bbox": [
+                        30.0, 
+                        -4.0, 
+                        10.0, 
+                        70.0
+                    ]
+                }
+            }
+        }, 
+        "/data/motorbikes_riders_cars.jpg": {
+            "objects": {
+                "cup": {
+                    "probabiliity": 0.11673960834741592, 
+                    "bbox": [
+                        384.0, 
+                        233.0, 
+                        44.0, 
+                        48.0
+                    ]
+                }
+            }
+        }, 
+        "/data/street_car_toyota.jpg": {
+            "objects": {
+                "clock": {
+                    "probabiliity": 0.11551723629236221, 
+                    "bbox": [
+                        295.0, 
+                        273.0, 
+                        44.0, 
+                        61.0
+                    ]
+                }
+            }
+        }, 
+        "/data/car_skateboard_man.jpg": {
+            "objects": {
+                "chair": {
+                    "probabiliity": 0.10378041863441467, 
+                    "bbox": [
+                        477.0, 
+                        98.0, 
+                        23.0, 
+                        31.0
+                    ]
+                }
+            }
+        }, 
+        "/data/screen_laptop_keyboard.jpg": {
+            "objects": {
+                "cell phone": {
+                    "probabiliity": 0.13247595727443695, 
+                    "bbox": [
+                        90.0, 
+                        182.0, 
+                        37.0, 
+                        52.0
+                    ]
+                }
+            }
+        }, 
+        "/data/person_horse.jpg": {
+            "objects": {
+                "umbrella": {
+                    "probabiliity": 0.11560969799757004, 
+                    "bbox": [
+                        210.0, 
+                        41.0, 
+                        42.0, 
+                        24.0
+                    ]
+                }
+            }
+        }, 
+        "/data/car_splash_small_person.jpg": {
+            "objects": {
+                "boat": {
+                    "probabiliity": 0.1054886132478714, 
+                    "bbox": [
+                        51.0, 
+                        6.0, 
+                        173.0, 
+                        108.0
+                    ]
+                }
+            }
+        }, 
+        "/data/oranges_apples_bananas.jpg": {
+            "objects": {
+                "dining table": {
+                    "probabiliity": 0.4803626835346222, 
+                    "bbox": [
+                        1.0, 
+                        12.0, 
+                        380.0, 
+                        457.0
+                    ]
+                }
+            }
+        }, 
+        "/data/bull.jpg": {
+            "objects": {
+                "cow": {
+                    "probabiliity": 0.9968302845954895, 
+                    "bbox": [
+                        35.0, 
+                        150.0, 
+                        268.0, 
+                        174.0
+                    ]
+                }
+            }
+        }, 
+        "/data/cirl_car_sofa.jpg": {
+            "objects": {
+                "teddy bear": {
+                    "probabiliity": 0.2991902828216553, 
+                    "bbox": [
+                        136.0, 
+                        265.0, 
+                        132.0, 
+                        171.0
+                    ]
+                }
+            }
+        }, 
+        "/data/young_man_birthday.jpg": {
+            "objects": {
+                "refrigerator": {
+                    "probabiliity": 0.10475322604179382, 
+                    "bbox": [
+                        226.0, 
+                        85.0, 
+                        148.0, 
+                        212.0
+                    ]
+                }
+            }
+        }, 
+        "/data/car_bus_old.jpg": {
+            "objects": {
+                "umbrella": {
+                    "probabiliity": 0.20736277103424072, 
+                    "bbox": [
+                        -1.0, 
+                        100.0, 
+                        38.0, 
+                        21.0
+                    ]
+                }
+            }
+        }, 
+        "/data/Fiat_panda_auto_zijkant.jpg": {
+            "objects": {
+                "car": {
+                    "probabiliity": 0.13355796039104462, 
+                    "bbox": [
+                        7.0, 
+                        155.0, 
+                        175.0, 
+                        170.0
+                    ], 
+                    "classification": [
+                        {
+                            "classifier": "car/color", 
+                            "tags": [
+                                {
+                                    "name": "red\n", 
+                                    "probability": 0.9999921321868896
+                                }
+                            ]
+                        }, 
+                        {
+                            "classifier": "car/model", 
+                            "tags": [
+                                {
+                                    "name": "Alfa Romeo GTV\n", 
+                                    "probability": 0.12046708166599274
+                                }, 
+                                {
+                                    "name": "MG ZT\n", 
+                                    "probability": 0.06623753160238266
+                                }, 
+                                {
+                                    "name": "Mitsubishi Eclipse\n", 
+                                    "probability": 0.31965944170951843
+                                }, 
+                                {
+                                    "name": "Volvo 240\n", 
+                                    "probability": 0.07483167201280594
+                                }, 
+                                {
+                                    "name": "Maserati Gransport\n", 
+                                    "probability": 0.0449097715318203
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }, 
+        "/data/fire_hydrant_car.jpg": {
+            "objects": {
+                "fire hydrant": {
+                    "probabiliity": 0.9189333319664001, 
+                    "bbox": [
+                        196.0, 
+                        134.0, 
+                        123.0, 
+                        233.0
+                    ]
+                }
+            }
+        }, 
+        "/data/kitten_dog.jpg": {
+            "objects": {
+                "couch": {
+                    "probabiliity": 0.16003406047821045, 
+                    "bbox": [
+                        2.0, 
+                        12.0, 
+                        268.0, 
+                        448.0
+                    ]
+                }
+            }
+        }, 
+        "/data/old_man_baby_mobile.jpg": {
+            "objects": {
+                "cell phone": {
+                    "probabiliity": 0.5699189305305481, 
+                    "bbox": [
+                        342.0, 
+                        153.0, 
+                        49.0, 
+                        77.0
+                    ]
+                }
+            }
+        }, 
+        "/data/two_riders_horses.jpg": {
+            "objects": {
+                "horse": {
+                    "probabiliity": 0.9752053022384644, 
+                    "bbox": [
+                        136.0, 
+                        117.0, 
+                        137.0, 
+                        158.0
+                    ]
+                }
+            }
+        }, 
+        "/data/young_man_woman_wedding.jpg": {
+            "objects": {
+                "dining table": {
+                    "probabiliity": 0.5264084339141846, 
+                    "bbox": [
+                        166.0, 
+                        203.0, 
+                        291.0, 
+                        125.0
+                    ]
+                }
+            }
+        }
+    }, 
+    "classes": {
+        "cell phone": [
+            {
+                "path": "/data/old_man_baby_mobile.jpg", 
+                "bbox": [
+                    342.0, 
+                    153.0, 
+                    49.0, 
+                    77.0
+                ], 
+                "probability": 0.5699189305305481, 
+                "cropped_image": "/cropped/cell-phone/old_man_baby_mobile_cell-phone.jpg"
+            }, 
+            {
+                "path": "/data/screen_laptop_keyboard.jpg", 
+                "bbox": [
+                    90.0, 
+                    182.0, 
+                    37.0, 
+                    52.0
+                ], 
+                "probability": 0.13247595727443695, 
+                "cropped_image": "/cropped/cell-phone/screen_laptop_keyboard_cell-phone.jpg"
+            }
+        ], 
+        "horse": [
+            {
+                "path": "/data/two_riders_horses.jpg", 
+                "bbox": [
+                    136.0, 
+                    117.0, 
+                    137.0, 
+                    158.0
+                ], 
+                "probability": 0.9752053022384644, 
+                "cropped_image": "/cropped/horse/two_riders_horses_horse.jpg"
+            }
+        ], 
+        "umbrella": [
+            {
+                "path": "/data/car_bus_old.jpg", 
+                "bbox": [
+                    -1.0, 
+                    100.0, 
+                    38.0, 
+                    21.0
+                ], 
+                "probability": 0.20736277103424072, 
+                "cropped_image": "/cropped/umbrella/car_bus_old_umbrella.jpg"
+            }, 
+            {
+                "path": "/data/person_horse.jpg", 
+                "bbox": [
+                    210.0, 
+                    41.0, 
+                    42.0, 
+                    24.0
+                ], 
+                "probability": 0.11560969799757004, 
+                "cropped_image": "/cropped/umbrella/person_horse_umbrella.jpg"
+            }
+        ], 
+        "cow": [
+            {
+                "path": "/data/bull.jpg", 
+                "bbox": [
+                    35.0, 
+                    150.0, 
+                    268.0, 
+                    174.0
+                ], 
+                "probability": 0.9968302845954895, 
+                "cropped_image": "/cropped/cow/bull_cow.jpg"
+            }, 
+            {
+                "path": "/data/cows.jpg", 
+                "bbox": [
+                    47.0, 
+                    98.0, 
+                    48.0, 
+                    87.0
+                ], 
+                "probability": 0.16682961583137512, 
+                "cropped_image": "/cropped/cow/cows_cow.jpg"
+            }
+        ], 
+        "clock": [
+            {
+                "path": "/data/street_car_toyota.jpg", 
+                "bbox": [
+                    295.0, 
+                    273.0, 
+                    44.0, 
+                    61.0
+                ], 
+                "probability": 0.11551723629236221, 
+                "cropped_image": "/cropped/clock/street_car_toyota_clock.jpg"
+            }
+        ], 
+        "car": [
+            {
+                "path": "/data/Fiat_panda_auto_zijkant.jpg", 
+                "probability": 0.13355796039104462, 
+                "bbox": [
+                    7.0, 
+                    155.0, 
+                    175.0, 
+                    170.0
+                ], 
+                "classification": [
+                    {
+                        "classifier": "car/color", 
+                        "tags": [
+                            {
+                                "name": "red\n", 
+                                "probability": 0.9999921321868896
+                            }
+                        ]
+                    }, 
+                    {
+                        "classifier": "car/model", 
+                        "tags": [
+                            {
+                                "name": "Alfa Romeo GTV\n", 
+                                "probability": 0.12046708166599274
+                            }, 
+                            {
+                                "name": "MG ZT\n", 
+                                "probability": 0.06623753160238266
+                            }, 
+                            {
+                                "name": "Mitsubishi Eclipse\n", 
+                                "probability": 0.31965944170951843
+                            }, 
+                            {
+                                "name": "Volvo 240\n", 
+                                "probability": 0.07483167201280594
+                            }, 
+                            {
+                                "name": "Maserati Gransport\n", 
+                                "probability": 0.0449097715318203
+                            }
+                        ]
+                    }
+                ], 
+                "cropped_image": "/cropped/car/Fiat_panda_auto_zijkant_car.jpg"
+            }
+        ], 
+        "skis": [
+            {
+                "path": "/data/cyclist_dog.jpg", 
+                "bbox": [
+                    346.0, 
+                    414.0, 
+                    47.0, 
+                    12.0
+                ], 
+                "probability": 0.1007067933678627, 
+                "cropped_image": "/cropped/skis/cyclist_dog_skis.jpg"
+            }
+        ], 
+        "cup": [
+            {
+                "path": "/data/motorbikes_riders_cars.jpg", 
+                "bbox": [
+                    384.0, 
+                    233.0, 
+                    44.0, 
+                    48.0
+                ], 
+                "probability": 0.11673960834741592, 
+                "cropped_image": "/cropped/cup/motorbikes_riders_cars_cup.jpg"
+            }
+        ], 
+        "teddy bear": [
+            {
+                "path": "/data/cirl_car_sofa.jpg", 
+                "bbox": [
+                    136.0, 
+                    265.0, 
+                    132.0, 
+                    171.0
+                ], 
+                "probability": 0.2991902828216553, 
+                "cropped_image": "/cropped/teddy-bear/cirl_car_sofa_teddy-bear.jpg"
+            }
+        ], 
+        "bear": [
+            {
+                "path": "/data/kitten_puppy.jpg", 
+                "bbox": [
+                    128.0, 
+                    152.0, 
+                    98.0, 
+                    122.0
+                ], 
+                "probability": 0.31479498744010925, 
+                "cropped_image": "/cropped/bear/kitten_puppy_bear.jpg"
+            }
+        ], 
+        "couch": [
+            {
+                "path": "/data/kitten_dog.jpg", 
+                "bbox": [
+                    2.0, 
+                    12.0, 
+                    268.0, 
+                    448.0
+                ], 
+                "probability": 0.16003406047821045, 
+                "cropped_image": "/cropped/couch/kitten_dog_couch.jpg"
+            }
+        ], 
+        "book": [
+            {
+                "path": "/data/girl_two_dogs.jpg", 
+                "bbox": [
+                    30.0, 
+                    -4.0, 
+                    10.0, 
+                    70.0
+                ], 
+                "probability": 0.10011675208806992, 
+                "cropped_image": "/cropped/book/girl_two_dogs_book.jpg"
+            }
+        ], 
+        "truck": [
+            {
+                "path": "/data/truck.jpg", 
+                "bbox": [
+                    132.0, 
+                    49.0, 
+                    323.0, 
+                    186.0
+                ], 
+                "probability": 0.9947133660316467, 
+                "cropped_image": "/cropped/truck/truck_truck.jpg"
+            }
+        ], 
+        "refrigerator": [
+            {
+                "path": "/data/young_man_birthday.jpg", 
+                "bbox": [
+                    226.0, 
+                    85.0, 
+                    148.0, 
+                    212.0
+                ], 
+                "probability": 0.10475322604179382, 
+                "cropped_image": "/cropped/refrigerator/young_man_birthday_refrigerator.jpg"
+            }
+        ], 
+        "potted plant": [
+            {
+                "path": "/data/cow_street.jpg", 
+                "bbox": [
+                    292.0, 
+                    127.0, 
+                    94.0, 
+                    49.0
+                ], 
+                "probability": 0.10892998427152634, 
+                "cropped_image": "/cropped/potted-plant/cow_street_potted-plant.jpg"
+            }
+        ], 
+        "chair": [
+            {
+                "path": "/data/car_bikes_boats_canal.jpg", 
+                "bbox": [
+                    196.0, 
+                    5.0, 
+                    29.0, 
+                    22.0
+                ], 
+                "probability": 0.1014617308974266, 
+                "cropped_image": "/cropped/chair/car_bikes_boats_canal_chair.jpg"
+            }, 
+            {
+                "path": "/data/car_skateboard_man.jpg", 
+                "bbox": [
+                    477.0, 
+                    98.0, 
+                    23.0, 
+                    31.0
+                ], 
+                "probability": 0.10378041863441467, 
+                "cropped_image": "/cropped/chair/car_skateboard_man_chair.jpg"
+            }
+        ], 
+        "fire hydrant": [
+            {
+                "path": "/data/fire_hydrant_car.jpg", 
+                "bbox": [
+                    196.0, 
+                    134.0, 
+                    123.0, 
+                    233.0
+                ], 
+                "probability": 0.9189333319664001, 
+                "cropped_image": "/cropped/fire-hydrant/fire_hydrant_car_fire-hydrant.jpg"
+            }
+        ], 
+        "boat": [
+            {
+                "path": "/data/car_splash_small_person.jpg", 
+                "bbox": [
+                    51.0, 
+                    6.0, 
+                    173.0, 
+                    108.0
+                ], 
+                "probability": 0.1054886132478714, 
+                "cropped_image": "/cropped/boat/car_splash_small_person_boat.jpg"
+            }
+        ], 
+        "dining table": [
+            {
+                "path": "/data/bottles_glas.jpg", 
+                "bbox": [
+                    16.0, 
+                    51.0, 
+                    321.0, 
+                    447.0
+                ], 
+                "probability": 0.3687192499637604, 
+                "cropped_image": "/cropped/dining-table/bottles_glas_dining-table.jpg"
+            }, 
+            {
+                "path": "/data/oranges_apples_bananas.jpg", 
+                "bbox": [
+                    1.0, 
+                    12.0, 
+                    380.0, 
+                    457.0
+                ], 
+                "probability": 0.4803626835346222, 
+                "cropped_image": "/cropped/dining-table/oranges_apples_bananas_dining-table.jpg"
+            }, 
+            {
+                "path": "/data/young_man_woman_wedding.jpg", 
+                "bbox": [
+                    166.0, 
+                    203.0, 
+                    291.0, 
+                    125.0
+                ], 
+                "probability": 0.5264084339141846, 
+                "cropped_image": "/cropped/dining-table/young_man_woman_wedding_dining-table.jpg"
+            }
+        ]
+    }
+}
