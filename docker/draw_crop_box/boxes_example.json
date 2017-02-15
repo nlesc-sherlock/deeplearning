@@ -1,0 +1,22 @@
+{
+  "../../visualization/dl-sherlock-app/images/person_horse.jpg": {
+    "boxes": [
+      {
+        "left": 0,
+        "top": 0,
+        "width": 100,
+        "height": 100,
+        "class_name": "image_corner",
+        "class_score": 1
+      },
+      {
+        "left": 51,
+        "top": 120,
+        "width": 400,
+        "height": 280,
+        "class_name": "horse",
+        "class_score": 0.99
+      }
+    ]
+  }
+}
