@@ -3,9 +3,9 @@ class: CommandLineTool
 
 cwl:requirements:
   - class: DockerRequirement
-    dockerPull: nlescsherlockdl/face:detector-minimal-wrapper
+    dockerImageId: nlescsherlockdl/face:detector-wrapper
 
-baseCommand: /scripts/face_detection_workflow_wrap.py --json
+baseCommand: [/scripts/face_detection_workflow_wrap.py, --json]
 inputs:
   workflow_out:
     type: string

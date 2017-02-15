@@ -14,7 +14,7 @@ def slugify(value):
     return value
 
 
-def crop(item, cclass, basedir, outputdir):
+def crop(item, cclass, index, basedir, outputdir):
     """
     This function crops the image indicated by item.path according to
     item.bbox and stores it in output_folder by a filename that is
@@ -27,10 +27,11 @@ def crop(item, cclass, basedir, outputdir):
     # get file extension
     filebase, extension = os.path.splitext(os.path.basename(filepath))
 
-    newfile = "{}/{}_{}{}".format(
+    newfile = "{}/{}_{}-{}{}".format(
             slugify(cclass),
             filebase,
             slugify(cclass),
+            index,
             extension)
 
     newfile_path = os.path.join(outputdir, newfile)
@@ -86,22 +87,22 @@ if __name__ == '__main__':
         os.mkdir(args.cropped_folder)
 
     if not specialised:
-        for cclass in data['classes']:
+        for index, cclass in data['classes'].items():
             if len(data['classes'][cclass]) > 0:
                 class_crop_folder = os.path.join(args.cropped_folder, slugify(cclass))
                 if not os.path.isdir(class_crop_folder):
                     os.mkdir(class_crop_folder)
                 for item in data['classes'][cclass]:
                     if item['probability'] > args.probability:
-                        crop(item, cclass, args.input_directory, args.cropped_folder)
+                        crop(item, cclass, index, args.input_directory, args.cropped_folder)
     else:
         if 'person' in data['classes'].keys():
             face_crop_folder = os.path.join(args.cropped_folder, slugify(cclass))
             if not os.path.isdir(face_crop_folder):
                 os.mkdir(face_crop_folder)
-            for person in data['classes']['person']:
+            for index, person in data['classes']['person'].items():
                 if 'face' in person:
-                    crop(person['face'], 'face', args.input_directory, args.cropped_folder)
+                    crop(person['face'], 'face', index, args.input_directory, args.cropped_folder)
 
     if verbose:
         print(json.dumps(data, indent=4))

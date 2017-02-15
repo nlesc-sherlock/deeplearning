@@ -24,7 +24,8 @@ MAINTAINER NLeSC <info@esciencecenter.nl>
 RUN apt update && \
   apt-get -y install python-opencv libopencv-dev unzip
 
-RUN wget https://github.com/wavexx/facedetect/archive/master.zip
+WORKDIR /
+RUN curl -L0 -O https://github.com/wavexx/facedetect/archive/master.zip
 
 RUN unzip master.zip && \
   cp facedetect-master/facedetect /scripts/facedetect.py
