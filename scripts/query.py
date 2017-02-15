@@ -25,15 +25,25 @@ def argument_parser():
     
     
 def list_classes(json_dict, args):
+    print "Class          #objects"
+    print "-----------------------"
     for cl in json_dict['classes']:
         print "{:20s}{:3d}".format(cl, len(json_dict['classes'][cl]))
 
 def list_class(json_dict, args):
-    print "Images containing:", args.type
+    print "Images containing: {:10s} Probability".format(args.type)
+    print "-----------------------------------------"
     for image in json_dict['classes'][args.type]:
-        print image['path']
+        print "{:30s}{:6.4f}".format(image['path'],image['probability']) 
+        if 'classification' in image:
+            for c in image['classification']:
+                for tag in c['tags']:
+                    print "     {:25s}{:6.4f}".format(tag['name'][:-1], tag['probability'])
+
 
 def list_images(json_dict, args):
+    print "Image                    #objects"
+    print "---------------------------------"
     images = {}
     for cl in json_dict['classes']:
         for image in json_dict['classes'][cl]:
@@ -45,10 +55,15 @@ def list_images(json_dict, args):
         print "{:30s}{:3d}".format(image, images[image])
 
 def list_image(json_dict, args):
+    print "Classes in image: {:20s} Probability".format(args.image)
     for cl in json_dict['classes']:
         for image in json_dict['classes'][cl]:
             if args.image == image['path']:
-                print cl
+                print "{:40s}{:6.4f}".format(cl, image['probability'])
+                if 'classification' in image:
+                    for c in image['classification']:
+                        for tag in c['tags']:
+                            print "     {:35s}{:6.4f}".format(tag['name'][:-1], tag['probability'])
   
 def main():
     # parse the input arguments
