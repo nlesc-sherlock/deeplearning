@@ -75,7 +75,12 @@ def append_objects(input_json, args):
                     if o.has_key('classification'):
                         obj_info = { 'probabiliity': o['probability'], 'bbox': o['bbox'], 'classification':o['classification']}
                     else:
-                        obj_info = { 'probabiliity': o['probability'], 'bbox': o['bbox'] }
+                        if o.has_key('face'):
+                            person_face_obj = o['face'];
+                            face_obj = {'bbox': person_face_obj['bbox'], 'classification':person_face_obj['classification']} # fix the BBox!
+                            obj_info = { 'probabiliity': o['probability'], 'bbox': o['bbox'], 'face':face_obj}
+                        else:
+                            obj_info = { 'probabiliity': o['probability'], 'bbox': o['bbox'] }
                     images_json[fname]['objects'][obj] = obj_info
                                         
     output_json['images']= images_json    
