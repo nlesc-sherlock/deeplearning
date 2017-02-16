@@ -1,3 +1,8 @@
+.chartClass {
+  width:800px;
+  height:600px;
+}
+
 .rectClass {
     fill:blue;
     stroke:red;

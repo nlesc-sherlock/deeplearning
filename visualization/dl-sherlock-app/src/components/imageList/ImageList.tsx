@@ -20,7 +20,7 @@ export class UnconnectedImageList extends React.Component<IImageList, {}> {
     }
 
     static mapStateToProps(state: any) {
-        return {
+        return {            
             data: state.imageChart.d3JSON
         };
     }
@@ -36,12 +36,14 @@ export class UnconnectedImageList extends React.Component<IImageList, {}> {
 
         if (data.images) {
             Object.keys(data.images).forEach((key: any) => {   
+                const name = data.images[key].name;
                 const classes: JSX.Element[] = [];
                 Object.keys(data.images[key].objects).forEach((classKey: any) => {
+                    const className = data.images[key].objects[classKey].className;
                     classes.push(
-                        <Grid key= { key + classKey }>
+                        <Grid key= { key*4568 + classKey }>
                             <Cell col={6}>
-                                {classKey}
+                                {className}
                             </Cell>
                             <Cell col={6}>
                                 {data.images[key].objects[classKey].probability}
@@ -51,9 +53,9 @@ export class UnconnectedImageList extends React.Component<IImageList, {}> {
                 });
 
                 elements.push(
-                    <Grid className='mdl-cell mdl-cell--4-col' key={ key }>
+                    <Grid className='mdl-cell mdl-cell--12-col' key={ key }>
                         <Cell col={6}>
-                            { key }
+                            { name }
                         </Cell>
                         <Cell col={6}>
                             { classes }

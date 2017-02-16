@@ -14,4 +14,4 @@ store.subscribe(() => {
     console.log(store.getState());
 });
 
-store.dispatch(jsonLoadThunk('https://raw.githubusercontent.com/nlesc-sherlock/deeplearning/9d5d83e78e83afbab9ecbe7678ce3b8f8ecf556a/JSON/example-output/output_vis_demo.json'));
+store.dispatch(jsonLoadThunk('https://raw.githubusercontent.com/nlesc-sherlock/deeplearning/master/JSON/example-output/output_vis_demo.json'));

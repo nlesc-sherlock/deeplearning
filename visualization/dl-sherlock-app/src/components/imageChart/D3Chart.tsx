@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux'; 
-// import { AppRegistry, View, Image } from 'react-native';
+import * as ReactDOM from 'react-dom';
+// import { Image } from 'react-native';
 
 import * as d3 from 'd3';
 import Faux from 'react-faux-dom';
@@ -8,7 +9,9 @@ import Faux from 'react-faux-dom';
 import './D3Chart.css';
 
 export interface ID3ChartProps extends React.Props<any> {
+    image: any;
     data: any;
+    path: string;
     img: any;
 }
 
@@ -30,8 +33,10 @@ export class UnconnectedD3Chart extends React.Component<ID3ChartProps & IExtraPr
     static mapStateToProps(state: any, myProps: IExtraProps) {    
         return {
             id: myProps.id,
+            image: state.imageChart.d3JSON.images[myProps.id],
             data: state.imageChart.d3JSON.images[myProps.id].objects,
-            img: new Image(0,0)
+            path: state.imageChart.d3JSON.images[myProps.id].name,
+            img: new Image()
         };
     }
 
@@ -42,6 +47,11 @@ export class UnconnectedD3Chart extends React.Component<ID3ChartProps & IExtraPr
     render(): JSX.Element {
         const props = this.props;
         let jsx = <div />;        
+
+        // var domNode = ReactDOM.findDOMNode(this.refs[ref-name]);
+        // if (domNode){
+        //     var calculatedHeight = domNode.clientHeight;
+        // }
         
         // const jsxImage: JSX.Element = <img className='imgThumb' src={newImg.src} alt={props.id} />
         // jsx = jsxImage + node;
@@ -49,40 +59,39 @@ export class UnconnectedD3Chart extends React.Component<ID3ChartProps & IExtraPr
         let children: JSX.Element[] = [];
         
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
-        let width = 300 - margin.left - margin.right;
-        let height = 200 - margin.top - margin.bottom;
+        let width = 800 - margin.left - margin.right;
+        let height = 600 - margin.top - margin.bottom;
 
         const x = d3.scaleLinear().range([0, width]);
-        const y = d3.scaleLinear().range([height, 0]);
+        const y = d3.scaleLinear().range([height, 0]);        
 
-        if (this.imgWidth && this.imgHeight) {
-            width = this.imgWidth;
-            height = this.imgHeight;
-
-            x.domain([0, this.imgWidth]);
-            y.domain([this.imgHeight, 0]);
-        }            
-
+        x.domain([0, this.props.image.width]);
+        y.domain([this.props.image.width, 0]);
+   
         let node = Faux.createElement('svg');
         const svg = d3.select(node);
-        svg.append("image")
-            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+
+        svg.attr('class', 'chartClass')
+           .attr('key', 'svg_'+this.props.img.src);
+
+        svg.append('image')        
             .attr('xlink:href', this.props.img.src)
+            .attr("x", 0)
+            .attr("y", 0)
             .attr('width', width)
             .attr('height', height);
 
         Object.keys(props.data).forEach((key: any) => {
             const data = props.data[key].bbox;
             
-            svg.append('g')
-                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-                .attr('key', 'svg_'+key)
+            const g = svg.append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')                
                 .attr('class', 'rectClass')
                 .attr('width', width + margin.left + margin.right)
                 .attr('height', height + margin.top + margin.bottom);   
                 
             if (data) {
-                svg.append('rect')
+                g.append('rect')
                     .datum(data)
                     .attr('class', 'bar')
                     .attr('x', (d) => {
@@ -105,15 +114,15 @@ export class UnconnectedD3Chart extends React.Component<ID3ChartProps & IExtraPr
         // const jsxImage: JSX.Element = <img className='imgThumb' src={ this.props.img.src } alt={ props.id } />
         
         return (
-            <span>
-                {/*{jsxImage}*/}
-                {children}
+            <span>                
+                {jsx}
             </span>
         );
     }
 
     componentWillMount() {
-        this.props.img.src = require('../../../images/' + this.props.id);
+        this.props.img.src = 'https://raw.githubusercontent.com/nlesc-sherlock/deeplearning/master/visualization/dl-sherlock-app/images/' + this.props.path;
+        // this.props.img.src = '../../../images/' + this.props.path;
     }
 }
 
