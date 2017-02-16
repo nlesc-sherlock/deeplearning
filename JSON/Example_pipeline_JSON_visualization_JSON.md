@@ -233,10 +233,14 @@ Note that it also needs to contain the image dimensions, width and height!
     },        
     {
         "name": "/path/to/another/image",
+        "width": 1230,
+        "height": 753,
         "objects": ,
         ...
     },
         "name": "/path/to/yet/another/image",
+        "width": 180,
+        "height": 300,
         "objects": ,
         ...
     }]
