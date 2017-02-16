@@ -6,6 +6,7 @@ Created on Tue Feb 14 15:35:55 2017
 """
 import argparse
 import json
+import skimage.io
 
 def argument_parser():
     parser = argparse.ArgumentParser()
@@ -28,6 +29,10 @@ def make_images_section(input_json):
     output_json['images'] = []
     
     return output_json
+
+def get_image_size(filename):
+    image = skimage.img_as_float(skimage.io.imread(filename))
+    return image.shape
     
 def fill_objects_section(input_json, args):
     # appends the filenames keys and 'obkects' under 'images'
@@ -38,11 +43,15 @@ def fill_objects_section(input_json, args):
         
     images_json = []
     for f in fnames:
-        images_json.append({'name': f, 'objects': make_objectlist(f, input_json, args)})       
+        image_size = get_image_size(f)
+        images_json.append({'name': f,'width': image_size[1], 
+                            'height': image_size[0],
+                            'objects': make_objectlist(f, input_json, args)})       
     output_json['images']= images_json   
         
     return output_json     
     
+
 
 def make_objectlist(filename, input_json, args):
     objects_list = []

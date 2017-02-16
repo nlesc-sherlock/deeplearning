@@ -28,6 +28,7 @@
     ], 
     "images": [
         {
+            "width": 455, 
             "objects": [
                 {
                     "className": "dog", 
@@ -50,9 +51,11 @@
                     "probability": 0.87
                 }
             ], 
-            "name": "kitten_dog.jpg"
+            "name": "kitten_dog.jpg", 
+            "height": 500
         }, 
         {
+            "width": 375, 
             "objects": [
                 {
                     "className": "chair", 
@@ -114,9 +117,11 @@
                     "probability": 0.6
                 }
             ], 
-            "name": "cirl_car_sofa.jpg"
+            "name": "cirl_car_sofa.jpg", 
+            "height": 500
         }, 
         {
+            "width": 375, 
             "objects": [
                 {
                     "className": "cup", 
@@ -235,9 +240,11 @@
                     "probability": 0.85
                 }
             ], 
-            "name": "young_man_birthday.jpg"
+            "name": "young_man_birthday.jpg", 
+            "height": 500
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "cow", 
@@ -280,9 +287,11 @@
                     "probability": 0.81
                 }
             ], 
-            "name": "cows.jpg"
+            "name": "cows.jpg", 
+            "height": 375
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "bicycle", 
@@ -315,9 +324,11 @@
                     "probability": 0.78
                 }
             ], 
-            "name": "cyclist_dog.jpg"
+            "name": "cyclist_dog.jpg", 
+            "height": 458
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "fire hydrant", 
@@ -427,9 +438,11 @@
                     "probability": 0.8
                 }
             ], 
-            "name": "fire_hydrant_car.jpg"
+            "name": "fire_hydrant_car.jpg", 
+            "height": 375
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "bus", 
@@ -518,9 +531,11 @@
                     "probability": 0.42
                 }
             ], 
-            "name": "car_bus_old.jpg"
+            "name": "car_bus_old.jpg", 
+            "height": 333
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "horse", 
@@ -543,9 +558,11 @@
                     "probability": 0.77
                 }
             ], 
-            "name": "person_horse.jpg"
+            "name": "person_horse.jpg", 
+            "height": 424
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "dog", 
@@ -578,9 +595,11 @@
                     "probability": 0.6
                 }
             ], 
-            "name": "girl_two_dogs.jpg"
+            "name": "girl_two_dogs.jpg", 
+            "height": 333
         }, 
         {
+            "width": 351, 
             "objects": [
                 {
                     "className": "chair", 
@@ -623,9 +642,11 @@
                     "probability": 0.85
                 }
             ], 
-            "name": "bottles_glas.jpg"
+            "name": "bottles_glas.jpg", 
+            "height": 500
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "laptop", 
@@ -678,9 +699,11 @@
                     "probability": 0.37
                 }
             ], 
-            "name": "screen_laptop_keyboard.jpg"
+            "name": "screen_laptop_keyboard.jpg", 
+            "height": 375
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "dog", 
@@ -703,9 +726,11 @@
                     "probability": 0.78
                 }
             ], 
-            "name": "kitten_puppy.jpg"
+            "name": "kitten_puppy.jpg", 
+            "height": 375
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "fire hydrant", 
@@ -835,9 +860,11 @@
                     "probability": 0.64
                 }
             ], 
-            "name": "motorbikes_riders_cars.jpg"
+            "name": "motorbikes_riders_cars.jpg", 
+            "height": 375
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "horse", 
@@ -880,9 +907,11 @@
                     "probability": 0.75
                 }
             ], 
-            "name": "two_riders_horses.jpg"
+            "name": "two_riders_horses.jpg", 
+            "height": 375
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "cow", 
@@ -895,9 +924,11 @@
                     "probability": 0.85
                 }
             ], 
-            "name": "bull.jpg"
+            "name": "bull.jpg", 
+            "height": 375
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "cow", 
@@ -910,9 +941,11 @@
                     "probability": 0.79
                 }
             ], 
-            "name": "cow_street.jpg"
+            "name": "cow_street.jpg", 
+            "height": 332
         }, 
         {
+            "width": 630, 
             "objects": [
                 {
                     "className": "car", 
@@ -961,9 +994,11 @@
                     "probability": 0.81
                 }
             ], 
-            "name": "Fiat_panda_auto_zijkant.jpg"
+            "name": "Fiat_panda_auto_zijkant.jpg", 
+            "height": 420
         }, 
         {
+            "width": 375, 
             "objects": [
                 {
                     "className": "apple", 
@@ -1026,9 +1061,11 @@
                     "probability": 0.72
                 }
             ], 
-            "name": "oranges_apples_bananas.jpg"
+            "name": "oranges_apples_bananas.jpg", 
+            "height": 500
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "diningtable", 
@@ -1110,9 +1147,11 @@
                     "probability": 0.39
                 }
             ], 
-            "name": "young_man_woman_wedding.jpg"
+            "name": "young_man_woman_wedding.jpg", 
+            "height": 333
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "car", 
@@ -1171,9 +1210,11 @@
                     "probability": 0.88
                 }
             ], 
-            "name": "truck.jpg"
+            "name": "truck.jpg", 
+            "height": 375
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "boat", 
@@ -1298,9 +1339,11 @@
                     "probability": 0.75
                 }
             ], 
-            "name": "car_splash_small_person.jpg"
+            "name": "car_splash_small_person.jpg", 
+            "height": 383
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "motorbike", 
@@ -1518,9 +1561,11 @@
                     "probability": 0.79
                 }
             ], 
-            "name": "street_car_toyota.jpg"
+            "name": "street_car_toyota.jpg", 
+            "height": 375
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "bicycle", 
@@ -1629,9 +1674,11 @@
                     "probability": 0.78
                 }
             ], 
-            "name": "car_bikes_boats_canal.jpg"
+            "name": "car_bikes_boats_canal.jpg", 
+            "height": 375
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "cell phone", 
@@ -1697,9 +1744,11 @@
                     }
                 }
             ], 
-            "name": "old_man_baby_mobile.jpg"
+            "name": "old_man_baby_mobile.jpg", 
+            "height": 333
         }, 
         {
+            "width": 500, 
             "objects": [
                 {
                     "className": "car", 
@@ -1891,7 +1940,8 @@
                     "probability": 0.76
                 }
             ], 
-            "name": "car_skateboard_man.jpg"
+            "name": "car_skateboard_man.jpg", 
+            "height": 333
         }
     ], 
     "classes": {
