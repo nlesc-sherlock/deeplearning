@@ -41,7 +41,7 @@ def list_class(json_dict, args):
         print "{:30s}{:6.4f}".format(image['path'],image['probability']) 
         if 'classification' in image:
             for c in image['classification']:
-                for tag in c['tags']:
+                for tag in c['classes']:
                     print "     {:25s}{:6.4f}".format(tag['name'][:-1], tag['probability'])
 
 
@@ -66,7 +66,7 @@ def list_image(json_dict, args):
                 print "{:40s}{:6.4f}".format(cl, image['probability'])
                 if 'classification' in image:
                     for c in image['classification']:
-                        for tag in c['tags']:
+                        for tag in c['classes']:
                             print "     {:35s}{:6.4f}".format(tag['name'][:-1], tag['probability'])
 
 def create_json4viz(json_dict, args):
