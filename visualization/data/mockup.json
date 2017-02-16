@@ -1,0 +1,174 @@
+{
+    "images": [
+    {
+        "name": "fire_hydrant_car.jpg",
+        "width": 500,
+        "height": 375,
+        "objects": [
+            {
+                "className": "fire hydrant",
+                "probability": 0.38,
+                "bbox": [
+                    78,
+                    71,
+                    268,
+                    298
+                ],
+            },
+            {
+                "className": "fire hydrant",
+                "probability": 0.85,
+                "bbox": [
+                    194,
+                    129,
+                    120,
+                    240
+                ],
+            },
+            {
+                "className": "car",                
+                "probability" : 0.26,
+                "bbox" : [
+                    68, 
+                    99, 
+                    64, 
+                    62
+                ], 
+                "classification": [
+                {
+                    "classifier": "car/model",
+                    "classes": [
+                        {
+                            "name": "Cadillac CTS\n",
+                            "probability": 0.0013783795293420553
+                        }, 
+                        {
+                            "name": "Volkswagen Vento\n",
+                            "probability": 0.0014379522763192654
+                        }, 
+                        {
+                            "name": "Peugeot 206\n",
+                            "probability": 0.0013081352226436138
+                        }, 
+                        {
+                            "name": "Nissan Pulsar\n",
+                            "probability": 0.0013345852494239807
+                        }, 
+                        {
+                            "name": "Volvo 850\n",
+                            "probability": 0.0013432161649689078
+                        }
+                    ],
+                },
+                {
+                    "classifier": "car/color",
+                    "classes": [
+                        {
+                            "name": "red",
+                            "probability": 1.0
+                        }
+                    ],
+                }
+                ]
+            },
+            {
+                "className": "car",                
+                "probability" : 0.8,
+                "bbox" : [
+                    75, 
+                    90, 
+                    247, 
+                    142
+                ], 
+                "classification": [
+                {
+                    "classifier": "car/model",
+                    "classes": [
+                        {
+                            "name": "Triumph Spitfire\n", 
+                            "probability": 0.001329156686551869
+                        }, 
+                        {
+                            "name": "Alfa Romeo 8C\n", 
+                            "probability": 0.0013071747962385416
+                        }, 
+                        {
+                            "name": "Citroen 2CV\n", 
+                            "probability": 0.001376586384139955
+                        }, 
+                        {
+                            "name": "MG Midget\n", 
+                            "probability": 0.0013487025862559676
+                        }, 
+                        {
+                            "name": "Dodge Charger\n", 
+                            "probability": 0.001377926324494183
+                        }
+                    ],
+                },
+                {
+                    "classifier": "car/color",
+                    "classes": [],
+                }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "cirl_car_sofa.jpg",
+        "width": 375,
+        "height": 500,
+        "objects": [
+            {
+                "className": "chair",
+                "bbox": [
+                    53, 
+                    140, 
+                    29, 
+                    49
+                ], 
+                "probability": 0.42
+            }, 
+
+            {
+                "className": "person",
+                "bbox": [
+                    20, 
+                    106, 
+                    333, 
+                    363
+                ], 
+                "probability": 0.86, 
+                "detail": {
+                    "name": "face",
+                    "bbox": [
+                        132,
+                        5,
+                        78,
+                        78
+                    ],
+                    "classification": [
+                         {
+                            "classifier": "face/gender",
+                            "classes": [
+                                {   
+                                    "name": "female", 
+                                    "probability": 0.9573596119880676
+                                }
+                            ],
+                        },
+                        {
+                            "classifier": "face/age",
+                            "classes": [
+                                {   
+                                    "name": "25 32\n", 
+                                    "probability": 0.9016625285148621
+                                }
+                            ],
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+]
