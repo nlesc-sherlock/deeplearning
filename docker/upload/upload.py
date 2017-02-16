@@ -11,7 +11,8 @@ from urlparse import urlparse
 
 def zip_results(output_file, source_dir, input_json):
     with tarfile.open(output_file, 'w:gz') as tar:
-        tar.add(source_dir, arcname=os.path.basename(source_dir))
+        for directory in source_dir:
+            tar.add(directory, arcname=os.path.basename(directory))
         tar.add(input_json, arcname=os.path.basename(input_json))
 
 
@@ -41,17 +42,17 @@ if __name__ == '__main__':
                         type=str)
     parser.add_argument("--filename",
                         type=str)
-    parser.add_argument("--input_directory",
+    parser.add_argument("--directory",
                         help="Folder (including path, full or relative) "
                              "in which houses the original images Sherlock workflow",
-                        required=True, type=str)
+                        required=True, type=str, action='append')
     parser.add_argument("--webdav-user", type=str, required=True)
     parser.add_argument("--webdav-password", type=str, required=True)
     parser.add_argument("--webdav-url", type=str, required=True)
 
     args = parser.parse_args()
 
-    zip_results(args.filename, args.input_directory, args.json_input)
+    zip_results(args.filename, args.directory, args.json_input)
 
     upload(args.filename, args.webdav_url, args.webdav_user, args.webdav_password)
 
