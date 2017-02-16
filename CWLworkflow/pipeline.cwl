@@ -112,10 +112,17 @@ steps:
     out:
       - json_out
 
+  images_json:
+    run: tools/images_json.cwl
+    in:
+      json_input: age/json_out
+    out:
+      - json_out
+
   upload:
     run: tools/upload-webdav.cwl
     in:
-      json_input: age/json_out
+      json_input: images_json/json_out
       directories:
         source:
           - crop/cropped_out
