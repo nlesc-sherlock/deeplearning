@@ -23,7 +23,7 @@ The pipeline output JSON is of the following format:
                 "cropped_image": "/path/to/cropped/image",           # from cropper
                 "classification": [
                 {
-                    "classifier": "car/model/name",                  # added by car model classifier
+                    "classifier": "car/model",                  # added by car model classifier
                     "classes": [
                         {   
                         "name": "Ford Fiesta",
@@ -36,7 +36,7 @@ The pipeline output JSON is of the following format:
                     ],
                 },
                 {
-                    "classifier": "car/color/name",                 # added by car color classifier
+                    "classifier": "car/color",                 # added by car color classifier
                     "classes": [
                         {   
                         "name": "white",
@@ -130,18 +130,23 @@ The pipeline output JSON is of the following format:
 '''
 ```
 
-The visualization JSON addition to this JSON has the following format:
+The visualization JSON addition to this JSON has the following format.
+Note that it also needs to contain the image dimensions, width and height!
 
 ```
-{ "images":[{
-        "/path/to/image": {
+{ "images":[
+    {
+        "name": "/path/to/image",
+        "width": 1280,
+        "height": 800,
         "objects": [
-            "car" : {
+            {
+                "className": "car",                
                 "probability" : <float>,
                 "bbox" : [x, y, w, h],
                 "classification": [
                 {
-                    "classifier": "car/model/name",                  # added by car model classifier
+                    "classifier": "car/model",                  # added by car model classifier
                     "classes": [
                         {   
                             "name": "Ford Fiesta",
@@ -154,7 +159,7 @@ The visualization JSON addition to this JSON has the following format:
                     ],
                 },
                 {
-                    "classifier": "car/color/name",                 # added by car color classifier
+                    "classifier": "car/color",                 # added by car color classifier
                     "classes": [
                         {   
                             "name": "white",
@@ -168,7 +173,8 @@ The visualization JSON addition to this JSON has the following format:
                 }
                 ]
             },
-            "person" : {
+            {
+                "className": "person",
                 "probability" : <float>,
                 "bbox" : [x, y, w, h],
                 "detail" :                                                # from face detector
@@ -203,9 +209,9 @@ The visualization JSON addition to this JSON has the following format:
                             ],
                         }
                     }
-             },
-         "animal" : [           
+             },         
             {
+                "className": "animal",
                 "probability" : <float>,
                 "bbox" : [x, y, w, h],
                 "classification": [
@@ -223,18 +229,21 @@ The visualization JSON addition to this JSON has the following format:
                         ],
                     }
                 ]
-            }    
-                                  
-         ]
+            }
     },        
-    "/path/to/another/image": {
+    {
+        "name": "/path/to/another/image",
+        "width": 1230,
+        "height": 753,
         "objects": ,
         ...
     },
-    "/path/to/yet/another/image": {
+        "name": "/path/to/yet/another/image",
+        "width": 180,
+        "height": 300,
         "objects": ,
         ...
-    }]  
+    }]
 }
 
 
