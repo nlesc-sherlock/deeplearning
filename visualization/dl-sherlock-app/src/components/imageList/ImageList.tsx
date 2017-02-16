@@ -75,7 +75,7 @@ export class UnconnectedImageList extends React.Component<IImageList, {}> {
                     classes.push(
                         <Grid key= { key * 4568 + classKey }>
                             <Cell col={ 2 }>
-                                { className}
+                                { className }
                             </Cell>
                             <Cell col={ 2 }>
                                 { data.images[key].objects[classKey].probability }
@@ -88,15 +88,13 @@ export class UnconnectedImageList extends React.Component<IImageList, {}> {
                 });
 
                 elements.push(
-                    <Grid className={'mdl-cell mdl-cell--12-col category'} key={ key }>
-                        <Cell col={ 2 }>
-                            { name }
-                        </Cell>
-                        <Cell col={ 10 }>
-                            { classes }
-                        </Cell>
-                        <Cell col={ 12 }>
+                    <Grid className={'mdl-cell mdl-cell--12-col category'} key={ key }>                        
+                        <Cell col={ 6 }>
+                            {name}
                             <D3Chart id={ key } />:
+                        </Cell>
+                        <Cell col={ 6 }>
+                            { classes }
                         </Cell>
                     </Grid>
                 );
