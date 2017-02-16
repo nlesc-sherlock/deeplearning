@@ -7,3 +7,8 @@ declare module '*.svg' {
 declare module 'classnames' {
     export default function classNames(classes:any): string;
 }
+
+declare module 'react-faux-dom' {
+    const Faux: any;
+    export default Faux;
+}
