@@ -5,4 +5,6 @@ Deep learning topic in Sherlock
 
 The CWL image understanding workflow: ![here](images/cwl_workflow.png)
 
+(This visualization comes from the [CWL visualization](https://view.commonwl.org/workflows/github.com/nlesc-sherlock/deeplearning/tree/161ad0315be11f1dd4ba605d7bf0168002f434b8/CWLworkflow))
+
 The input of the workflow is an image, and the output of the workflow is a json document describing the content of the image.
