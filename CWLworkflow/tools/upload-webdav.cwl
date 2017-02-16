@@ -30,7 +30,7 @@ inputs:
     type: string
     inputBinding:
       prefix: --webdav-password
-  url:
+  webdav_url:
     type: string
     inputBinding:
       prefix: --webdav-url

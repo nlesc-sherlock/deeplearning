@@ -9,7 +9,7 @@ inputs:
     type: string
   password:
     type: string
-  url:
+  webdav_url:
     type: string
 
 outputs:
@@ -123,7 +123,7 @@ steps:
       filename: filename
       user: user
       password: password
-      url: url
+      webdav_url: webdav_url
     out:
       - url
   
