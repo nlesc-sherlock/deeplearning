@@ -1,6 +1,10 @@
 .chartClass {  
-  width:800px;
-  height:600px;
+  width:1280px;
+  height:900px;
+}
+
+.redText {
+    color:red;
 }
 
 .rectClass {

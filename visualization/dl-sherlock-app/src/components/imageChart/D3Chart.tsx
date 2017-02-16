@@ -66,6 +66,7 @@ export class UnconnectedD3Chart extends React.Component<ID3ChartProps & IExtraPr
 
         Object.keys(props.data).forEach((key: any) => {
             const data = props.data[key].bbox;
+            const name = props.data[key].className;
 
             const g = svg.append('g')
                 .attr('class', 'rectClass')
@@ -88,6 +89,18 @@ export class UnconnectedD3Chart extends React.Component<ID3ChartProps & IExtraPr
                     .attr('height', (d) => {
                         return d[3];
                     });
+                g.append('text')
+                    .datum(data)                    
+                    .attr('x', (d) => {
+                        return d[0];
+                    })
+                    .attr('y', (d) => {
+                        return d[1] - 5;
+                    })
+                    .attr('font-family', 'sans-serif')
+                    .attr('font-size', '20px')
+                    .attr('stroke-width', 1)
+                    .text(name);
             }
             jsx = node.toReact();
             children.push(jsx);

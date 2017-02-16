@@ -60,9 +60,11 @@ export class UnconnectedImageList extends React.Component<IImageList, {}> {
                                 details.push(
                                     <Grid key= { key * 4568 + classKey * 488 + detailKey * 47 + detailClassKey}>
                                         <Cell col={ 6 }>
+                                            <span className={'redText'}></span>
                                             {data.images[key].objects[classKey].classification[detailKey].classes[detailClassKey].name}
                                         </Cell>
                                         <Cell col={ 6 }>
+                                            <span className={'redText'}></span>
                                             {data.images[key].objects[classKey].classification[detailKey].classes[detailClassKey].probability}
                                         </Cell>
                                     </Grid>
@@ -75,13 +77,13 @@ export class UnconnectedImageList extends React.Component<IImageList, {}> {
                     classes.push(
                         <Grid key= { key * 4568 + classKey }>
                             <Cell col={ 2 }>
-                                { className }
+                                <span className={'redText'}>{ className }</span>
                             </Cell>
                             <Cell col={ 2 }>
-                                { data.images[key].objects[classKey].probability }
+                                <span className={'redText'}>{ data.images[key].objects[classKey].probability }</span>
                             </Cell>
                             <Cell col={ 8 }>
-                                { details }
+                                <span className={'redText'}>{ details }</span>
                             </Cell>
                         </Grid>
                     );
@@ -89,11 +91,11 @@ export class UnconnectedImageList extends React.Component<IImageList, {}> {
 
                 elements.push(
                     <Grid className={'mdl-cell mdl-cell--12-col category'} key={ key }>                        
-                        <Cell col={ 6 }>
-                            {name}
+                        <Cell col={ 8 }>
+                            <span className={'redText'}>{name}</span>
                             <D3Chart id={ key } />:
                         </Cell>
-                        <Cell col={ 6 }>
+                        <Cell col={ 4 }>
                             { classes }
                         </Cell>
                     </Grid>
