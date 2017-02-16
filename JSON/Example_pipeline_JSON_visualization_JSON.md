@@ -133,10 +133,12 @@ The pipeline output JSON is of the following format:
 The visualization JSON addition to this JSON has the following format:
 
 ```
-{ "images":[{
-        "/path/to/image": {
+{ "images":[
+    {
+        name: "/path/to/image",        
         "objects": [
-            "car" : {
+            {
+                "className": "car",                
                 "probability" : <float>,
                 "bbox" : [x, y, w, h],
                 "classification": [
@@ -168,7 +170,8 @@ The visualization JSON addition to this JSON has the following format:
                 }
                 ]
             },
-            "person" : {
+            {
+                "className": "person",
                 "probability" : <float>,
                 "bbox" : [x, y, w, h],
                 "detail" :                                                # from face detector
@@ -203,9 +206,9 @@ The visualization JSON addition to this JSON has the following format:
                             ],
                         }
                     }
-             },
-         "animal" : [           
+             },         
             {
+                "className": "animal",
                 "probability" : <float>,
                 "bbox" : [x, y, w, h],
                 "classification": [
@@ -223,18 +226,17 @@ The visualization JSON addition to this JSON has the following format:
                         ],
                     }
                 ]
-            }    
-                                  
-         ]
+            }
     },        
-    "/path/to/another/image": {
+    {
+        "name": "/path/to/another/image",
         "objects": ,
         ...
     },
-    "/path/to/yet/another/image": {
+        "name": "/path/to/yet/another/image",
         "objects": ,
         ...
-    }]  
+    }]
 }
 
 
