@@ -23,7 +23,7 @@ The pipeline output JSON is of the following format:
                 "cropped_image": "/path/to/cropped/image",           # from cropper
                 "classification": [
                 {
-                    "classifier": "car/model/name",                  # added by car model classifier
+                    "classifier": "car/model",                  # added by car model classifier
                     "classes": [
                         {   
                         "name": "Ford Fiesta",
@@ -36,7 +36,7 @@ The pipeline output JSON is of the following format:
                     ],
                 },
                 {
-                    "classifier": "car/color/name",                 # added by car color classifier
+                    "classifier": "car/color",                 # added by car color classifier
                     "classes": [
                         {   
                         "name": "white",
@@ -146,7 +146,7 @@ Note that it also needs to contain the image dimensions, width and height!
                 "bbox" : [x, y, w, h],
                 "classification": [
                 {
-                    "classifier": "car/model/name",                  # added by car model classifier
+                    "classifier": "car/model",                  # added by car model classifier
                     "classes": [
                         {   
                             "name": "Ford Fiesta",
@@ -159,7 +159,7 @@ Note that it also needs to contain the image dimensions, width and height!
                     ],
                 },
                 {
-                    "classifier": "car/color/name",                 # added by car color classifier
+                    "classifier": "car/color",                 # added by car color classifier
                     "classes": [
                         {   
                             "name": "white",
