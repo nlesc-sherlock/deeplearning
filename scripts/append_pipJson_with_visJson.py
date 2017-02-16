@@ -38,19 +38,10 @@ def fill_objects_section(input_json, args):
         
     images_json = []
     for f in fnames:
-        images_json.append({ f:{'objects': make_objectlist(f, input_json, args)} })       
+        images_json.append({'name': f, 'objects': make_objectlist(f, input_json, args)})       
     output_json['images']= images_json   
         
-    return output_json
-
-#def find_ind_dict_list_of_dicts(lst, dict_key):
-#    # finding the index of a dictionary with a dict_key key from a list of dictionaries  
-#    for i, dic in enumerate(lst):
-#        print "dictionary in the list: ", dic
-#        if dic.has_key(dict_key):
-#                print "dictionary in the list with the desired key: ", dic, dict_key
-#                return i, dict
-#    return -1, {}        
+    return output_json     
     
 
 def make_objectlist(filename, input_json, args):
@@ -58,34 +49,31 @@ def make_objectlist(filename, input_json, args):
     
     classes_json = input_json['classes']
     
-    for obj in classes_json.keys():
-            # find out which objects were detected in which image
-            obj_list = classes_json[obj]
-            for o in obj_list:
-                if o['path'] == filename:
-                    if args.verbose:
-                        print("In file '{}' top object '{}' has been detected!".format(filename, obj))
-                    
-                    if o.has_key('classification'):
-                        obj_data = { 'probability': o['probability'], 'bbox': o['bbox'], 'classification':o['classification']}
-                    else:
-                        if o.has_key('face'):
-                            person_face_obj = o['face'];
-                            bbox_person = o['bbox']
-                            bbox_face = person_face_obj['bbox']
-                            abs_bbox_face = []
-                            abs_bbox_face.append(bbox_person[0] + bbox_face[0])
-                            abs_bbox_face.append(bbox_person[1] + bbox_face[1]) 
-                            abs_bbox_face.append(bbox_face[2]) 
-                            abs_bbox_face.append(bbox_face[3])
-                            detail_obj = {'name': u'face', 'bbox': abs_bbox_face, 'classification':person_face_obj['classification']} 
-                            obj_data = { 'probability': o['probability'], 'bbox': o['bbox'], 'detail':detail_obj}
-                            #print obj_data
-                        else:
-                            obj_data = { 'probability': o['probability'], 'bbox': o['bbox'] }
+    for obj, obj_list in classes_json.iteritems():
+        # find out which objects were detected in which image
+        for o in obj_list:
+            if o['path'] == filename:
+                if args.verbose:
+                    print("In file '{}' top object '{}' has been detected!".format(filename, obj))
+                
+                obj_data = { 'className':obj, 'probability': o['probability'], 'bbox': o['bbox'] }
+                if o.has_key('classification'):
+                    obj_data['classification'] = o['classification']
+                elif o.has_key('face'):
+                    person_face_obj = o['face'];
+                    bbox_person = o['bbox']
+                    bbox_face = person_face_obj['bbox']
+                    abs_bbox_face = []
+                    abs_bbox_face.append(bbox_person[0] + bbox_face[0])
+                    abs_bbox_face.append(bbox_person[1] + bbox_face[1]) 
+                    abs_bbox_face.append(bbox_face[2]) 
+                    abs_bbox_face.append(bbox_face[3])
+                    detail_obj = {'name': u'face', 'bbox': abs_bbox_face, 'classification':person_face_obj['classification']} 
+                    obj_data['detail'] = detail_obj
+                    #print obj_data
 
     
-    objects_list.append(obj_data)
+                objects_list.append(obj_data)
     
     return objects_list    
     
