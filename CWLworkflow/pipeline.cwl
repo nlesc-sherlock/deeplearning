@@ -13,18 +13,24 @@ inputs:
     type: string
 
 outputs:
-  output_json:
-    type: File
-    outputSource: age/json_out
-  gender_out:
-    type: File
-    outputSource: gender/json_out
-  cropped_out:
-    type: Directory
-    outputSource: face-crop/cropped_out
-  detect_json:
-    type: File
-    outputSource: detect/json_out
+  url:
+    type: string
+    outputSource: upload/url
+  #output_json:
+  #  type: File
+  #  outputSource: age/json_out
+  #gender_out:
+  #  type: File
+  #  outputSource: gender/json_out
+  #cropped_out:
+  #  type: Directory
+  #  outputSource: face-crop/cropped_out
+  #detect_json:
+  #  type: File
+  #  outputSource: detect/json_out
+
+requirements:
+   MultipleInputFeatureRequirement: {}
 
 steps:
   list_dir:
@@ -110,7 +116,10 @@ steps:
     run: tools/upload-webdav.cwl
     in:
       json_input: age/json_out
-      input_files: face-crop/cropped_out
+      directories:
+        source:
+          - crop/cropped_out
+          - face-crop/cropped_out
       filename: filename
       user: user
       password: password
