@@ -20,7 +20,8 @@ RUN git clone https://github.com/cwmeijer/darknet.git && cd darknet && make
 
 WORKDIR /darknet
 RUN wget http://pjreddie.com/media/files/yolo.weights
-COPY . /scripts
+COPY run_yolo.py /scripts
+COPY test_input.json /scripts
 
 ENTRYPOINT [""]
 
