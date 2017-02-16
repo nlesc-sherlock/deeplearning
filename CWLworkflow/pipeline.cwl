@@ -9,7 +9,7 @@ inputs:
     type: string
   password:
     type: string
-  url:
+  webdav_url:
     type: string
 
 outputs:
@@ -112,10 +112,17 @@ steps:
     out:
       - json_out
 
+  images_json:
+    run: tools/images_json.cwl
+    in:
+      json_input: age/json_out
+    out:
+      - json_out
+
   upload:
     run: tools/upload-webdav.cwl
     in:
-      json_input: age/json_out
+      json_input: images_json/json_out
       directories:
         source:
           - crop/cropped_out
@@ -123,7 +130,7 @@ steps:
       filename: filename
       user: user
       password: password
-      url: url
+      webdav_url: webdav_url
     out:
       - url
   
