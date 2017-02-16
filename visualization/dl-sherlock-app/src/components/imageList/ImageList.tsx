@@ -2,9 +2,8 @@ import * as React                   from 'react';
 import { connect }                  from 'react-redux';
 // import { AppRegistry, View, Image } from 'react-native';
 
-import { Cell, Grid }       from 'react-mdl';
 import { D3Chart }          from '../';
-import { DLOutputJsonData } from '../../types';
+import { Cell, Grid }       from 'react-mdl';
 
 import './ImageList.css';
 
@@ -13,14 +12,12 @@ export interface IImageList extends React.Props<any> {
 }
 
 export class UnconnectedImageList extends React.Component<IImageList, {}> {
-    
-
     constructor() {
-        super();        
+        super();
     }
 
     static mapStateToProps(state: any) {
-        return {            
+        return {
             data: state.imageChart.d3JSON
         };
     }
@@ -32,36 +29,74 @@ export class UnconnectedImageList extends React.Component<IImageList, {}> {
     render(): JSX.Element {
         const data = this.props.data;
         const elements: JSX.Element[] = [];
-        
 
         if (data.images) {
-            Object.keys(data.images).forEach((key: any) => {   
+            Object.keys(data.images).forEach((key: any) => {
                 const name = data.images[key].name;
                 const classes: JSX.Element[] = [];
+
                 Object.keys(data.images[key].objects).forEach((classKey: any) => {
+                    const details: JSX.Element[] = [];
+                    if (data.images[key].objects[classKey].detail) {
+                        Object.keys(data.images[key].objects[classKey].detail.classification).forEach((detailKey: any) => {
+                            Object.keys(data.images[key].objects[classKey].detail.classification[detailKey].classes).forEach((detailClassKey: any) => {
+                                details.push(
+                                    <Grid key= { key * 4568 + classKey * 488 + detailKey * 47 + detailClassKey}>
+                                        <Cell col={ 6 }>
+                                            {data.images[key].objects[classKey].detail.classification[detailKey].classes[detailClassKey].name}
+                                        </Cell>
+                                        <Cell col={ 6 }>
+                                            {data.images[key].objects[classKey].detail.classification[detailKey].classes[detailClassKey].probability}
+                                        </Cell>
+                                    </Grid>
+                                );
+                            });
+                        });
+                    }
+
+                    if (data.images[key].objects[classKey].classification) {
+                        Object.keys(data.images[key].objects[classKey].classification).forEach((detailKey: any) => {
+                            Object.keys(data.images[key].objects[classKey].classification[detailKey].classes).forEach((detailClassKey: any) => {
+                                details.push(
+                                    <Grid key= { key * 4568 + classKey * 488 + detailKey * 47 + detailClassKey}>
+                                        <Cell col={ 6 }>
+                                            {data.images[key].objects[classKey].classification[detailKey].classes[detailClassKey].name}
+                                        </Cell>
+                                        <Cell col={ 6 }>
+                                            {data.images[key].objects[classKey].classification[detailKey].classes[detailClassKey].probability}
+                                        </Cell>
+                                    </Grid>
+                                );
+                            });
+                        });
+                    }
+
                     const className = data.images[key].objects[classKey].className;
                     classes.push(
-                        <Grid key= { key*4568 + classKey }>
-                            <Cell col={6}>
-                                {className}
+                        <Grid key= { key * 4568 + classKey }>
+                            <Cell col={ 2 }>
+                                { className}
                             </Cell>
-                            <Cell col={6}>
-                                {data.images[key].objects[classKey].probability}
+                            <Cell col={ 2 }>
+                                { data.images[key].objects[classKey].probability }
+                            </Cell>
+                            <Cell col={ 8 }>
+                                { details }
                             </Cell>
                         </Grid>
                     );
                 });
 
                 elements.push(
-                    <Grid className='mdl-cell mdl-cell--12-col' key={ key }>
-                        <Cell col={6}>
+                    <Grid className={'mdl-cell mdl-cell--12-col category'} key={ key }>
+                        <Cell col={ 2 }>
                             { name }
                         </Cell>
-                        <Cell col={6}>
+                        <Cell col={ 10 }>
                             { classes }
                         </Cell>
-                        <Cell col={12}>                            
-                            <D3Chart id={key} />:
+                        <Cell col={ 12 }>
+                            <D3Chart id={ key } />:
                         </Cell>
                     </Grid>
                 );
