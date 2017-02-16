@@ -130,12 +130,15 @@ The pipeline output JSON is of the following format:
 '''
 ```
 
-The visualization JSON addition to this JSON has the following format:
+The visualization JSON addition to this JSON has the following format.
+Note that it also needs to contain the image dimensions, width and height!
 
 ```
 { "images":[
     {
-        name: "/path/to/image",        
+        "name": "/path/to/image",
+        "width": 1280,
+        "height": 800,
         "objects": [
             {
                 "className": "car",                
