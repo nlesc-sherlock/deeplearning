@@ -75,12 +75,20 @@ def create_json4viz(json_dict, args):
         for image in json_dict['classes'][cl]:
             path=image['path']
             del image['path']
-            image['object'] = cl
             if path in images:
-                images[path].append(image)
+                if cl in images[path]['objects']:
+                    if isinstance(images[path]['objects'][cl], list):
+                        images[path]['objects'][cl].append(image)
+                    else:
+                        images[path]['objects'][cl] = [images[path]['objects'][cl], image]
+                else:
+                    images[path]['objects'][cl] = image
             else:
-                images[path]=[image]
-    print json.dump(images, args.output_json, indent=4)
+                images[path]={'objects':{cl:image}}
+    newjson = []
+    for path, image in images.items():
+        newjson.append({"path/to/image": image})
+    json.dump({"images":[images]}, args.output_json, indent=4)
   
 def main():
     # parse the input arguments
