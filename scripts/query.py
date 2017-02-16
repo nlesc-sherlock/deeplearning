@@ -1,6 +1,6 @@
 import argparse
 import json
-import matplotlib
+import sys
 
 def argument_parser():
     parser = argparse.ArgumentParser()
@@ -20,6 +20,10 @@ def argument_parser():
     sc = subparsers.add_parser("image", help="Return the list of classes detected in an image")
     sc.add_argument('image', type=str, help="Image of interest")
     sc.set_defaults(func=list_image)
+
+    sc = subparsers.add_parser("json4viz", help="Return the json required for visualization")
+    sc.add_argument('-o', '--output_json', type=argparse.FileType('w'), help="Image of interest", default=sys.stdout)
+    sc.set_defaults(func=create_json4viz)
 
     return parser     
     
@@ -64,6 +68,27 @@ def list_image(json_dict, args):
                     for c in image['classification']:
                         for tag in c['tags']:
                             print "     {:35s}{:6.4f}".format(tag['name'][:-1], tag['probability'])
+
+def create_json4viz(json_dict, args):
+    images = {}
+    for cl in json_dict['classes']:
+        for image in json_dict['classes'][cl]:
+            path=image['path']
+            del image['path']
+            if path in images:
+                if cl in images[path]['objects']:
+                    if isinstance(images[path]['objects'][cl], list):
+                        images[path]['objects'][cl].append(image)
+                    else:
+                        images[path]['objects'][cl] = [images[path]['objects'][cl], image]
+                else:
+                    images[path]['objects'][cl] = image
+            else:
+                images[path]={'objects':{cl:image}}
+    newjson = []
+    for path, image in images.items():
+        newjson.append({"path/to/image": image})
+    json.dump({"images":[images]}, args.output_json, indent=4)
   
 def main():
     # parse the input arguments
